@@ -1,0 +1,4171 @@
+EMABG - Introkurs
+ABG300
+EN
+5
+Bærekraftig lederskap
+AOS100-B
+NO
+7.5
+Markedsføring
+AOS120
+NO
+5
+Bærekraftig markedsføringsledelse
+AOS121-B
+NO
+7.5
+Innføring i organisasjonsteori
+AOS130
+NO
+5
+Ledelses- og organisasjonspsykologi
+AOS229-B
+NO
+7.5
+Organisasjons- og ledelsespsykologi
+AOS230
+NO
+5
+Studenter i ledelse - Spesialkurs for tillitsvalgte studenter
+AOS234
+NO
+5
+Praktisk endringsledelse
+AOS235
+NO
+5
+Praktisk endringsledelse - Nettversjon
+AOS235F
+NO
+5
+Bærekraftledelse
+AOS236
+EN
+10
+Foretaksstrategi
+AOS237
+NO
+10
+Bærekraftige strategier
+AOS238-B
+NO
+7.5
+Samfunnsvitenskapelig metode
+AOS240
+NO
+5
+Mitt lederskap
+AOS300
+NO
+5
+Moderne organisasjoner
+AOS325
+EN
+10
+Ledelse i kunnskapsorganisasjoner
+AOS337
+NO
+10
+Kvalitativ metode
+AOS340
+EN
+5
+Kvantitative metoder
+AOS341
+EN
+5
+Introduksjon til profesjonsstudie i By- og regionplanlegging
+APL100
+NO
+10
+By- og regionplanleggingens historie og fagtradisjon
+APL103
+NO
+15
+Introduksjon til arealplanlegging
+APL108
+NO
+10
+Lokal planlegging
+APL200
+NO
+15
+Planteori
+APL230
+EN
+10
+Miljø og planlegging, del 1
+APL240
+NO
+5
+Miljø og planlegging, del 2
+APL241
+NO
+5
+Store europeiske byer
+APL260
+NO
+5
+Innføring i planlegging av bærekraftig samferdsel
+APL270
+NO
+5
+Urban sosiologi
+APL280
+EN
+5
+Prosjektutvikling og prosjektgjennomføring
+APL350
+NO
+15
+Planlegging for bærekraftige byregioner
+APL360
+EN
+15
+Environmental Governance for Planning
+APL380
+EN
+10
+Bærekraftig akvakultur - avl og genetikk
+AQB250
+NO
+5
+Primærproduksjon - akvakultur og fiskeri
+AQF200
+EN
+7.5
+Marine næringsmiddelressurser, prosessering og teknologi
+AQF210
+EN
+7.5
+Sjømat, trygghet og helseeffekter
+AQF220
+EN
+7.5
+Marinressurser - forskning og innovasjon
+AQF231
+EN
+7.5
+Akvakultur ernæring
+AQN350
+EN
+10
+Bærekraftige fôrråvarer
+AQN351
+EN
+5
+Produksjonsteknikk i akvakultur
+AQP311
+EN
+10
+Planlegging og design av intensive fiskeoppdrettsanlegg
+AQP350
+EN
+10
+Produktkvalitet Akvakultur
+AQQ253
+EN
+5
+Laboratoriekurs i internasjonal akvakultur
+AQT251
+EN
+5
+Grunnleggende akvakulturteknikk
+AQT254
+EN
+5
+Introduksjon til norsk akvakulturproduksjon
+AQX100
+NO
+5
+Akvalabb
+AQX110
+NO
+10
+Intensiv akvakultur
+AQX120
+NO
+10
+Fiskehelsebiologi
+AQX201
+NO
+10
+Bærekraft og dyrevelferd i akvakultur
+AQX251
+EN
+5
+Produksjonsstyring i Akvakultur
+AQX252
+NO
+5
+Anvendt Akvakultur
+AQX300
+EN
+10
+Fiskehelse
+AQX301
+EN
+5
+Arkitektur og bærekraft I
+ARK100
+NO
+10
+Arkitektur og bærekraft II
+ARK210
+NO
+10
+Arkitektur og bærekraft III
+ARK220
+NO
+10
+Arkitektur og bærekraft IV
+ARK300
+NO
+10
+Bacheloroppgave
+B15-AA
+NO
+15
+Bacheloroppgave
+B15-AQFOOD
+NO
+15
+Bacheloroppgave
+B15-BIOL
+EN
+15
+Bacheloroppgave
+B15-BIOTEK
+EN
+15
+Bacheloroppgave
+B15-DS
+
+15
+Bacheloroppgave
+B15-FORNY
+NO
+15
+Bacheloroppgave
+B15-GEOM
+EN
+15
+Bacheloroppgave
+B15-HV
+
+15
+Bacheloroppgave
+B15-KJEMI
+EN
+15
+Bacheloroppgave
+B15-LI
+NO
+15
+Bacheloroppgave
+B15-MILJØ
+
+15
+Bacheloroppgave
+B15-PV
+EN
+15
+Bacheloroppgave
+B15-SF
+NO
+15
+Bacheloroppgave
+B15-ØN
+
+15
+Introduksjon i bioinformatikk
+BIN210
+NO
+10
+Kvantitative ferdigheter i biovitenskap
+BIN250
+EN
+5
+Statistisk genomforskning
+BIN300
+EN
+10
+Utvalgte emner i mikrobiell genomikk
+BIN310
+EN
+10
+Utvalgte emner i funksjonell genomikk
+BIN315
+NO
+10
+Bioinformatikk for funksjonell meta-omikk
+BIN420
+EN
+5
+Internship plantevitenskap
+BINT300
+EN
+10
+Internship husdyrvitenskap
+BINT301
+EN
+10
+Internship akvakultur
+BINT302
+EN
+10
+Internship fôrteknologi
+BINT303
+EN
+10
+Internship urbant landbruk
+BINT304
+EN
+10
+Internship biologi
+BINT305
+EN
+10
+Internship Agroøkologi
+BINT306
+EN
+10
+Cellebiologi
+BIO100
+NO
+5
+Introduksjon i bioteknologi og kjemi
+BIO101
+NO
+5
+Anvendt bioteknologi
+BIO102
+NO
+5
+Genetikk
+BIO120
+NO
+10
+Generell mikrobiologi I
+BIO130
+NO
+5
+Innføringsemne i biologi
+BIO140
+NO
+5
+Molekylærgenetikk i eukaryoter
+BIO200
+EN
+5
+Molekylærbiologi
+BIO210
+NO
+10
+Laboratorieøvelser i molekylærbiologi
+BIO211
+NO
+5
+Evolusjonsbiologi
+BIO223
+NO
+10
+Generell mikrobiologi II
+BIO230
+NO
+10
+Eksperimentell miljømikrobiologi
+BIO233
+NO
+10
+Bioteknologi og kjemi i næringslivet
+BIO235
+NO
+5
+Plantebioteknologi: Celle- og vevskultur og genmodifisering
+BIO244
+NO
+5
+Genetikk og planteforedling
+BIO248
+NO
+10
+Semesteroppgave i plantevitenskap
+BIO260
+NO
+5
+Immunsystemet, mat og helse
+BIO292
+EN
+10
+Mikroskopiteknikker
+BIO300
+EN
+10
+Avansert cellebiologi
+BIO301
+EN
+10
+Introduksjonsemne til masterstudier på BIOVIT
+BIO302
+EN
+5
+Introduksjonsemne for masterstudenter på KBM
+BIO305
+EN
+5
+Fiskens fysiologi og tilpasninger
+BIO314
+EN
+5
+Adferdsbiologi hos fisk
+BIO315
+EN
+10
+Populasjonsgenetikk og molekylær evolusjon
+BIO321
+EN
+10
+Avanserte emner i genomikk
+BIO322
+EN
+10
+Plantenes tilpasning til klima og forurensing
+BIO324
+NO
+10
+CRISPR Genome Editing
+BIO325
+EN
+10
+Genomsekvensering; verktøy og analyser
+BIO326
+EN
+10
+Fra gen til funksjon
+BIO327
+EN
+10
+Mikrobiell økologi og fysiologi
+BIO330
+EN
+10
+Eksperimentell molekylær mikrobiologi
+BIO332
+EN
+10
+Anvendt biokatalyse og bioraffinering
+BIO335
+EN
+5
+Mykologi
+BIO336
+EN
+5
+Biogassteknologi
+BIO337
+EN
+5
+Patogene mikroorganismer
+BIO341
+EN
+10
+Fordøyelsessystemets anatomi og fysiologi
+BIO392
+EN
+5
+Plant-based production platforms for high-value proteins
+BIO411
+EN
+5
+Populasjonsgenetikk og molekylær evolusjon
+BIO421
+EN
+15
+Introduksjon til bioøkonomi og biobasert verdiskapning
+BIOEC300
+NO
+10
+Innovasjon i biobaserte næringer
+BIOEC310
+NO
+5
+Internship
+BIOEC320
+NO
+10
+Biologisk produksjon, industrielle prosesser og markeder
+BIOEC350
+EN
+10
+Sirkulærøkonomi i biobaserte virksomheter
+BIOEC360
+NO
+10
+Poster på en konferanse
+BIOVIT411
+EN
+1
+Poster på en konferanse
+BIOVIT411
+EN
+1
+Poster på en konferanse
+BIOVIT411
+EN
+1
+Muntlig presentasjon på en konferanse
+BIOVIT412
+EN
+2
+Muntlig presentasjon på en konferanse
+BIOVIT412
+EN
+2
+Muntlig presentasjon på en konferanse
+BIOVIT412
+EN
+2
+Muntlig presentasjon på en konferanse
+BIOVIT412
+EN
+2
+Populærvitenskapelig artikkel
+BIOVIT413
+EN
+2
+Plantediversitet
+BOT100
+NO
+5
+Grunnleggende plantefysiologi
+BOT130
+NO
+5
+Plantefysiologi
+BOT200
+NO
+10
+Produksjonsfysiologi
+BOT201
+NO
+5
+Sopp, lav og mose – økologi og artskunnskap
+BOT210
+NO
+10
+Kartlegging av natur
+BOT270
+NO
+10
+Planteøkologi
+BOT300
+EN
+10
+Plantefotobiologi
+BOT345
+NO
+10
+Bedriften – innføring i bedriftsøkonomiske sammenhenger
+BUS100
+NO
+5
+Bedriften – innføring i bedriftsøkonomiske sammenhenger – Nettversjon
+BUS100F
+NO
+5
+Bedriftsøkonomiske sammenhenger
+BUS101
+NO
+5
+Finansregnskap og regnskapsanalyse
+BUS110
+NO
+10
+Finansregnskap med bærekraftrapportering
+BUS113-B
+NO
+7.5
+Personlig økonomi
+BUS120
+NO
+5
+Excel - fra data til informasjon
+BUS133
+NO
+5
+Excel – fra data til informasjon – Nettversjon
+BUS133F
+NO
+5
+Excel i økonomisk virksomhetsstyring
+BUS134-B
+NO
+7.5
+Skatterett for økonomer
+BUS160
+NO
+5
+Globale utfordringer II. Miljø- og samfunnsmessige utfordringer i næringslivet
+BUS180
+EN
+5
+Økonomi- og virksomhetsstyring
+BUS210
+NO
+10
+Bærekraftsrapportering
+BUS211
+NO
+5
+Regnskapsføring (regnskapsførerregelverket, regnskapsorganisering og forretningsforståelse)
+BUS214
+NO
+10
+Finansregnskap og bokføring
+BUS215
+NO
+10
+Finansregnskap – spesielle regnskapsemner
+BUS216
+NO
+5
+Finansiering og investering
+BUS220
+NO
+10
+Operasjonsanalyse
+BUS230
+NO
+10
+Excel for viderekomne – effektive styringsmodeller
+BUS234
+NO
+5
+Simulering av forretningsprosesser
+BUS238
+NO
+5
+Introduksjon til dataanalyse i R
+BUS255
+EN
+5
+Skatte- og avgiftsrett
+BUS260
+NO
+10
+Internasjonal skatt, skatteparadiser og bærekraft
+BUS262
+NO
+10
+Miljøledelse og bærekraftrapportering
+BUS311
+EN
+5
+Strategisk virksomhetsstyring
+BUS313
+NO
+10
+Foretaksfinans og verdsetting
+BUS315
+EN
+10
+ABC og verktøy for økonomisk styring
+BUS316
+NO
+5
+Finansielle investeringer og risikostyring
+BUS322
+EN
+10
+Energi- og råvaremarkedsanalyse
+BUS323
+EN
+10
+Opsjoner, derivater og risikostyring
+BUS324
+NO
+10
+Opsjoner, derivater og risikostyring
+BUS324
+NO
+10
+Obligasjoner, swapper og andre renteinstrumenter
+BUS325
+EN
+10
+Finansiell klimarisiko og bærekraft
+BUS328
+EN
+5
+Anvendt finansiell økonometri
+BUS329
+EN
+10
+Internship for økonomer
+BUS334
+NO
+10
+Optimering for Business Analytics
+BUS336
+NO
+5
+Anvendelser av Business Analytics
+BUS337
+EN
+5
+Prognosering
+BUS338
+EN
+10
+Fusjoner og oppkjøp (M&A)
+BUS339
+NO
+10
+Supply Chain Management
+BUS340
+NO
+10
+Dataanalyse i R
+BUS350
+EN
+5
+Dataanalyse i R
+BUS350
+EN
+5
+Taxes, Inequality, and Sustainability
+BUS360
+EN
+5
+Financial Economics of Climate and Sustainability
+BUS400
+EN
+2.5
+Innføring i dataanalyse og -visualisering
+DAT110
+EN
+10
+Anvendt maskinlæring
+DAT200
+EN
+10
+Grunnleggende prinsipper for datavitenskap
+DAT221
+EN
+5
+Anvendt dyplæring
+DAT300
+EN
+10
+Analyse av sekvensielle data og tidsseriedata
+DAT320
+EN
+10
+Anvendt helsedatavitenskap og medisinsk fysikk
+DAT350
+EN
+10
+Seminar i datavitenskap
+DAT390
+EN
+10
+Atferd og stell
+DYR201
+NO
+10
+Atferd og stell
+DYR201
+NO
+10
+Forsøksdyrlære
+DYR202
+NO
+10
+Anatomi og fysiologi
+DYR203
+NO
+10
+Infeksjonsbiologi og legemiddellære
+DYR204
+NO
+10
+Intern klinisk praksis
+DYR205
+NO
+20
+Sykdomslære og dyrepleie
+DYR206
+NO
+25
+Ekstern klinisk praksis
+DYR207
+NO
+35
+Dyrevelferd og profesjonsetikk
+DYR208
+NO
+7
+Bacheloroppgave
+DYR209
+NO
+15
+Forskningsmetodikk, statistikk og oppgaveskriving
+DYR210
+NO
+5
+Avsluttende klinisk praksis
+DYR211
+NO
+16.5
+Avsluttende klinisk praksis
+DYR211
+NO
+16.5
+Laboratoriediagnostikk
+DYR214
+NO
+5
+Forkurs i matematikk
+ECN001
+NO
+
+Hva er samfunnsøkonomi?
+ECN100
+NO
+5
+Samfunnsøkonomi for miljø og utvikling
+ECN101
+EN
+10
+Innføring i matematikk for økonomer
+ECN102
+NO
+10
+Makroøkonomi I - Markeder, økonomisk utvikling, velferd og konjunkturer
+ECN120
+NO
+5
+Økonomisk historie
+ECN140
+NO
+5
+Miljø- og ressursøkonomi
+ECN170
+NO
+5
+Globale utfordringer I. Økonomi og bærekraft
+ECN180
+NO
+5
+Bærekraftig økonomi
+ECN181-B
+NO
+7.5
+Bærekraftig økonomi
+ECN181-B
+NO
+7.5
+Econometrics
+ECN201
+EN
+10
+Introduksjon til atferdsøkonomi
+ECN204
+NO
+5
+Mikroøkonomi I - Konsument, produsent, marked og velferd
+ECN210
+NO
+10
+Mikroøkonomi II - Institusjoner, spill og markedssvikt
+ECN211
+NO
+10
+Mikroøkonomi II - Konsument, produsent, marked og velferd
+ECN215
+EN
+10
+Makroøkonomi II - Modeller og politikk
+ECN222
+NO
+10
+Internasjonal handel, politikk og utvikling
+ECN230
+EN
+10
+Landbrukspolitikk
+ECN260
+NO
+5
+Matvaremarkeder og politikk
+ECN263
+NO
+5
+Samfunnsøkonomisk prosjektanalyse og verdsetting av miljøgoder
+ECN271
+EN
+10
+Samfunnsøkonomisk prosjektanalyse og verdsetting av miljøgoder
+ECN271
+EN
+10
+Naturressurs- og miljøøkonomi - teori
+ECN275
+EN
+10
+Energiøkonomi
+ECN280
+EN
+10
+Økonometrisk metode
+ECN301
+EN
+10
+Matematikk for økonomer
+ECN302
+EN
+5
+Statistiske metoder for politikkvirkninger
+ECN303
+EN
+5
+Forskningsmetode i samfunnsøkonomi
+ECN305
+EN
+5
+Økonomi og bærekraft
+ECN306
+EN
+5
+Microeconomics III
+ECN311
+EN
+10
+Makroøkonomi III. Internasjonal Makroøkonomi
+ECN320
+EN
+5
+Økonomisk integrasjon og internasjonal handel
+ECN330
+EN
+10
+Økonomisk integrasjon og internasjonal handel
+ECN330
+EN
+10
+Internship i samfunnsøkonomi
+ECN334
+EN
+10
+Introduksjon til samfunnsøkonomi, global økonomi, og miljøforvaltning
+ECN340
+EN
+5
+Utvikling og globale utfordringer
+ECN350
+EN
+10
+Fattigdom og ulikhet
+ECN352
+EN
+10
+Klimaøkonomi
+ECN372
+EN
+10
+Klimaøkonomi - Nettversjon
+ECN372F
+EN
+10
+Naturressurs- og miljøøkonomi - teori og anvendelser
+ECN375
+EN
+10
+Naturressurs- og miljøøkonomi - anvendelser
+ECN376
+EN
+5
+Energimarkeder og regulering
+ECN380
+EN
+10
+Mikroøkonomisk teori
+ECN410
+EN
+10
+Mikroøkonomisk teori
+ECN410
+EN
+10
+Utvikling og Globale Utfordringer
+ECN450
+EN
+10
+Klimaøkonomi
+ECN472
+EN
+10
+Grunnleggende økologi
+ECOL100
+NO
+5
+Generell økologi
+ECOL200
+EN
+10
+Økologisk fordypningsoppgave
+ECOL201
+EN
+5
+Økologisk forskning
+ECOL302
+EN
+5
+Økologiske effekter av globale miljøendringer
+ECOL310
+EN
+5
+Økologi og bevaring av tropisk regnskog
+ECOL330
+EN
+5
+Utforsking og analyse av data i økologi og naturforvaltning
+ECOL340
+EN
+5
+Restaureringsøkologi
+ECOL350
+EN
+5
+Restaureringsøkologi
+ECOL350
+EN
+5
+Økologi og forvaltning av elver og innsjøer
+ECOL380
+EN
+10
+Introduksjon til miljø og utvikling
+EDS101
+EN
+5
+Introduksjon til miljø- og utviklingstudier
+EDS102
+EN
+15
+Innføring i forskningsmetode
+EDS115
+EN
+10
+Introduksjon til globale utviklingsstudier
+EDS201
+EN
+5
+Introduksjon til Internasjonale Relasjoner
+EDS203
+EN
+5
+Miljø, utvikling og klimaendring i Tanzania
+EDS210
+EN
+10
+Linking Ecological and Social Resilience
+EDS225
+EN
+10
+Tradisjonell økologisk kunnskap
+EDS227
+EN
+5
+Global utvikling og bistand
+EDS230
+EN
+10
+Global utvikling og bistand
+EDS230
+EN
+10
+Menneskerettigheter og utvikling
+EDS245
+EN
+10
+Globale miljøforandringer
+EDS260
+EN
+5
+Globale miljøforandringer - seminarer
+EDS261
+EN
+5
+Utviklingsutfordringer i rurale India
+EDS272
+EN
+10
+Globale matsystemer og matsikkerhet
+EDS285
+EN
+10
+Introduksjon til Internasjonale Miljøstudier
+EDS303
+EN
+5
+Utviklingsteori og utviklingspolitikk
+EDS305
+EN
+10
+Green transformations in theory and practice
+EDS306
+EN
+10
+Research Methods
+EDS312
+EN
+15
+Internship
+EDS313
+EN
+10
+Internship
+EDS313
+EN
+10
+Forvaltning av plantegenetiske ressurser: Lover, regulering og praksis
+EDS315
+EN
+5
+Politisk økologi
+EDS330
+EN
+10
+Practice-based Field Course
+EDS333
+EN
+10
+Teori om dekolonialisering
+EDS341
+EN
+5
+Global miljøpolitikk
+EDS348
+EN
+10
+Energi og Samfunn
+EDS349
+EN
+5
+Økologisk økonomi
+EDS351
+EN
+10
+Agroøkologi og matsystem
+EDS352
+EN
+10
+Klimaendring og samfunn
+EDS355
+EN
+10
+Kjønn og utvikling
+EDS370
+EN
+5
+Kjønn og utvikling
+EDS370
+EN
+5
+Introduksjon til etterretningsstudier og internasjonale relasjoner
+EDS371
+EN
+10
+Sikkerhetsstudier
+EDS372
+EN
+10
+Maritim kriminalitet, piratvirksomhet og internasjonale relasjoner
+EDS373
+EN
+10
+International Relations Theory
+EDS374A
+EN
+10
+Internasjonal relasjonsteori
+EDS374B
+EN
+10
+Religion, politikk og Islam
+EDS376
+EN
+10
+Utenrikspolitikk og Europa
+EDS377
+EN
+10
+Statsbygging og konflikt i sårbare og konfliktberørte stater
+EDS378
+EN
+10
+Global politisk økonomi
+EDS379
+EN
+10
+Internasjonale Organisasjoner
+EDS380
+EN
+10
+Internasjonale Organisasjoner
+EDS380
+EN
+10
+Feminist and Critical IR Theory
+EDS381
+EN
+10
+Global Transitions and the City
+EDS383
+EN
+10
+Stat og sivilt samfunn i utvikling og miljøforvaltning i India
+EDS387
+EN
+10
+Forståelse av post-konflikt politi- og sikkerhetsreform
+EDS391
+EN
+10
+Miljø- og utviklingsstudier for og av PhD-studenter
+EDS430
+EN
+10
+Innføring i eiendomsfag II
+EIE100
+NO
+10
+Innføring i eiendomsfag I
+EIE101
+NO
+5
+Kart- og landmålingslære
+EIE105
+NO
+10
+Eiendomsregistrering og eiendomsdanning
+EIE200
+NO
+10
+Eiendomshistorie
+EIE202
+NO
+10
+Eiendomshistorie
+EIE202
+NO
+10
+Verdsetting av fast eiendom
+EIE222
+NO
+10
+Land Rights
+EIE280
+NO
+5
+Materielt jordskifte
+EIE302
+NO
+10
+Feltarbeid i eiendomsfag
+EIE304
+NO
+10
+Forhandlinger og konflikthåndtering
+EIE306
+NO
+5
+Eiendomsmarked og analyse
+EIE310
+NO
+10
+Eiendomsutvikling, kalkyle og verdsetting
+EIE311
+NO
+10
+Ekspropriasjon og grunnerverv
+EIE320
+NO
+10
+Deltakerorienterte metoder i folkehelsearbeid
+FHV310
+NO
+10
+Psykososiale faktorer og helse
+FHV313
+NO
+10
+Psykososiale faktorer og helse
+FHV313
+NO
+10
+Lokalt miljøretta helsevern
+FHV314
+NO
+5
+Vitenskapsteori og forskningsmetoder, folkehelsevitenskap
+FHV315
+NO
+15
+Epidemiologi og geografiske informasjonssystemer
+FHV320
+NO
+15
+Folkehelsevitenskap
+FHV330
+NO
+15
+Funksjonsnedsettelser, sosial rettferdighet og klimarobust utvikling
+FHV341
+EN
+5
+Prosjektplan masteroppgave i folkehelsevitenskap
+FHV353
+NO
+5
+Internship folkehelsearbeid
+FHV372
+NO
+10
+Generell miljøtoksikologi
+FMI210
+EN
+10
+Miljøgifter og økotoksikologi
+FMI310
+EN
+10
+Human miljøkjemi
+FMI312
+EN
+10
+Human miljøkjemi
+FMI312
+EN
+10
+Energi, miljø og samfunn
+FORNY100
+NO
+10
+Investeringsanalyse av energiprosjekter
+FORNY150
+NO
+5
+Fornybare energikilder og -teknologier
+FORNY200
+NO
+10
+Bioenergi - teknologi og verdikjeder
+FORNY210
+NO
+5
+Livsløpsvurdering - miljøeffekter av energi- og avfallssystemer
+FORNY220
+NO
+10
+Energimarkeder og virkemidler
+FORNY230
+NO
+5
+Energidistribusjon og -lagringssystemer
+FORNY240
+EN
+5
+Energibruk og energisystemanalyse
+FORNY260
+EN
+5
+Vind- og vannkraft – ressurs, teknologi og energi
+FORNY300
+NO
+10
+Solenergi - ressursgrunnlag, lønnsomhet og valg av løsninger
+FORNY305
+EN
+10
+Solenergi - ressursgrunnlag, lønnsomhet og valg av løsninger
+FORNY305
+EN
+10
+Ressurser i kretsløp - bærekraftig forvaltning av avfallsressurser
+FORNY320
+NO
+5
+Analyser av fornybare energisystemer
+FORNY360
+EN
+10
+Arbeidslivserfaring i fornybar energi
+FORNY370
+NO
+10
+Forkurs i fysikk
+FYS007
+NO
+
+Fysikk og natur
+FYS100
+NO
+10
+Fysikk og natur - digital versjon
+FYS100D
+NO
+10
+Mekanikk
+FYS101
+NO
+10
+Termofysikk og elektromagnetisme
+FYS102
+NO
+10
+Fysikk for bioteknologer
+FYS102A
+NO
+5
+Måleteknikk og dataanalyse
+FYS103
+NO
+5
+Måleteknikk og dataanalyse
+FYS103
+NO
+5
+Statikk
+FYS110
+NO
+5
+Klimaendringer, bærekraft og tilpasninger
+FYS140
+NO
+5
+Meteorologi for bærekraftig samfunnsutvikling
+FYS141
+NO
+5
+Laboratoriekurs i fysikk
+FYS155
+NO
+5
+Elektroteknikk
+FYS230
+EN
+10
+Elektronikk
+FYS235
+EN
+10
+Elektrodynamikk
+FYS236
+NO
+5
+Miljøfysikk
+FYS241
+NO
+10
+Kjernefysikk
+FYS241A
+NO
+5
+Kvantefysikk
+FYS245
+EN
+10
+Kvantefysikk
+FYS245
+EN
+10
+Varmeoverføring og energi
+FYS251
+NO
+5
+Termisk fysikk
+FYS253
+EN
+5
+Anvendt termodynamikk
+FYS254
+EN
+5
+Energiteknologier
+FYS272
+EN
+10
+Tverrfaglig sommerskole i maskinlæring for biovitenskap
+FYS302
+EN
+5
+Målinger og modellering av miljø og klima
+FYS340
+EN
+5
+Kjemisk- og biokjemisk energikonvertering
+FYS373
+EN
+10
+Batteri- og brenselcelleteknologi
+FYS374
+EN
+10
+Energiteknologi laboratorium
+FYS375
+NO
+10
+Solenergi
+FYS376
+NO
+10
+Solenergi
+FYS376
+NO
+10
+Digitale elektriske kraftsystemer
+FYS377
+EN
+10
+Kraftelektronikk for fornybar energi
+FYS378
+EN
+5
+Beregningsorientert nevrovitenskap
+FYS388
+EN
+10
+Tverrfaglig sommerskole i maskinlæring for biovitenskap
+FYS402
+EN
+5
+Kjemisk- og biokjemisk energikonvertering
+FYS473
+EN
+10
+Elektrokjemisk energikonvertering
+FYS474
+EN
+10
+Solenergi
+FYS476
+NO
+10
+Beregningsorientert nevrovitenskap
+FYS488
+EN
+10
+Geologi
+GEO100
+NO
+10
+Kvartærgeologi
+GEO210
+NO
+10
+Kvartærgeologi
+GEO210
+NO
+10
+Hydrogeologi
+GEO220
+EN
+10
+Jord og geologi i landskapet
+GEO250
+NO
+5
+Videregående hydrogeologi
+GEO300
+EN
+10
+Paleomiljø og klimaendringer
+GEO310
+EN
+10
+Hydrogeologi - feltkurs
+GEO320
+NO
+5
+Arbeidslivserfaring i geomatikk
+GEOM370
+EN
+5
+Introduction to Landscape Architecture for Global Sustainability
+GLA301
+EN
+5
+Design-Research Studio in Landscape Architecture
+GLA302
+EN
+15
+Landskap i en globalisert verden: Historiske og teoretiske perspektiver
+GLA303
+EN
+10
+Implementing Landscape Sustainability in an Urban Context
+GLA304
+EN
+15
+Implementing Landscape Sustainability in an Urban Context
+GLA304
+EN
+15
+Social sustainability in a context of vulnerability
+GLA305
+EN
+15
+Introduksjon til fjernmåling
+GMFM100
+NO
+5
+Fjernmåling I - Bildebehandling
+GMFM200
+NO
+5
+Fjernmåling II - Analyse
+GMFM300
+EN
+10
+Stordata og maskinlæring i fjernmåling
+GMFM350
+EN
+10
+Fotogrammetri 1
+GMFO120
+NO
+10
+Fotogrammetri 2
+GMFO205
+NO
+10
+Nærfotogrammetri
+GMFO310
+NO
+5
+Geodesi
+GMGD200
+NO
+10
+Satellittgeodesi
+GMGD222
+NO
+7.5
+Satellittgeodesi
+GMGD222
+NO
+7.5
+Marin geodesi
+GMGD230
+NO
+5
+Fysisk geodesi
+GMGD310
+NO
+10
+Satellittgeodesi - analyse
+GMGD320
+NO
+10
+Geografiske informasjonssystemer (GIS)
+GMGI210
+NO
+10
+Automatisering av GIS-prosesser
+GMGI221
+NO
+5
+Digital kartografi
+GMGI350
+NO
+10
+Landmåling 1
+GMLM102
+NO
+5
+Landmåling 2
+GMLM210
+NO
+12.5
+Parameterestimering
+GMPE240
+NO
+10
+Kalmanfilter og sensorintegrasjon
+GMPE340
+EN
+5
+Kalmanfilter og sensorintegrasjon
+GMPE340
+EN
+5
+Husdyretologi
+HET201
+NO
+5
+Dyrevelferd
+HET203
+NO
+5
+Etologiske forskningsmetoder
+HET300
+EN
+10
+Stressbiologi og dyrevelferd
+HET301
+EN
+10
+Individuelt PhD-emne i etologi
+HET401
+EN
+10
+Generell husdyravl
+HFA200
+NO
+10
+Husdyr avls og bevaringsplaner
+HFA300
+EN
+10
+Biologiske konsekvenser av seleksjon i husdyravlen
+HFA303
+NO
+5
+Forvaltning av genetisk diversitet
+HFA304
+EN
+5
+Fra fenotyper til avlsverdier
+HFA350
+EN
+15
+Fra fenotyper til avlsverdier
+HFA350
+EN
+15
+Generell ernæring
+HFE200
+NO
+10
+Kraftfôr
+HFE202
+NO
+5
+Grovfôr og drøvtyggerernæring
+HFE205
+NO
+10
+Ernæring og optimalisering av fôrrasjoner til drøvtyggere
+HFE302
+NO
+15
+Ernæring og optimalisering av fôrrasjoner til enmagede dyr
+HFE303
+EN
+10
+Fôrteknologi
+HFE305
+EN
+10
+Eksperimentell dyreernæring og fysiologi
+HFE314
+EN
+10
+Lipidmetabolisme
+HFE400
+EN
+10
+Eksperimentell dyreernæring og fysiologi
+HFE414
+NO
+10
+Introduksjon til norsk husdyrproduksjon
+HFX131
+NO
+5
+Introduksjon til norsk husdyrproduksjon
+HFX131
+NO
+5
+Husdyrbiologi
+HFX132
+NO
+10
+Utfordringer for framtidas matproduksjon
+HFX133
+NO
+5
+Fysiologi
+HFX201
+NO
+10
+Hund: avl, ernæring og etologi
+HFX225
+NO
+10
+Produksjon på gris og fjørfe
+HFX253
+NO
+10
+Melk og kjøttproduksjon på storfe
+HFX255
+NO
+15
+Småfe: avl, ernæring og etologi. Beitebruk i husdyrholdet
+HFX256
+NO
+10
+Utslipp og mikrobiota: en vei til bærekraftig dyreproduksjon
+HFX307
+EN
+5
+Smart husdyrproduksjon
+HFX315
+EN
+10
+Ph.d. emne i Ernæringsfysiologi
+HFX400
+EN
+5
+Ph.d. emne i Ernæringsfysiologi
+HFX400
+EN
+5
+Utslipp og mikrobiota: en vei til bærekraftig dyreproduksjon
+HFX407
+EN
+5
+Innføringsemne - fagorientert prosjekt
+IMRT100
+NO
+5
+Praktisk prosjektstyring
+IND200
+NO
+10
+Driftsledelse
+IND210
+NO
+10
+Innovasjonsbedrift
+IND220
+NO
+10
+Kvalitetsstyring
+IND230
+NO
+5
+Usikkerhetsstyring i prosjekt
+IND240
+NO
+5
+Produksjonslogistikk og distribusjon
+IND250
+NO
+5
+Transportmodellering og planlegging - teori og praksis
+IND251
+NO
+5
+Eksperter i team
+IND300
+NO
+5
+Eksperter i team
+IND300
+NO
+5
+Driftsoptimalisering
+IND310
+EN
+10
+Data til beslutning
+IND320
+EN
+10
+Prosjektledelse for ph.d-kandidater, forskerlinjestudenter og spesialistkandidater
+IND400
+EN
+2
+Prinsipper i informasjonsbehandling
+INF100
+NO
+5
+Programmering og databehandling
+INF120
+NO
+10
+Datahandtering og logikk
+INF131
+NO
+5
+Datahandtering - grunnemne
+INF131A
+NO
+2.5
+Logikk - grunnemne
+INF131B
+NO
+2.5
+Anvendt ontologi og kunnskapsrepresentasjon
+INF132
+EN
+3
+Videregående programmering
+INF201
+EN
+5
+Videregående programmering
+INF201
+EN
+5
+Prosjektoppgave i videregående programmering
+INF202
+EN
+5
+Prosjektoppgåve i vidaregåande programmering - juniblokk
+INF203
+EN
+5
+Ressurseffektiv programmering
+INF205
+NO
+5
+Informatikk for datavitere
+INF221
+EN
+5
+Datahåndtering og -analyse
+INF230
+EN
+10
+Datasikkerhet
+INF240
+EN
+5
+Bildeanalyse
+INF250
+NO
+10
+Vitenskapelige beregninger
+INF305
+EN
+5
+Ideutvikling og bedriftsetablering
+INN100-B
+NO
+7.5
+Økonomistyring
+INN200
+NO
+5
+Økonomistyring
+INN200
+NO
+5
+Økonomistyring
+INN201-B
+NO
+7.5
+Bærekraftig entreprenørskap
+INN271
+NO
+5
+Nyskaping
+INN301
+NO
+5
+Immaterielle rettigheter
+INN311
+NO
+5
+Internship Abroad
+INN332
+EN
+25
+Entreprenørskap i praksis
+INN341
+NO
+10
+Finansiering av oppstartsvirksomhet
+INN347
+NO
+5
+Virksomhetsarkitektur for digitalisering
+INN351
+EN
+5
+System- og prosessinnovasjon
+INN354
+EN
+10
+Bærekraftig forretningsmodellinnovasjon
+INN360
+NO
+10
+Kunstig intelligens fra et virksomhetsperspektiv
+INN365
+EN
+10
+Bærekraftig entreprenørskap
+INN371
+NO
+5
+Jordlære
+JORD100
+NO
+5
+Introduksjon om jord
+JORD160
+NO
+5
+Vann i jorda – felt- og laboratoriekurs
+JORD200
+EN
+5
+Dynamisk modellering i jord-plante-atmosfære systemet
+JORD210
+EN
+10
+Jordanalyse
+JORD212
+NO
+5
+Kjemiske og fysiske jordanalyser
+JORD213
+EN
+5
+Jord som vekstmedium
+JORD230
+NO
+15
+Gjødslingsplanlegging og presisjonsjordbruk
+JORD231
+NO
+5
+Jordforurensning og bærekraft
+JORD310
+EN
+10
+Jordhelse og bærekraftig bruk av jordressurser
+JORD330
+NO
+10
+Juridisk metode og norsk rettssystem
+JUS100
+NO
+5
+Forretningsjus I
+JUS102
+NO
+5
+Forretningsjus II
+JUS103
+NO
+5
+Innføring i eiendomsjus
+JUS110
+NO
+5
+Offentlig saksbehandling og forvaltningsrett
+JUS201
+NO
+5
+Miljøforvaltningsrett
+JUS220
+NO
+5
+Rettigheter i fast eiendom
+JUS310
+NO
+10
+Overføring av fast eiendom
+JUS311
+NO
+5
+Plan- og bygningsrett I - planlegging og gjennomføringsvirkemidler
+JUS320
+NO
+5
+Plan- og bygningsrett II - byggesak
+JUS321
+NO
+5
+Spesiell forvaltningsrett, skjønn og skjønnsprosess
+JUS322
+NO
+5
+Prosess og jordskifte
+JUS331
+NO
+20
+Jordskifteprosess
+JUS332
+NO
+10
+Poster på konferanse
+KBM311
+EN
+1
+Poster på en konferanse
+KBM411
+EN
+1
+Muntlig presentasjon på en konferanse
+KBM412
+EN
+2
+Populærvitenskapelig artikkel
+KBM413
+EN
+2
+Studiepoenggivende praksis
+KBMINT300
+EN
+10
+Introduksjon til biokjemi
+KJB100
+NO
+5
+Biokjemi
+KJB200
+NO
+10
+Laboratoriekurs i biokjemi og matkjemi
+KJB201
+NO
+5
+Proteinkjemi
+KJB310
+EN
+10
+Proteomikk I
+KJB320
+EN
+5
+Proteomikk II
+KJB420
+EN
+10
+Forkurs i kjemi
+KJM007
+NO
+
+Generell kjemi
+KJM100
+NO
+10
+Organisk kjemi
+KJM110
+NO
+10
+Uorganisk kjemi
+KJM120
+NO
+10
+Organisk kjemi II
+KJM211
+NO
+10
+Vannkjemi
+KJM220
+NO
+10
+Fysikalsk kjemi
+KJM230
+NO
+10
+Analytisk kjemi
+KJM240
+NO
+10
+Kromatografi
+KJM310
+NO
+10
+Organisk spektroskopi
+KJM311
+EN
+10
+Massespektrometri
+KJM313
+NO
+10
+Anvendt organisk analytisk kjemi
+KJM314
+NO
+10
+Karbohydratkjemi
+KJM315
+EN
+10
+Instrumentell uorganisk analyse
+KJM340
+NO
+10
+Organisk massespektrometri (MS)
+KJM410
+NO
+10
+Introduksjon til profesjonsstudiet
+LAA115
+NO
+10
+Introduksjon i landskapsarkitektur II
+LAA116
+NO
+15
+Stedsutvikling og romlig analyse
+LAA200
+
+15
+Urbant landbruk i praksis
+LAA201
+EN
+5
+Hagekunstens og landskapsarkitekturens historie
+LAA211
+NO
+5
+Bebyggelse og landskap
+LAA214
+NO
+15
+Byrom, form og konstruksjoner
+LAA215
+NO
+15
+Prosjektering med konkurransegrunnlag
+LAA216
+NO
+10
+Konkurransegrunnlag
+LAA221
+NO
+5
+Anleggsteknikk og konkurransegrunnlag
+LAA222
+NO
+7.5
+Forming med vegetasjon
+LAA224
+NO
+20
+Bærekraftig landskapsforvaltning
+LAA231
+
+10
+Prosjektledelse og gjennomføring
+LAA233
+NO
+7.5
+Landskapsforståelse
+LAA250
+NO
+15
+Planlegging av gravplasser
+LAA307
+NO
+20
+Bærekraft og store landskapsendringer
+LAA310
+NO
+10
+Fysiske omgivelser - bruk og opplevelser
+LAA313
+NO
+10
+3D Visualisering av historisk landskap
+LAA321
+NO
+20
+Blå og grønne strukturer i byer og tettsteder
+LAA340
+NO
+20
+Bylandskapet som sosial arena
+LAA341
+NO
+20
+Prosjekter i byutvikling. Arkitektur, form og rom
+LAA350
+NO
+20
+Regional landskapsplanlegging og lokalsamfunnsutvikling
+LAA360
+NO
+20
+Regional landskapsplanlegging og lokalsamfunnsutvikling - modul I
+LAA361
+NO
+10
+Landskapsøkologi
+LAA370
+EN
+15
+Introduksjon til digitale verktøy
+LAD100
+NO
+5
+GIS - praktisk introduksjon
+LAD102
+NO
+5
+Kartografi og geodatakilder i planlegging
+LAD103
+NO
+5
+Datamodellering i 3D i landskapsarkitekturen
+LAD202
+NO
+10
+Digital 3D-Planlegging
+LAD203
+NO
+5
+Tegning - Frihåndstegning
+LAFT210
+NO
+5
+Akademisk skriving
+LNG250
+NO
+5
+Planlegging av masteroppgave
+M0-BIOEC
+NO
+
+Planlegging av masteroppgave
+M0-EI
+NO
+
+Planlegging av masteroppgave
+M0-ØA
+NO
+
+Masteroppgave
+M30-AA
+EN
+30
+Masteroppgave
+M30-ABG
+EN
+30
+Masteroppgave
+M30-AE
+EN
+30
+Masteroppgave
+M30-AQFOOD
+EN
+30
+Masteroppgave
+M30-BA
+
+30
+Masteroppgave
+M30-BIAS
+EN
+30
+Masteroppgave
+M30-BIOEC
+NO
+30
+Masteroppgave
+M30-BIOL
+EN
+30
+Masteroppgave
+M30-BIOTEK
+EN
+30
+Masteroppgave
+M30-BYREG
+EN
+30
+Masteroppgave
+M30-DS
+EN
+30
+Masteroppgave
+M30-DV
+
+30
+Masteroppgave
+M30-ECOL
+EN
+30
+Masteroppgave
+M30-ECON
+EN
+30
+Masteroppgave
+M30-EEG
+EN
+30
+Masteroppgave
+M30-EI
+
+30
+Masteroppgave
+M30-EIE
+NO
+30
+Masteroppgave
+M30-EUTV
+NO
+30
+Masteroppgave
+M30-EUTV-DEL
+NO
+30
+Masteroppgave
+M30-FOL
+EN
+30
+Masteroppgave
+M30-FOLDEL
+EN
+30
+Masteroppgave
+M30-FORNY
+
+30
+Masteroppgave
+M30-GEOM
+
+30
+Masteroppgave
+M30-GEP
+EN
+30
+Masteroppgave
+M30-GLA
+EN
+30
+Masteroppgave
+M30-GS
+EN
+30
+Masteroppgave
+M30-HV
+EN
+30
+Masteroppgave
+M30-IES
+EN
+30
+Masteroppgave
+M30-IR
+EN
+30
+Masteroppgave
+M30-IØ
+
+30
+Masteroppgave
+M30-KB
+NO
+30
+Masteroppgave
+M30-KJEMI
+EN
+30
+Masteroppgave
+M30-LA
+EN
+30
+Masteroppgave LANDSAM
+M30-LANDSAM
+NO
+30
+Masteroppgave
+M30-LUN
+EN
+30
+Masteroppgave i fagdidaktikk
+M30-LUR
+
+30
+Masteroppgave
+M30-MAT
+
+30
+Masteroppgave
+M30-MATH
+
+30
+Masteroppgave
+M30-MATSYS
+EN
+30
+Masteroppgave
+M30-MF
+
+30
+Masteroppgave
+M30-MILJØ
+EN
+30
+Masteroppgave
+M30-MPP
+
+30
+Masteroppgave
+M30-NF
+EN
+30
+Masteroppgave
+M30-PV
+EN
+30
+Masteroppgave
+M30-RAMI
+EN
+30
+Masteroppgave
+M30-RB
+
+30
+Masteroppgave
+M30-REIS
+EN
+30
+Masteroppgave
+M30-SF
+
+30
+Masteroppgave i urbant landbruk
+M30-UA
+EN
+30
+Masteroppgave
+M30-VM
+
+30
+Masteroppgave
+M30-ØA
+NO
+30
+Masteroppgave
+M45-AA
+EN
+45
+Masteroppgave
+M45-AQFOOD
+NO
+45
+Masteroppgave
+M45-BIAS
+EN
+45
+Masteroppgave
+M45-BIOL
+EN
+45
+Masteroppgave
+M45-BIOTEK
+EN
+45
+Masteroppgave
+M45-DV
+
+45
+Masteroppgave
+M45-HV
+EN
+45
+Masteroppgave
+M45-KB
+NO
+45
+Masteroppgave
+M45-KJEMI
+EN
+45
+Masteroppgave
+M45-MAT
+NO
+45
+Masteroppgave
+M45-MF
+
+45
+Masteroppgave
+M45-MILJØ
+EN
+45
+Masteroppgave
+M45-NF
+EN
+45
+Masteroppgave
+M45-RAMI
+EN
+45
+Masteroppgave
+M60-AA
+NO
+60
+Masteroppgave
+M60-ABG
+NO
+60
+Masteroppgave
+M60-AE
+NO
+60
+Masteroppgave
+M60-AQFOOD
+NO
+60
+Masteroppgave
+M60-BA
+
+60
+Masteroppgave
+M60-BIAS
+
+60
+Masteroppgave
+M60-BIOL
+NO
+60
+Masteroppgave
+M60-BIOTEK
+EN
+60
+Masteroppgave
+M60-DS
+
+60
+Masteroppgave
+M60-DV
+
+60
+Masteroppgave
+M60-ECOL
+NO
+60
+Masteroppgave
+M60-GEOM
+
+60
+Masteroppgave
+M60-GS
+EN
+60
+Masteroppgave
+M60-HV
+
+60
+Masteroppgave
+M60-IES
+
+60
+Masteroppgave
+M60-IR
+
+60
+Masteroppgave
+M60-IØ
+
+60
+Masteroppgave
+M60-KB
+EN
+60
+Masteroppgave
+M60-KJEMI
+EN
+60
+Masteroppgave
+M60-LA
+
+60
+Masteroppgave
+M60-LUN
+NO
+60
+Masteroppgave
+M60-MAT
+
+60
+Masteroppgave
+M60-MATH
+
+60
+Masteroppgave
+M60-MF
+
+60
+Masteroppgave
+M60-MILJØ
+NO
+60
+Masteroppgave
+M60-MPP
+
+60
+Masteroppgave
+M60-PV
+NO
+60
+Masteroppgave
+M60-RAMI
+EN
+60
+Masteroppgave i Urbant landbruk
+M60-UA
+EN
+60
+Planlegging av masteroppgaven for By- og regionplanlegging
+MAST301
+EN
+5
+Planlegging av masteroppgaven - landskapsarkitektur
+MAST302
+NO
+5
+Planlegging av masteroppgaven ved Eiendom og Eiendomsutvikling
+MAST303
+NO
+5
+Forkurs i matematikk for MATH100 og MATH121
+MATH007
+NO
+
+Brukerkurs i matematikk
+MATH100
+NO
+10
+Kalkulus
+MATH121
+NO
+10
+Kalkulus og lineær algebra
+MATH122
+NO
+10
+Lineær algebra og vektoranalyse
+MATH123
+NO
+10
+Lineær algebra
+MATH131
+NO
+5
+Lineær algebra med anvendelser
+MATH132
+NO
+5
+Matematisk modellering
+MATH220
+NO
+10
+Partielle differensiallikninger og modeller
+MATH250
+EN
+10
+Kompleks analyse og transformasjonsmetoder
+MATH270
+NO
+10
+Optimering
+MATH285
+EN
+10
+Reell analyse
+MATH290
+EN
+10
+Moderne anvendt matematikk
+MATH401
+EN
+10
+Innføring i miljøvitenskap
+MILJØ100
+NO
+10
+Forurensning og miljø
+MILJØ200
+NO
+10
+Biogeokjemi for vann- og avløpsforvaltning
+MILJØ210
+EN
+10
+Globale miljøendringer og jordsystemet
+MILJØ300
+EN
+10
+Miljøvitenskap
+MILJØ302
+NO
+5
+Vurdering av helse- og miljørisiko
+MILJØ360
+EN
+5
+Arbeidslivserfaring i miljøvitenskap
+MILJØ370
+EN
+10
+Økologi og radiobiologi
+MILJØ410
+EN
+5
+Kurs i strålevern for PhD-studenter og forskere
+MILJØ415
+EN
+10
+Tverrfaglig konsekvensanalyse
+MINA250
+NO
+10
+Fjernmåling i skog- og naturforvaltning
+MINA305
+EN
+5
+Naturvitenskapelig metode
+MINA310
+EN
+5
+Samfunnsvitenskapelig forskningsmetode
+MINA311
+NO
+10
+Tverrfaglig samarbeid og kontroverser om bærekraft
+MINA320
+NO
+5
+Tverrfaglig samarbeid og kontroverser om bærekraft - engelsk versjon
+MINA321
+EN
+5
+Prosjektøkonomi for fornybar energi og skogbruk
+MINA330
+NO
+10
+Populærvitenskapelig formidling 
+MINA360
+NO
+5
+Forskerutdanning på tvers av fagdisipliner
+MINA400
+EN
+5
+Poster på en internasjonal konferanse
+MINA411
+EN
+1
+Muntlig presentasjon på en internasjonal konferanse
+MINA412
+EN
+2
+Popular science article
+MINA413
+EN
+2
+Workshop participation
+MINA414
+EN
+1
+Research Visit
+MINA415
+EN
+2
+Maskinlæring med eksempler fra teknologi og finans
+MLA210
+NO
+10
+Matrisemetoder for Dataanalyse og Maskinlæring
+MLA310
+EN
+10
+Organisering, ledelse og endring i kunnskapsorganisasjoner
+MLEDØK301
+NO
+7.5
+Økonomistyring
+MLEDØK302
+NO
+7.5
+Sirkulærøkonomi, bærekraft og strategisk styring
+MLEDØK303
+NO
+15
+Ledelse, samspill og endring
+MLEDØK304
+NO
+15
+Digitalisering og kunstig intelligens i virksomhetsutvikling
+MLEDØK305
+NO
+7.5
+Én helse og beredskap i tverrfaglig samarbeid
+MLEDØK306
+NO
+7.5
+Masteroppgave
+MLEDØK307
+NO
+30
+Web-kurs: Planlegging og skriving av en masteroppgave
+MTH300
+EN
+5
+Arbeidslivserfaring i produksjon og teknologi
+MTL370
+EN
+10
+Urbant landbruk - strategi- og handlingsplanarbeid - Transfaglige samhandlingsgrupper (TSG)
+MUA301
+EN
+10
+Urban forurensing og kjemisk mattrygghet
+MUA310
+NO
+5
+Introduksjon til mat, teknologi og helse
+MVI100
+NO
+5
+Prosessteknologi I
+MVI180
+NO
+5
+Matkjemi
+MVI202
+NO
+5
+Næringsmiddelmikrobiologi
+MVI220
+NO
+10
+Matvaretrygghet og -hygiene
+MVI230
+NO
+5
+Sensorisk analyse
+MVI240
+NO
+5
+Emballeringsteknologi
+MVI250
+NO
+5
+Melk og melkebehandling
+MVI273
+NO
+10
+Muskelmat -råvare og teknologi
+MVI274
+NO
+10
+Matplanter
+MVI275
+NO
+10
+Ølbrygging
+MVI276
+NO
+5
+Alternative proteiner: En tverrfaglig introduksjon
+MVI303
+NO
+5
+Makronæringsstoffer, deres struktur og funksjonalitet
+MVI310
+EN
+10
+Fisketeknologi
+MVI320
+NO
+10
+Fermenteringsmikrobiologi
+MVI321
+EN
+5
+Sensorisk analyse og forbrukeraksept
+MVI340
+NO
+5
+Enhetsoperasjoner
+MVI361
+EN
+10
+Alkoholholdig drikke
+MVI382A
+EN
+5
+Kornteknologi
+MVI382B
+EN
+5
+Meieriteknologi
+MVI383A
+EN
+15
+Produktutvikling av mat
+MVI385
+EN
+10
+Meieriteknologi øvingskurs
+MVI386
+NO
+5
+Ingredienser fra melk
+MVI387
+EN
+5
+Kjemisk mattrygghet
+MVI393
+EN
+5
+Trygghet i industrielle prosesser
+MVI395
+EN
+10
+Meieriteknologi
+MVI483
+EN
+10
+Innføringskurs i naturforvaltning
+NATF100
+NO
+10
+Vern og forvaltning av norsk natur
+NATF200
+NO
+5
+Viltbiologi og forvaltning
+NATF230
+NO
+15
+Fiskeøkologi og forvaltning
+NATF240
+NO
+10
+Bevaringsbiologi
+NATF300
+EN
+5
+Praktisk naturforvaltning
+NATF301
+NO
+5
+Norsk naturforvaltning
+NATF302
+NO
+5
+Tropisk økologi og naturforvaltning
+NATF320
+EN
+10
+Viltforvaltning
+NATF330
+NO
+10
+Fiskeforvaltning
+NATF340
+NO
+10
+Interaksjoner mellom mennesker og vilt
+NATF350
+EN
+5
+Arbeidslivserfaring i økologi og naturforvaltning
+NATF370
+EN
+10
+Biologiske konsekvenser av seleksjon
+NOVA-302
+EN
+5
+Genomikk-basert planteforedling for klimatilpasning
+NOVA-404
+EN
+5
+Biologiske konsekvenser av seleksjon
+NOVA-410
+EN
+5
+Automatisert feltfenotyping
+NOVA-412
+EN
+5
+Immunernæring i akvakultur: Fra nytt fôr til generell helse
+NOVA-416
+EN
+3
+Agroecology: Working with the Complexity of Farming Systems
+PAE301
+EN
+7.5
+Agroøkologi: Handlingsorientert læring i gårds- og matvaresystemer
+PAE302
+EN
+30
+Agroøkologi: Handlingsorientert forskning
+PAE306
+EN
+10
+Landskapsplanter - Økologi og bærekraftig plantebruk
+PHG113
+NO
+20
+Landskapsplanter - Planteplan i praksis
+PHG213
+NO
+5
+Landskapsplanter - etablering, skjøtsel og bevaring
+PHG215
+NO
+10
+Landskapsplanter - Grøntanlegg og landskapspleie
+PHG316
+NO
+10
+Examen philosophicum
+PHI100
+NO
+10
+Examen philosophicum - seminarversjon
+PHI101
+NO
+10
+Examen philosophicum - Engelsk versjon
+PHI102
+EN
+10
+Biovitenskap, etikk og miljøfilosofi
+PHI201
+NO
+5
+Forskningsetikk og vitenskapsfilosofi I
+PHI401
+EN
+5
+Skatteforsk PhD-kurs – Temaer i forskningsetikk, metode og GDPR-samsvar
+PHI450
+EN
+5
+Innføringsemne i plantevitenskap
+PJH102
+NO
+5
+Urbant landbruk
+PJH105
+NO
+5
+Urbant landbruk - semesteroppgave
+PJH205
+NO
+5
+Fôrvekster og frøvekster
+PJH212
+EN
+10
+Frukt og bær
+PJH230
+NO
+10
+Grønnsaker og potet
+PJH240
+NO
+10
+Planteproduksjon i regulert klima
+PJH250
+EN
+10
+Produksjon av utplantingsplanter av blomster og grønnsaker i veksthus
+PJH251
+EN
+5
+Postharvest - Lagring av frukt og grønt
+PJH341
+EN
+10
+Semesteroppgave i planteproduksjon
+PJH360
+NO
+5
+Sykdommer, skadedyr og ugras i jord- og hagebruk
+PLV200
+NO
+15
+Plantevern i grøntanlegg
+PLV210
+NO
+10
+Plantepatologi og resistensforedling
+PLV321
+EN
+10
+Biologisk kontroll -Samspill mellom insekter, planter og naturlige fiender
+PLV330
+EN
+5
+Ugras - biologi og samspill med kulturvekster
+PLV340
+NO
+5
+NOVA ph.d.-kurs i plantepatologi
+PLV420
+EN
+5
+Undervisning av realfag
+PPFD201
+NO
+5
+Fagdidaktikk i realfag
+PPFD300
+NO
+30
+Fagdidaktikk i realfag - LUR
+PPFD301
+NO
+25
+Fagdidaktikk
+PPFD304
+NO
+15
+Personlig utvikling
+PPFO100
+NO
+5
+Innføring i utdanningsvitenskapelige forskningsmetoder
+PPFO301
+NO
+15
+Forskningsmetoder i utdanningsforskning
+PPFO302
+NO
+15
+Forskerens egen utvikling
+PPFO402
+NO
+10
+Fagdidaktikk i realfag, yrkesdidaktikk i naturbruk
+PPFY300
+NO
+30
+Videreutdanning i matematikk 1 - kalkulus med matematikkdidaktikk
+PPMD110
+NO
+15
+Videreutdanning i matematikk 1 - Matematisk logikk, sannsynlighet og statistikk, med matematikkdidaktikk
+PPMD130
+NO
+15
+Videreutdanning i matematikk 2 - Lineær algebra og geometri med matematikkdidaktikk
+PPMD231
+NO
+15
+Videreutdanning i matematikk 2 - Problemløsing, tallteori og matematikkdidaktikk
+PPMD240
+NO
+15
+Skolestart og elevrelasjoner
+PPPE201
+NO
+5
+Pedagogikk
+PPPE300
+NO
+30
+Pedagogikk - LUR
+PPPE301
+NO
+25
+Elev, skole og samfunn i naturbruk
+PPPE302
+NO
+30
+Pedagogikk
+PPPE303
+NO
+15
+Praksisopplæring i 3. studieår LUR
+PPRA201
+NO
+
+Praksisopplæring
+PPRA300
+NO
+
+Praksisopplæring - LUR
+PPRA301
+NO
+
+Praksisopplæring
+PPRA302
+NO
+
+Perspektiver i naturfag- og teknologididaktikk
+PPUB401
+EN
+5
+Universitetspedagogikk for vitenskapelig ansatte
+PPUN400
+NO
+10
+Fordypning i realfagsdidaktikk
+PPUT301
+NO
+20
+Fagdidaktiske perspektiver og teorier
+PPUT302
+
+15
+Veiledningspedagogikk 1
+PPVE200
+NO
+15
+Veiledningspedagogikk 2
+PPVE210
+NO
+15
+Veiledning av master- og doktorgradstudenter
+PPVE400
+EN
+5
+Innføring i profesjonsfag og praksis
+PPXP100
+NO
+10
+Tverrfaglig undervisning
+PPXP301
+NO
+10
+Ledelse av læringsprosesser i naturbruk
+PPYD300
+NO
+30
+Innføringsemne for øvingslærere
+PPØV100
+NO
+5
+Praksisbasert læring for by- og regionplanleggere
+PRAK200
+NO
+30
+Praksisbasert læring for landskapsplanleggere
+PRAK202
+NO
+30
+Praksisbasert læring for master i eiendom og eiendomsutvikling
+PRAK203
+NO
+5
+Økologisk landbruk
+PØL100
+NO
+5
+Nukleær industri, anlegg og aktiviteter
+RAD200
+EN
+5
+Atomberedskap
+RAD205
+EN
+5
+Radioaktivitet og strålevern
+RAD210
+EN
+10
+Nukleær dekommisjonering og miljøsanering
+RAD300
+EN
+5
+Radiokjemi og analyse av radionuklider
+RAD310
+EN
+10
+Radioaktivitet i miljøet
+RAD320
+EN
+10
+Eksperimentell radioøkologi
+RAD325
+EN
+5
+Poster på en konferanse
+REALTEK411
+NO
+1
+Muntlig presentasjon på en konferanse
+REALTEK412
+NO
+2
+Populærvitenskapelig artikkel
+REALTEK413
+EN
+2
+Reiseliv
+REIS200
+EN
+5
+Introduksjon til masterstudier i naturbasert reiseliv
+REIS202
+NO
+15
+Naturveiledning
+REIS210
+NO
+5
+Naturbasert reiseliv
+REIS300
+EN
+10
+Besøksforvaltning i frilufts- og verneområder
+REIS320
+NO
+5
+Arbeidslivserfaring i naturbasert reiseliv
+REIS370
+NO
+10
+Bærekraftige matproduksjonssystemer
+SDG200
+NO
+5
+Klimagasser fra plante- og husdyrproduksjoner
+SDG201
+NO
+5
+Sosialt bærekraftige nærmiljø/lokalsamfunn
+SDG250
+NO
+5
+Bærekraftsmål og redesign av matsystemer
+SDG300
+EN
+5
+Klimakalkulatorer for plante- og husdyrproduksjoner
+SDG301
+NO
+5
+Kritisk realisme i miljø- utviklings- og planforskning
+SDP416
+EN
+5
+Bymorfologi som tverrfaglig tilnærming til studier i byplanlegging og byutvikling
+SDP420
+NO
+5
+Eiendomsteori
+SDP424
+EN
+5
+Eiendomsteori med fordypningsmodul
+SDP425
+EN
+7.5
+Skogforvaltning
+SKOG100
+NO
+10
+Skogteknologi
+SKOG101
+NO
+5
+Innføring i skogforvaltning
+SKOG102
+NO
+5
+Skogens biologi, økologi og produksjon
+SKOG200
+NO
+5
+Skader og sykdommer på skogstrær
+SKOG201
+NO
+5
+Betydningen av insekter og sopper i produksjonsskog
+SKOG202
+NO
+5
+Inventering og ressurskartlegging
+SKOG205
+NO
+5
+Skogprodukter og materialteknologi
+SKOG210
+NO
+5
+Skogbehandling
+SKOG220
+NO
+10
+Ressursøkonomi og planlegging i skogbruket
+SKOG230
+NO
+10
+Skoglig driftsteknikk og logistikk
+SKOG240
+NO
+10
+Skogforvaltning - øvingskurs i tverrfaglig analyse
+SKOG250
+NO
+10
+Skogplanlegging
+SKOG300
+NO
+10
+Flerbruk og flerbruksplanlegging i skog
+SKOG302
+NO
+10
+Skogskjøtsel og skogproduksjon
+SKOG303
+NO
+10
+Skogøkologi
+SKOG304
+EN
+10
+Utvalgsbasert skogkartlegging
+SKOG305
+NO
+5
+Skoglig driftsteknikk og logistikk II
+SKOG340
+NO
+10
+Arbeidslivserfaring i skogfag
+SKOG370
+NO
+10
+Statistikk
+STAT100
+NO
+10
+Regresjon
+STAT200
+EN
+5
+Forsøksplanlegging og variansanalyse
+STAT210
+EN
+5
+Anvendte metoder i statistikk
+STAT340
+EN
+10
+Statistisk teori
+STAT351
+EN
+10
+Regresjon for ph.d.-studenter
+STAT402
+EN
+5
+Forsøksplanlegging og variansanalyse for ph.d.-studenter
+STAT410
+EN
+5
+Biologisk data-analyse
+STIN100
+NO
+10
+Statistisk programmering i R
+STIN300
+EN
+5
+Utvalgte emner i bioinformatikk og anvendt statistikk
+STIN370
+EN
+5
+Bygningshistorie
+TBA100
+NO
+5
+Frihåndstegning
+TBA110
+NO
+5
+Bygningsanalyse
+TBA150
+NO
+5
+Trehus med bærekraft
+TBA190
+NO
+10
+Geoteknikk
+TBA201
+NO
+5
+Bærekraftig materialbruk
+TBA202
+NO
+5
+Bygningsfysikk med bærekraft
+TBA210
+NO
+10
+Strukturell analyse
+TBA215
+EN
+10
+Konstruksjonsteknikk stål og tre
+TBA222
+NO
+5
+Konstruksjonsteknikk betong
+TBA223
+NO
+5
+Konstruksjonsteknikk II Bygg
+TBA224
+EN
+10
+Bygningsadministrasjon og prosjektledelse
+TBA270
+NO
+10
+Bygningsadministrasjon og prosjektledelse
+TBA270D
+NO
+5
+Konstruksjonsteknikk III Bygg
+TBA320
+EN
+10
+Bygningsfysisk simulering
+TBA331
+NO
+10
+Trekonstruksjonsteknikk
+TBA390
+EN
+10
+Fasthetslære og grunnleggende beregningsteknikk
+TBM120
+EN
+10
+Materialteknologi
+TBM200
+NO
+10
+Elementmetoden
+TBM350
+EN
+10
+Elektronisk prototyping
+TEL100
+NO
+5
+Introduksjon til robotikk
+TEL200
+EN
+10
+Robotprogrammering
+TEL211
+EN
+10
+Reguleringsteknikk og automasjon
+TEL240
+NO
+10
+Sensorer og Målesystemer
+TEL260
+EN
+5
+Mobile roboter og navigasjon
+TEL280
+EN
+10
+Probabilistisk Robotikk
+TEL310
+EN
+10
+Innebygde systemer
+TEL320
+EN
+10
+Mekatronikk
+TEL330
+EN
+10
+Spesielle Emner i Anvendt Robotikk
+TEL390
+EN
+10
+Test timeplan oppmøte
+TEST-TP-OPPM
+
+
+Test digital eksamen - nytt navn
+TEST102
+
+
+Kommunalteknikk
+THT100
+NO
+5
+Bærekraftig overvannshåndtering
+THT200
+NO
+7.5
+Hurtigmetoder for måling av miljøtekniske parametre, laboratoriekurs
+THT201
+NO
+5
+Strømning i kanaler og vassdrag
+THT211
+NO
+5
+Innføring i vann- og avløpssystemer
+THT261
+NO
+10
+Innføring i renseteknologi for vann og avløp
+THT271
+EN
+10
+Desentraliserte avløpssystemer
+THT280
+NO
+10
+Prosesser for ressursgjenvinning fra avfall i sirkulær bioøkonomi
+THT291
+EN
+5
+Forvaltning av urban vanninfrastruktur
+THT301
+EN
+7.5
+Analyse og design av drikkevannsnett
+THT302
+EN
+7.5
+Analyse og design av systemer for avløp og overvann
+THT303
+NO
+7.5
+Analyse og design av renseprosesser for vann og avløp
+THT310
+EN
+10
+Renseteknologi- vann og avløp: spesielle emner
+THT311
+EN
+10
+Vannforvaltning i endrede forhold
+THT313
+EN
+5
+Bærekraftsanalyser av VA-sektoren
+THT320
+EN
+5
+Forberedelse til masteroppgaven
+THT390
+NO
+5
+Legemiddellovgivning
+TILLML06
+NO
+3
+Digital produksjon og designteknologi 1
+TIN100
+NO
+5
+Digital produksjon og designteknologi 2
+TIN200
+NO
+5
+Digital produksjon og designteknologi 3 (spesialisering)
+TIN300
+EN
+5
+Idéutvikling og idéverifisering
+TIN301
+NO
+5
+Industriell innovasjon og teknologi
+TIP100
+NO
+5
+Moderne verkstedteknikk, innføringsemne
+TIP150
+NO
+5
+Produktutvikling og produktdesign med 3D
+TIP200
+NO
+10
+Konsept og produktrealisering
+TIP300
+EN
+10
+Rask utvikling og teknisk innovasjon
+TMP100
+NO
+5
+Teknisk design
+TMP160
+NO
+5
+Maskinelementer og effektoverføringssystemer
+TMP220
+NO
+10
+Varme og strømningssimulering
+TMP261
+EN
+10
+Maskin- og produktutvikling
+TMP320
+NO
+10
+Presisjonslandbruk og sensorteknologi
+TMPA210
+NO
+5
+Park- og grøntanleggsteknikk, nyanlegg og skjøtsel
+TMPA220
+NO
+10
+Smart Farming Boot Camp
+TMPA230
+EN
+5
+Separasjonsteknikk
+TMPP251
+NO
+10
+Energi og prosessteknikk hovedkurs
+TMPP350
+NO
+10
+Innføring i fluidmekanikk
+TPS200
+NO
+10
+Treteknologi I
+TRE200
+NO
+5
+Trelastindustri
+TRE210
+NO
+10
+Treteknologi II
+TRE300
+NO
+10
+Systemtenkning og transfaglig samhandling
+UASFS300
+EN
+5
+Transfaglig samarbeid og innovasjon i praksis
+UASFS301
+EN
+10
+Hydrologi
+VANN200
+NO
+10
+Ferskvannsøkologi
+VANN210
+NO
+10
+Limnologiske metoder
+VANN211
+NO
+5
+Vannressurser og vannforsyning
+VANN220
+NO
+5
+Vannforurensning
+VANN300
+NO
+10
+Tiltaksplanlegging i vannforvaltning
+VANN310
+EN
+10
+Offentlig veterinærmedisin
+VET319
+NO
+4.5
+Forsøksplanlegging og oppgaveskrivning
+VET320
+NO
+1.5
+Smittevern
+VET322
+NO
+1.5
+Fordypningsoppgave
+VET324
+NO
+15
+Fordypningsoppgave
+VET325
+NO
+20
+Prosjektoppgave
+VET326
+NO
+40
+Differensiering i produksjonsdyrmedisin og mattrygghet
+VET328
+NO
+36.5
+Differensiering i smådyrmedisin
+VET329
+NO
+36.5
+Differensiering i hestemedisin
+VET330
+NO
+36.5
+Differensiering i akvamedisin
+VET331
+NO
+31.5
+Prosjektrelatert retning
+VET332
+NO
+11.5
+Vilt og eksotiske dyr
+VET340
+EN
+1
+Klinisk kommunikasjon, psykisk helse og klinikkdrift
+VET342
+NO
+1.5
+Husdyrets grunnleggende behov og miljø
+VET350
+NO
+4
+Husdyrpraksis
+VET350B
+NO
+
+Virveldyrets oppbygging og funksjon
+VET351
+NO
+20
+Profesjonslære
+VET352
+NO
+33
+Profesjonslære A
+VET352A
+NO
+16
+Dyrevelferd
+VET353
+NO
+9
+Dyrevelferd A
+VET353A
+NO
+9
+Organsystemer 1
+VET354A
+NO
+21
+Ernæring og metabolisme
+VET354B
+NO
+9
+Organsystemer 2
+VET355
+NO
+16.5
+Grunnleggende sykdomslære
+VET356
+NO
+13.5
+Veterinær mikrobiologi
+VET357
+NO
+16.5
+Farmakologi og toksikologi
+VET358
+NO
+10.5
+Sykdommer i organsystemer 1
+VET359
+NO
+24
+Sykdommer i organsystemer 2
+VET360
+NO
+25.5
+Systemiske og alvorlig smittsomme sykdommer
+VET361
+NO
+7.5
+Besetningsmedisin og ernæring
+VET362
+
+15
+Vilt og eksotiske dyr
+VET363
+NO
+2
+Mattrygghet
+VET364
+NO
+10.5
+Innledende klinikk og diagnostikk
+VET365
+NO
+10.5
+Smådyrmedisin 1
+VET366A
+
+21
+Hestemedisin 1
+VET367A
+
+9
+Produksjonsdyrmedisin og akvamedisin 1
+VET368A
+
+22.5
+Patologi 1
+VET369A
+NO
+6
+Statistikk og epidemiologi
+VET380
+NO
+5
+Litteraturstudie
+VET381
+NO
+12
+Introduksjon til etiske og vitenskapsfilosofiske perspektiver i biomedisinsk forskning
+VET400
+EN
+5
+Vitenskapelig publisering
+VET403
+EN
+2
+Introduksjon til veterinær epidemiologi
+VET411
+EN
+7.5
+Skriving av ph.d. avhandling
+VET420
+NO
+2
+Midtveisevaluering
+VET421
+NO
+3
+Primærproduksjon - akvakultur og fiskeri
+VU-AQF200
+EN
+7.5
+Bærekraftig foretaksfinans
+VU-BUS221
+NO
+7.5
+Fysikk og natur
+VU-FYS100D
+NO
+10
+Bærekraftig massehåndtering og deponering
+VU-GEO280
+NO
+5
+Innovasjon og forretningsutvikling
+VU-INN310
+NO
+7.5
+Bærekraftig forretningsmodellinnovasjon A
+VU-INN361F
+NO
+5
+Bærekraftig forretningsmodellinnovasjon B
+VU-INN362F
+NO
+10
+Innføringskurs i klimagasser fra landbruket
+VU-KLI201
+NO
+5
+Spesialiseringskurs i klimagasser fra landbruket
+VU-KLI301
+NO
+5
+Tverrfaglig konsekvensutredning
+VU-MINA350
+NO
+5
+Videreutdanning i matematikk 2 - Lineær algebra og matematikkdidaktikk
+VU-PPMD230
+NO
+15
+Videreutdanning i matematikk 2 - Problemløsing, tallteori og matematikkdidaktikk
+VU-PPMD240
+NO
+15
+Universitetspedagogikk for ansatte med undervisningsoppgaver
+VU-PPUN300
+NO
+10
+Nukleær dekommisjonering og miljøsanering
+VU-RAD300
+EN
+5
+Storfepraksis for veterinærer – Klauvhelse, miljø og oppstalling
+VU-VET311
+NO
+2.5
+Storfepraksis for veterinærer – Jurhelse
+VU-VET312
+NO
+2.5
+Feltobduksjon av småfe for praktiserende veterinærer
+VU-VET322
+NO
+3
+Besetningsmedisin gris – modulkurs for produksjonsdyrveterinærer
+VU-VET340
+NO
+10
+Generell zoologi
+ZOOL100
+NO
+5
+Virveldyr
+ZOOL210
+NO
+10
+Insekter og edderkoppdyr
+ZOOL220
+5
+Insekters fysiologi og økologi
+ZOOL240
+EN
+10
+Atferdsøkologi
+ZOOL250
+NO
+10
+Insektøkologi og -forskning
+ZOOL300
+EN
+10
+Atferds- og populasjonsøkologi
+ZOOL310
+EN
+10
