@@ -1,0 +1,22 @@
+<svg width="460" height="300" viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background circles (slightly overlapped by chat) -->
+  <circle cx="360" cy="120" r="80" fill="oklch(0.828 0.189 84.429)" opacity="0.5"></circle>
+  <circle cx="380" cy="210" r="65" fill="oklch(0.646 0.222 41.116)" opacity="0.45"></circle>
+
+  <!-- Chat container -->
+  <rect x="40" y="40" width="300" height="220" rx="22" fill="white" stroke="oklch(0.922 0 0)" stroke-width="2"></rect>
+
+  <!-- Message 1 – Question -->
+  <rect x="65" y="70" width="210" height="26" rx="13" fill="oklch(0.708 0 0)"></rect>
+
+  <!-- Message 2 – Answer (green) -->
+  <rect x="120" y="110" width="210" height="28" rx="14" fill="oklch(0.6 0.118 184.704)"></rect>
+
+  <!-- Message 3 – Follow-up question -->
+  <rect x="80" y="150" width="180" height="24" rx="12" fill="oklch(0.708 0 0)"></rect>
+
+  <!-- Message 4 – Longer answer (green, taller) -->
+  <rect x="110" y="185" width="220" height="46" rx="18" fill="oklch(0.6 0.118 184.704)"></rect>
+
+</svg>
