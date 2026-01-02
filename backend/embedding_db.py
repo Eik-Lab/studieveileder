@@ -1,8 +1,6 @@
 import os
-import uuid
 from pathlib import Path
 from typing import List
-import numpy as np
 from openai import OpenAI
 from supabase import create_client, Client
 from dotenv import load_dotenv
@@ -16,8 +14,10 @@ supabase: Client = create_client(
 )
 
 EMBEDDING_MODEL = "text-embedding-3-small"
-CHUNK_SIZE = 1200
-OVERLAP = 200
+CHUNK_SIZE = 1600
+OVERLAP = 250
+
+total_chunks = 0
 
 
 def read_file(path: Path) -> str:
@@ -37,6 +37,7 @@ def chunk_text(text: str) -> List[str]:
 
 
 def get_embeddings(texts: List[str]) -> List[List[float]]:
+    print(f"embedding {len(texts)} chunks")
     r = openai_client.embeddings.create(
         model=EMBEDDING_MODEL,
         input=texts,
@@ -45,29 +46,35 @@ def get_embeddings(texts: List[str]) -> List[List[float]]:
 
 
 def store_embeddings(chunks: List[str], embeddings: List[List[float]], source: str):
+    global total_chunks
     rows = []
     for text, emb in zip(chunks, embeddings):
         rows.append(
             {
-                "id": str(uuid.uuid4()),
-                "content": text,
+                "text": text,
                 "embedding": emb,
                 "source": source,
             }
         )
     supabase.table("embeddings").insert(rows).execute()
+    total_chunks += len(rows)
+    print(f"stored {len(rows)} chunks | total {total_chunks}")
 
 
 def process_folder(folder: str):
     for path in Path(folder).rglob("*"):
         if path.is_file():
+            print(f"processing {path}")
             text = read_file(path)
             chunks = chunk_text(text)
             if not chunks:
+                print("no chunks, skipped")
                 continue
+            print(f"{len(chunks)} chunks created")
             embeddings = get_embeddings(chunks)
-            store_embeddings(chunks, embeddings, str(path))
+            source_name = path.stem
+            store_embeddings(chunks, embeddings, source_name)
 
 
 if __name__ == "__main__":
-    process_folder("parsing-python/subject_contents")
+    process_folder("parsing-python/related_documents")
