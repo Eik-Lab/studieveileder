@@ -1,6 +1,6 @@
 import os
 import re
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from openai import OpenAI
 from supabase import create_client, Client
 from dotenv import load_dotenv
@@ -14,7 +14,8 @@ supabase: Client = create_client(
 )
 
 SESSION = {
-    "current_study": None
+    "current_study": None,
+    "current_emne": None
 }
 
 EMNEKODE_REGEX = re.compile(r"\b[A-ZÆØÅ]{2,4}\d{3,4}\b")
@@ -32,40 +33,122 @@ def extract_study_mentions(question: str) -> List[str]:
     return [s for s in studies if s.lower() in q]
 
 
+def classify_exam_failure(question: str) -> str:
+    q = question.lower()
+    if any(w in q for w in ["hvor mange", "antall", "maks", "grense"]):
+        return "exam_rules_specific"
+    return "exam_rules_general"
+
+
 def classify_intent(question: str, emnekoder: List[str], studies: List[str]) -> str:
     q = question.lower()
+    if any(w in q for w in ["stryker", "strøket", "ikke består", "konte", "kontinuasjon", "ny eksamen"]):
+        return classify_exam_failure(question)
+    if len(studies) >= 2:
+        return "study_comparison"
     if studies:
         return "study_overview"
-    if any(w in q for w in ["hva er", "forklar", "betyr", "konsept", "teori"]):
-        return "concept_explanation"
     if emnekoder:
         return "specific_emne"
+    if any(w in q for w in ["hva er", "forklar", "betyr", "konsept", "teori"]):
+        return "concept_explanation"
     return "general"
 
 
-def fetch_emner(emnekoder: List[str]) -> List[str]:
-    if not emnekoder:
-        return []
+def fetch_emne_block(emnekode: str) -> Optional[str]:
     r = (
         supabase.table("emner")
         .select("*")
-        .in_("emnekode", emnekoder)
+        .eq("emnekode", emnekode)
+        .single()
         .execute()
+        .data
     )
+    if not r:
+        return None
+    return "\n".join(
+        [
+            "[EMNE]",
+            f"Emnekode: {r.get('emnekode')}",
+            f"Navn: {r.get('navn')}",
+            f"Forkunnskaper: {r.get('forkunnskapskrav')}",
+            f"Vurdering: {r.get('vurdering')}",
+        ]
+    )
+
+
+def fetch_exam_rules_context(query: str) -> List[str]:
+    try:
+        emb = openai_client.embeddings.create(
+            model="text-embedding-3-small",
+            input=query
+        ).data[0].embedding
+
+        r = supabase.rpc(
+            "match_embeddings",
+            {
+                "query_embedding": emb,
+                "match_count": 5
+            },
+        ).execute()
+
+        blocks = []
+        for row in r.data or []:
+            src = (row.get("source") or "").lower()
+            if any(k in src for k in ["konte", "eksamen", "vurdering"]):
+                blocks.append(f"[REGLER]\n{row.get('text')}")
+        return blocks
+    except Exception:
+        return []
+
+
+def trim_context(blocks: List[str]) -> str:
+    out, total = [], 0
+    for b in blocks:
+        if total + len(b) > MAX_CONTEXT_CHARS:
+            break
+        out.append(b)
+        total += len(b)
+    return "\n\n".join(out)
+
+
+def build_context(question: str) -> Tuple[str, str, Optional[str]]:
+    emnekoder = extract_emnekoder(question)
+    studies = extract_study_mentions(question)
+    intent = classify_intent(question, emnekoder, studies)
+
+    if emnekoder:
+        SESSION["current_emne"] = emnekoder[0]
+    if studies:
+        SESSION["current_study"] = studies[0]
+
     blocks = []
-    for e in r.data or []:
-        blocks.append(
-            "\n".join(
-                [
-                    "[EMNE]",
-                    f"Emnekode: {e.get('emnekode')}",
-                    f"Navn: {e.get('navn')}",
-                    f"Forkunnskaper: {e.get('forkunnskapskrav')}",
-                    f"Vurdering: {e.get('vurdering')}",
-                ]
-            )
-        )
-    return blocks
+
+    if intent in {"exam_rules_general", "exam_rules_specific"}:
+        emne = emnekoder[0] if emnekoder else SESSION["current_emne"]
+        if not emne:
+            return "", "clarify_emne", None
+        emne_block = fetch_emne_block(emne)
+        if emne_block:
+            blocks.append(emne_block)
+        blocks.extend(fetch_exam_rules_context(question))
+        return trim_context(blocks), intent, emne
+
+    if intent == "study_overview":
+        for s in studies:
+            blocks.extend(fetch_study_structure(s))
+
+    elif intent == "specific_emne":
+        for e in emnekoder:
+            block = fetch_emne_block(e)
+            if block:
+                blocks.append(block)
+
+    elif SESSION["current_study"]:
+        blocks.extend(fetch_study_structure(SESSION["current_study"]))
+        intent = "study_followup"
+
+    return trim_context(blocks), intent, None
 
 
 def fetch_study_structure(study_name: str) -> List[str]:
@@ -116,85 +199,31 @@ def fetch_study_structure(study_name: str) -> List[str]:
     return blocks
 
 
-def fetch_embeddings(query: str, k: int = 6) -> List[str]:
-    try:
-        emb = openai_client.embeddings.create(
-            model="text-embedding-3-small",
-            input=query
-        ).data[0].embedding
-        r = supabase.rpc(
-            "match_embeddings",
-            {"query_embedding": emb, "match_count": k},
-        ).execute()
-        blocks = []
-        for row in r.data or []:
-            blocks.append(f"[KILDE: {row.get('source')}]\n{row.get('text')}")
-        return blocks
-    except Exception:
-        return []
-
-
-def trim_context(blocks: List[str]) -> str:
-    out, total = [], 0
-    for b in blocks:
-        if total + len(b) > MAX_CONTEXT_CHARS:
-            break
-        out.append(b)
-        total += len(b)
-    return "\n\n".join(out)
-
-
-def build_context(question: str) -> Tuple[str, str]:
-    emnekoder = extract_emnekoder(question)
-    studies = extract_study_mentions(question)
-    if studies:
-        SESSION["current_study"] = studies[0]
-    intent = classify_intent(question, emnekoder, studies)
-    blocks = []
-    if intent == "study_overview":
-        for s in studies:
-            blocks.extend(fetch_study_structure(s))
-    elif SESSION["current_study"]:
-        blocks.extend(fetch_study_structure(SESSION["current_study"]))
-        intent = "study_followup"
-    elif emnekoder:
-        blocks.extend(fetch_emner(emnekoder))
-        blocks.extend(fetch_embeddings(question, k=4))
-    else:
-        blocks.extend(fetch_embeddings(question, k=6))
-    return trim_context(blocks), intent
-
-
 SYSTEM_PROMPT = """
 Du er en studieveileder ved et universitet.
 
-Hvis spørsmålet handler om et STUDIE:
-- List spesialiseringer dersom de finnes
-- Forklar hvilke fag som inngår
-- Skill tydelig mellom fellesemner og spesialiseringsemner
-
-Hvis dette er et OPPFØLGINGSSPØRSMÅL:
-- Anta at brukeren refererer til samme studie som tidligere
-- Ikke bytt kontekst
-- Ikke bruk informasjon fra andre studier
-
 Regler:
 - Bruk kun informasjonen i konteksten
-- Ikke gjett eller improviser
-- Bruk emnekode og emnenavn når fag omtales
+- Ikke anta studie eller spesialisering uten grunnlag
+- Bruk emnekode og emnenavn eksplisitt
+- Ved eksamens- og konte-spørsmål: svar kun ut fra reglene i konteksten
+- Hvis informasjon mangler, si det tydelig
 - Norsk språk
-
-Hvis du får spørsmål som krever spesifikke handlinger, må du fortelle brukeren at de skal ta kontakt med studieveileder for ditt fakultet.
 """
 
 
 def get_answer(question: str) -> str:
-    context, intent = build_context(question)
+    context, intent, _ = build_context(question)
+
+    if intent == "clarify_emne":
+        return "Hvilket emne gjelder spørsmålet?"
+
     user_prompt = (
         f"KONTEKST:\n{context}\n\n"
         f"SPØRSMÅL:\n{question}\n\n"
-        "Svar kun basert på konteksten."
+        "Svar kun basert på konteksten over."
     )
+
     r = openai_client.chat.completions.create(
         model="gpt-4o",
         messages=[

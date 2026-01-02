@@ -6,7 +6,7 @@ def fetch_single_subject(subject_code, output_dir="subject_contents"):
     """
     fetch data from url and save to a text file
     """
-    url = f"https://www.nmbu.no/studenter/kunstig-intelligens-ki-hjelpemidler-sitering-og-referering"
+    url = f"https://www.nmbu.no/studenter/eksamen"
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -27,5 +27,5 @@ def fetch_single_subject(subject_code, output_dir="subject_contents"):
         print(f"Failed: {subject_code} (status {response.status_code})")
 
 if __name__ == "__main__":
-    test_subject_code = "kunstig-intelligens-ki-hjelpemidler-sitering-og-referering"
+    test_subject_code = "eksamen"
     fetch_single_subject(test_subject_code, output_dir="related_documents")
