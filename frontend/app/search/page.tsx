@@ -102,7 +102,13 @@ export default function CourseSearch() {
   }, []);
 
   const filteredCourses = courses
-    .filter((c) => c.navn.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter((c) => {
+      const q = searchTerm.toLowerCase().trim();
+      return (
+        c.navn.toLowerCase().includes(q) ||
+        c.kode.toLowerCase().includes(q)
+      );
+    })
     .filter((c) => selectedFaculty === "Alle" || c.fakultet === selectedFaculty)
     .filter((c) => selectedSemester === "Alle" || c.semester === selectedSemester)
     .filter((c) => selectedStudiepoeng === "Alle" || c.studiepoeng === Number(selectedStudiepoeng))
