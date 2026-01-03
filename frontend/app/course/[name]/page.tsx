@@ -50,7 +50,7 @@ async function fetchCourse(kode: string): Promise<{ course: Course | null; error
     const result = await apiClient.get<{ success: boolean; data: any }>(
       `/api/course/${encodeURIComponent(kode)}`,
       {
-        timeout: 5000, 
+        timeout: 45000, 
         cache: "no-store" // Always fetch fresh data
       }
     );

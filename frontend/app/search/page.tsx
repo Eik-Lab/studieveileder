@@ -78,7 +78,7 @@ export default function CourseSearch() {
       try {
         const result = await apiClient.get<{ success: boolean; data: any[] }>(
           "/api/courses",
-          { timeout: 5000 } 
+          { timeout: 45000 } 
         );
 
         if (result.success && result.data) {

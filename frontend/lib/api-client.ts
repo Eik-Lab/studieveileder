@@ -3,7 +3,14 @@
  */
 
 const DEFAULT_TIMEOUT = 30000; // 30 seconds
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE_URL =
+  typeof window === "undefined"
+    ? process.env.API_BASE_URL
+    : process.env.NEXT_PUBLIC_API_BASE_URL;
+
+if (!API_BASE_URL) {
+  throw new Error("API_BASE_URL is not defined");
+}
 
 export class TimeoutError extends Error {
   constructor(message: string) {
