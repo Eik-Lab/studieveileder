@@ -14,8 +14,10 @@ app = FastAPI(title="Studieveileder API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://www.dittstudie.no",
         "http://localhost:3000",  
-        os.getenv("FRONTEND_URL", ""),  
+        
+
     ],
     allow_credentials=True,
     allow_methods=["*"],
