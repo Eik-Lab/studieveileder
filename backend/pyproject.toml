@@ -1,10 +1,9 @@
 [project]
-requires-python = ">=3.11,<3.12"
+requires-python = "==3.11.8"
 name = "backend"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
 dependencies = [
     "bs4>=0.0.2",
     "dotenv>=0.9.9",
