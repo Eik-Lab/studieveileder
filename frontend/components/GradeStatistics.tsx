@@ -5,6 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { TrendingUp, Users, Award } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { fetchWithTimeout, isTimeoutError } from "@/lib/api-client";
 
 interface GradeData {
   grade: string;
@@ -44,14 +45,14 @@ const GradeStatistics = ({ emnekode }: GradeStatisticsProps) => {
 
         // DBH API URL
         const apiUrl = `https://dbh.hkdir.no/api/statistikk/tabell/studenter/205/${selectedYear}?institusjonsnr=1173&emnekode=${emnekode}`;
-        
+
         try {
-          const response = await fetch(apiUrl);
+          const response = await fetchWithTimeout(apiUrl, { timeout: 5000 }); 
 
           if (response.ok) {
             const apiData = await response.json();
             console.log("✓ API respons:", apiData);
-            
+
             if (apiData && apiData.data && apiData.data.length > 0) {
               const parsedStats = parseDBHData(apiData, selectedYear.toString());
               setStats(parsedStats);
@@ -59,7 +60,11 @@ const GradeStatistics = ({ emnekode }: GradeStatisticsProps) => {
             }
           }
         } catch (err) {
-          console.log("API-feil, bruker mock data");
+          if (isTimeoutError(err)) {
+            console.log("API timeout, bruker mock data");
+          } else {
+            console.log("API-feil, bruker mock data");
+          }
         }
 
         // Fallback til mock data

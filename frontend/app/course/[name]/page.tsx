@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { apiClient, isTimeoutError } from "@/lib/api-client";
 
 interface Course {
   kode: string;
@@ -46,26 +47,26 @@ const mapCourseData = (raw: any): Course => ({
 
 async function fetchCourse(kode: string): Promise<{ course: Course | null; error: string | null }> {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-    const response = await fetch(`${backendUrl}/api/course/${encodeURIComponent(kode)}`, {
-      cache: "no-store", // Always fetch fresh data
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return { course: null, error: `Emnet "${kode}" ble ikke funnet i databasen` };
+    const result = await apiClient.get<{ success: boolean; data: any }>(
+      `/api/course/${encodeURIComponent(kode)}`,
+      {
+        timeout: 5000, 
+        cache: "no-store" // Always fetch fresh data
       }
-      const errorData = await response.json().catch(() => ({}));
-      return { course: null, error: errorData.detail || `Backend error: ${response.status}` };
-    }
+    );
 
-    const result = await response.json();
     if (result.success && result.data) {
       return { course: mapCourseData(result.data), error: null };
     }
 
     return { course: null, error: "Ingen data mottatt fra backend" };
   } catch (err: any) {
+    if (isTimeoutError(err)) {
+      return { course: null, error: "Forespørselen tok for lang tid. Prøv igjen senere." };
+    }
+    if (err.message?.includes("404")) {
+      return { course: null, error: `Emnet "${kode}" ble ikke funnet i databasen` };
+    }
     return { course: null, error: `Kunne ikke koble til backend: ${err.message}` };
   }
 }

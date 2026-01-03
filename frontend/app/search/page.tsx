@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { apiClient, isTimeoutError } from "@/lib/api-client";
 
 interface Course {
   kode: string;
@@ -75,14 +76,11 @@ export default function CourseSearch() {
       setLoading(true);
       setError(null);
       try {
-        const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-        const response = await fetch(`${backendUrl}/api/courses`);
+        const result = await apiClient.get<{ success: boolean; data: any[] }>(
+          "/api/courses",
+          { timeout: 5000 } 
+        );
 
-        if (!response.ok) {
-          throw new Error(`Backend error: ${response.status}`);
-        }
-
-        const result = await response.json();
         if (result.success && result.data) {
           const mapped = result.data.map(mapCourseData);
           setCourses(mapped);
@@ -90,7 +88,11 @@ export default function CourseSearch() {
           setError("Ingen data mottatt fra backend");
         }
       } catch (err: any) {
-        setError(err.message || "Kunne ikke hente emner fra backend");
+        if (isTimeoutError(err)) {
+          setError("Forespørselen tok for lang tid. Prøv igjen senere.");
+        } else {
+          setError(err.message || "Kunne ikke hente emner fra backend");
+        }
       } finally {
         setLoading(false);
       }

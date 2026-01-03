@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Bot, User, AlertCircle } from "lucide-react";
+import { apiClient, isTimeoutError } from "@/lib/api-client";
 
 interface Message {
   id: string;
@@ -59,18 +60,12 @@ export default function Advisor() {
     setIsTyping(true);
 
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-      const res = await fetch(`${backendUrl}/api/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: content })
-      });
+      const data = await apiClient.post<{ answer: string }>(
+        "/api/chat",
+        { query: content },
+        { timeout: 10000 } 
+      );
 
-      if (!res.ok) {
-        throw new Error(`Backend error: ${res.status}`);
-      }
-
-      const data = await res.json();
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
@@ -83,7 +78,9 @@ export default function Advisor() {
       const errorMessage: Message = {
         id: (Date.now() + 2).toString(),
         role: "assistant",
-        content: "Kunne ikke koble til backend. Prøv igjen senere.",
+        content: isTimeoutError(err)
+          ? "Forespørselen tok for lang tid. Prøv igjen med et enklere spørsmål."
+          : "Kunne ikke koble til backend. Prøv igjen senere.",
         timestamp: Date.now()
       };
       setMessages((prev) => [...prev, errorMessage]);
