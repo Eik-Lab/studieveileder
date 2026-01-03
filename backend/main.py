@@ -15,7 +15,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://www.dittstudie.no",
-        "http://localhost:3000",  
+        "https://dittstudie.no",
+        "http://localhost:3000", 
         
 
     ],
