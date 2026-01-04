@@ -69,10 +69,10 @@ export default function GradeStatistics({ emnekode }: GradeStatisticsProps) {
         prosent_d: number;
         prosent_e: number;
         prosent_f: number;
-      }>("/api/grades", {
-        params: { emnekode, year: selectedYear },
-        cache: "no-store",
-      });
+      }>(
+        `/api/grades?emnekode=${encodeURIComponent(emnekode)}&year=${selectedYear}`,
+        { cache: "no-store" }
+      );
 
       const prosent = {
         A: res.prosent_a ?? 0,
