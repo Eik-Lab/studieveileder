@@ -1,0 +1,260 @@
+Gradsoppgave ved NMBU
+bacheloroppgave og masteroppgaver
+Oppmeldingfrist
+Høstsemesteret: 15. september
+Vårsemesteret: 1. februar
+WISEflow åpnes for innlevering
+Høstsemesteret: 7. november
+Vårsemesteret: 7. april
+Innleveringsfrist
+Høstsemesteret:
+15. desember kl. 12.00
+Vårsemesteret:
+15. mai kl. 12.00
+Sjekkliste ved innlevering av gradsoppgave
+Ferdigstille oppgaven
+Husk at oppgaven med NMBU forside, bakside og evt. vedlegg må være lagt i én PDF-fil (se hvordan slå sammen PDF-filer). Du skal ikke levere trykte eksemplarer av oppgaven din.
+Benytt NMBUs mal for for- og bakside av gradsoppgave
+Maksimal størrelse på oppgaven
+Oppgavens maks størrelse ("Besvarelse" i WISEflow) er 100 MB
+Slå sammen PDF-filer
+Last ned fil med riktig NMBUs maler for gradsoppgavens forside og bakside.
+Ferdigstill forside av din gradsoppgave (skriv inn informasjon om ditt fakultet, navn og studieprogram, og skriv oppgavetittel på norsk og evt. på engelsk). Lagre filen i PDF format.
+Når du har skrevet ferdig hovedteksten på din gradsoppgave, eksporter eller lagre hovedteksten i PDF-filen. Det samme gjelder eventuelle vedlegg til hovedteksten.
+Legg sammen filene med forside, hovedteksten, evt. vedlegg og bakside til én sammenhengende PDF-fil med PDFsam (last ned og installer PDFsam Basic på din PC først).
+Konfidensialitet eller utsatt publisering
+Dersom gradsoppgaven skal være konfidensiell i hht. forvaltningsloven eller ha utsatt publisering inntil 5 år, må skjema for dette fylles ut. Har du spørsmål kan du kontakte fakultetet ditt.
+Les mer om klausulering og båndlegging
+lenger ned.
+Skjema:
+Konfidensiell gradsoppgave iht. forvaltningsloven
+Utsatt publisering (båndlegging) av gradsoppgave
+Vær oppmerksom på at sammendrag og tittel, som skrives inn i omslaget i WISEflow ved innlevering av konfidensiell oppgave, vil bli publisert i NMBUs vitenarkiv. Det er kun oppgaven og vedlegg som ikke publiseres.
+Ved innlevering av gradsoppgave med utsatt publisering vil sammendrag og tittel ikke publiseres før båndleggingen utløper. Alt informasjon som er skrevet inn i omslaget i WISEflow publiseres samtidig med oppgaven etter perioden for båndlegging løper ut.
+Skjemaet må fylles ut i samarbeid med veileder og det ferdig signerte skjemaet skal sendes til
+wiseflow@nmbu.no
+senest 1. april i for alle som skal levere sin oppgave i vårsemestret og 1. november for høst semestret.
+Innlevering i WISEflow
+Oppgaven leveres på følgende måte i WISEflow:
+Logg inn i WISEflow med din FEIDE (NMBU brukerkonto).
+Angi om du skriver oppgaven alene, eller sammen med en annen student.
+Hvis du skriver alene: trykk på knappen "Opprett enmannsgruppe".
+Hvis du skriver sammen med en annen student - velg "Opprett gruppe". Skriv inn gruppenavn, og velg studenten(e) som skal være med i gruppen. Studenten(e) som blir lagt til i gruppen, må logge inn i WISEflow, og bekrefte gruppen før dere får levert.
+Under "Besvarelse" last opp
+gradsoppgaven i PDF-forma
+t.
+Hak av spørsmålene i omslaget. Husk at engelsk tittel skal skrives i riktig format med store og små bokstaver for engelske titler i omslaget. Du kan benytte
+Title Case Converter
+til dette.
+Trykk den grønne knappen "Innlever".
+Ved spørsmål eller problemer med innlevering i WISEflow:
+Ta kontakt via supportskjema i NMBUhjelp
+Dette er den raskeste og beste måten å få raskt svar på.
+Mer informasjon
+Detaljert beskrivelse av innlevering av gradsoppgave i Wiseflow
+2025 (PDF)
+File upload - a WISEflow how to guide
+Publisering i NMBUs vitenarkiv (kun masteroppgave)
+Fra desember 2022 blir masteroppgaver automatisk publisert i NMBUs vitenarkiv etter innlevering og sensur i WISEflow.
+Har du spørsmål, kan du ta kontakt med
+Biblioteket
+.
+Fakultetenes sider om gradsoppgaver
+Når du skal velge gradsoppgave må du ta kontakt med studieveileder ved eget fakultet, eventuelt det fakultet som dekker det fagområdet du ønsker å jobbe med.
+Fakultet for biovitenskap -
+Gradsoppgave for BIOVITs masterstudenter
+Handelshøyskolen -
+Gradsoppgave for HHs masterstudenter
+Fakultet for kjemi, bioteknologi og matvitenskap -
+Gradsoppgave ved KBM
+Fakultet for miljøvitenskap og naturforvaltning -
+Gradsoppgave for MINAs masterstudenter
+Fakultet for realfag og teknologi -
+Gradsoppgaver for
+REALTEKs masterstudenter
+Fakultet for landskap og samfunn -
+Gradsoppgave for LANDSAMs masterstudenter
+Veterinærhøgskolen -
+Masteroppgave ved Veterinærhøgskolen
+Skrive gradsoppgave ved NMBU
+Forskningsetikk
+Personopplysninger i gradsoppgave
+Intellectual Property Rights (IPR)
+Om bachelor- og masteroppgave
+I bachelorgraden
+kan
+det inngå et selvstendig arbeid (bacheloroppgave). I mastergrad av 120 og 300 studiepoengs omfang
+skal
+det inngå selvstendig arbeid (masteroppgave). I erfaringsbasert mastergrad av 90 eller 120 studiepoengs omfang
+skal
+det inngå selvstendig arbeid (masteroppgave).
+Det selvstendige arbeidet skal være ett av følgende:
+bacheloroppgave: 15 studiepoengs omfang
+masteroppgave: 30 studiepoengs omfang
+masteroppgave: 45 studiepoengs omfang
+masteroppgave: 60 studiepoengs omfang.
+Masteroppgaven kan også være artikkelbasert.
+Retningslinjer for artikkelbasert masteroppgave
+Artikkelbaserte masteroppgaver består av to deler: en «kappe» og et artikkelutkast. Kappen skal sette artikkelen i en større sammenheng og beskriveproblemstillinger, hovedresultat og konklusjon er som presenteres i artikkelen. Kappen skal beskrive eller utdype bakgrunn, teori og metoder som det ikke er plass til å beskrive i detalj i selve artikkelen.
+Kappen bør deles inn i tre kapitler:
+1. Innledning og bakgrunn/motivasjon for studiet,
+2. metoder og
+3. resultater og diskusjon.
+Deretter følger egen litteraturliste for kappen, artikkelmanuskript med tilhørende litteraturliste, og til slutt eventuelle ekstravedlegg som er referert til i kappen.
+Masteroppgaven er et selvstendig vitenskapelig arbeid, og mastergradsstudenten skal være forfatter på artikkelutkastet alene. Dersom to studenter skriver masteroppgaven (kappe og artikkelutkast) sammen, må det redegjøres for hva hver av studentene har bidratt med i en innledning til kappen.
+Studenter og veiledere kan etter sensur sammen vurdere om artikkelutkastet eventuelt skal bearbeides videre for innsending til det valgte tidsskriftet. Veilederes medforfatterskap skal da diskuteres, men det er ikke noen automatikk i at veileder skal være medforfatter (jfr. Vancouver-retningslinjene).
+Kontrakter, maler og skjemaer
+Kontrakter, maler og skjemaer - gradsoppgave
+Skjemaer og maler
+Melding om valg av gradsoppgave
+Når student og veileder gjør avtale om valg av masteroppgave, kan dette meldes inn til fakultet som veileder er tilknyttet via skjema
+melding om valg av gradsoppgave
+. Studenten har ansvar for at skjema blir levert fakultetet innen fastsatt frist.
+Fakultetet godkjenner valg av tema og veiledere for den enkelte student.
+Klausulering og båndlegging
+Dersom masteroppgaven skal være konfidensiell eller båndlagt, se avsnitt om dette lenger ned, må skjema for slike oppgaver fylles ut i samarbeid med veileder og sendes til wiseflow@nmbu.no 4 uker før innlevering av oppgaven i WISEflow. Vær konkret i punktet for budsjett for oppgaven, og foreta klarering av hvordan utgifter til felt, laboratoriearbeid, reiser osv. er tenkt dekket.
+Samarbeid mellom studenter eller med ekstern aktør
+Ved utføring av gradsoppgave i samarbeid med bedrift eller ekstern virksomhet benyttes skjema
+Avtale om samarbeid om gradsoppgave med ekstern aktør
+. I denne avtalen reguleres bla. partenes rettigheter osv.
+Studenters deltakelse i forskningsprosjekter
+Studenter som skal delta i et forskningsprosjekt fyller inn egen avtale om dette.
+Lenke til avtale om studenters deltakelse i forskningsprosjekter
+- malen ligger under overskriften om Studenters deltakelse i forskningsprosjekter.
+Malen kan brukes når NMBU involverer en student i et forskningsprosjekt og det er behov for å regulere eierskap til resultater, forskningsdata og konfidensialitet. Prosjektet defineres som et bidragsprosjekt og forskningsprosjektets avtale sier at NMBU skal eie resultater som skapes av NMBU.
+Kontrakt for gradsoppgave
+Student og veileder skal sammen utarbeide kontrakt for gradsoppgave på fastsatt skjema.
+Studentens ansvar
+Studenten har selv ansvar for at kontrakten leveres/sendes til det fakultetet hovedveileder er tilknyttet.
+Studenten er ansvarlig for å undervisningsmelde seg til gradsoppgaven på StudentWeb
+Fakultetet innvilger undervisningsmeldingen når gyldig kontrakt foreligger. Frem til oppmeldingen er innvilget vil det stå "Avventer behandling" i Studentweb
+Studenten er ansvarlig for kontrollere at han/hun både er undervisnings- og vurderingsmeldt til gradsoppgaven innen oppmeldingsfristen - 1. februar for vårsemesteret eller 15. september for høstsemesteret. Studenten må også ha betalt semesteravgift.
+Studenten må selv sørge for oppmelding til eventuelt spesialpensum på StudentWeb innen oppmeldingsfristen - 1. februar for vårsemesteret eller 15. september for høstsemesteret.
+Studenten har selv et ansvar for å holde jevnlig kontakt med sin(e) veileder(e), samt å følge fremdrifts- og møteplan.
+Veileder og studentens felles ansvar
+Student og veileder skal sammen utarbeide fastsatt kontrakt for gradsoppgave.
+Både student og hovedveileder er gjensidig ansvarlige for at man i startfasen blir enige om rammene for veiledningsforholdet, fremdriftsplan, forventninger til og omfang av veiledningen osv. Dersom det er flere veiledere, skal det fremgå avontrakten hva slags ansvar hver enkelt veileder har.
+Når hoved- og tilleggsveileder(e) er ansatt på ulike fakultet ved NMBU, avtales det en prosentvis fordeling av veiledningsansvaret.
+Både student og veileder skal kjenne til hvilke frister som gjelder for arbeidet med gradsoppgaven og følge de oppsatte fristene. Oppfølging av fremdriftsplan er viktig for å unngå utsetting av leveringstidspunkt. Det understrekes at studenter kan få avslag på søknader om utsatt innleveringsfrist dersom det er grunner som studenten(e)/veileder burde forutsatt.
+Veileder og student skal ved kontraktinngåelse avtale en møteplan for hele veiledningsperioden, dvs. frem til avtalt innlevering. Begge parter forplikter seg til å holde møteplanen.
+Møteplanen skal: sikre jevnlig oppfølging og være realistisk, ta utgangspunkt i fremdriftsplanen og sørge for at milepælene blir nådd.
+Det bør i møteplanen planlegges minimum et oppstartsmøte, en grundig gjennomgang skriftlig og muntlig midtveis og en gjennomlesning med tilbakemelding i sluttfasen. For studenter som har datainnsamling, felt- eller laboratoriearbeid, bør det settes opp et møte etter at denne perioden er ferdig, for en gjennomgang av innsamlede data.
+Ressurser og tips
+Vi anbefaler å benytte ressursene som er tilgjengelig via biblioteket og skrivesenteret aktivt under arbeidet med å skrive gradsoppgaven. Her finner du blant annet informasjon om hvordan skrive akademiske tekster, kildehenvisning og litteraturliste, referanseverktøy, e-læring som grunnleggende krav i akademisk skriving, tips til informasjonssøking, litteratursøking og referansehåndteringsverktøyet OneNote, kurs i presentasjonsteknikk og mye annet.
+Tidligere masteroppgaver som omhandler tema med tilsvarende problemstillinger eller er skrevet på liknende tema kan gi nyttig innsikt i hvordan det skriftlige produktet skal utformes finnes i NMBUs vitenarkiv. Kontakt studieveileder ved fakultetet for tilgang til tidligere bacheloroppgaver.
+Det er ingen egen NMBU-standard for font, linjeavstand eller margbredde. Kontakt fakultet for nærmere informasjon.
+Studenten anbefales å sette seg godt inn i tilgjengelig informasjon om å skrive akademisk tekst og hvordan du refererer korrekt for å unngå å plagiere. Se skrivesenterets side om akademisk skriving og referering og gjennomgå e-læring om plagiering.
+Biblioteket
+Skivesenteret
+NMBUs vitenarkiv - publiserte masteroppgaver
+Skrive og referere
+Scientific writing Resource Portal
+Hjelpemidler, sitering og referering - unngå fusk og plagiering
+Lenke til
+Write and Cite - NMBU video om hvordan unngå plagiering tilgjengelig på Youtube
+Veiledningen
+Veileder
+Alle masterprogramstudenter har krav på å få tildelt en faglig hovedveileder i forbindelse med gjennomføringen av masteroppgaven. Fakultetet har ansvar for at den enkelte student mottar slik veiledning som studenten har krav på.
+Veileder plikter normal å gi studenten 20 timers veiledning inkludert sensurering av bacheloroppgaven. 40 timers veiledning inkludert sensurering av masteroppgaver på 30 studiepoeng, 60 timers veiledning inkludert sensurering av masteroppgaver på 45 studiepoeng og 80 timers veiledning inkludert sensurering ved 60 studiepoengs oppgave. Begge parter oppfordres til å føre tidsregnskap. Hovedveileder vil normalt være intern sensor på gradsoppgaven.
+I timene inngår alle oppgaverelaterte aktiviteter som blant annet:
+forberedelse og planlegging av oppgaven
+feltarbeid
+laboratoriearbeid
+statistikkhjelp
+gjennomlesning og tilbakemelding på manuskript
+generell kommunikasjon mellom student(er) og veileder(e).
+Om veileder skal være borte sammenhengende i en lengre periode, må det være klarert med studenten hvordan informasjon skal utveksles og hvem som kan bistå studenten i perioden veileder er borte. Det er veileders plikt å ta ansvar for at studenten har andre som kan ta del i veiledningen ved planlagt fravær.
+Veileder må sørge for å avpasse antall gradsoppgaver han/hun er veileder for i forhold til øvrige undervisningsoppgaver. Det er veileders ansvar å påse at man har den kompetansen som er nødvendig for veiledning av oppgaven, inkludert tilstrekkelig kompetanse til å veilede studenten i nødvendige statiske analyser. Veileder skal påse at det finnes biveiledere dersom deler av oppgaven er utenfor hovedveileders kompetansefelt eller dersom veileder mangler kompetanse til å gi tilstrekkelig veiledning i statistisk analyse. Dette bør avklares og innlemmes i kontrakten.
+Veileder forplikter seg til å motivere studenten til kontakt og kontinuitet i arbeidet. Veileder skal rettlede studenten i utforming av gradsoppgaven og gi faglig og metodisk tilbakemelding på arbeidet. I dette inngår også oppmerksomhet rundt forskningsetikk, metodebruk og andre aktuelle etiske og rettslige forhold (inkludert god forskningspraksis, publisering, oppdragsforskning, offentlighet og konfidensialitet samt beskyttelse av dyr, mennesker og miljø involvert i forskningen). Veiledningen skal følge studenten gjennom alle momentene i læringsmålene.
+Veiledere kan ta kontakt med skrivesenteret hvis de ønsker å bruke
+verktøyet Jing
+for å gi tilbakemeldinger på studentens oppgave.
+Studentens ansvar ved veiledning
+Dersom studenten opplever å ikke få en tilfredsstillende veiledning i tilknytning til masteroppgaven, eller det oppstår en konflikt eller mer prinsipielle motsetninger mellom student og hovedveileder, er det studentens ansvar å melde eventuelle problemer videre til fakultetet. Studenten kan kontakte studieveileder om dette.
+Spesialpensum
+Masteroppgaver kan inneholde et spesialpensum. Avtale om spesialpensum skal fremkomme av kontrakten og av fastsatt skjema, om spesialpensum, og skal inngås med veileder og godkjennes av fakultetet som hovedveileder er tilknyttet. Spesialpensum skal være på minimum 5 studiepoeng.
+Spesialpensumet kan kun knyttes til masteroppgaver, ikke bacheloroppgaver, og skal gi en faglig tilleggskompetanse for arbeidet med oppgaven. Dette kan utgjøre en større fordypning i et tema eller gi en større bredde i faget enn universitetets emner kan gi. Når spesialpensumet inngår i referanselitteraturen til masteroppgaven, må arbeidet med dette pensumet innebære en vesentlig utvidelse i forhold til hva som bør forventes av arbeid med referanselitteraturen.
+For mer informasjon om gjennomføringen av muntlig presentasjon av Spesialpensum se tema muntlig presentasjon lenger ned på siden.
+Helse, miljø og sikkerhet (HMS)
+Både student og veileder plikter å følge NMBUs regler for HMS.
+Feltarbeid
+Alle studenter som jobber i felt (inn- og utland) har selv ansvar for å inngå eventuelle forsikringsavtaler som gjelder ved ulykker under feltperioden. Studenten har selv ansvar for kontakt med egnet helsepersonell og må sørge for vaksinering før og under feltarbeid. Studenter som jobber i felt (inn- og utland) er også ansvarlig for å fylle inn feltkort for deltaker. Ved feltarbeid i utlandet har studenten i tillegg ansvar for skaffe til veie visum, oppholdstillatelse og evt. andre nødvendige papirer til det aktuelle land før avreise. Student og veileder plikter å følge NMBUs retningslinjer for feltarbeid og ekskursjoner.
+Fakultetet må sammen med studenten(e) gjennomføre risikovurdering før feltarbeid gjennomføres.
+NMBUs retningslinjer for feltarbeid og ekskursjoner
+Forsikringer og vaksiner
+Sikker jobbanalyse
+Laboratorie- og verkstedsarbeid
+Studenter med laboratorie- eller verkstedsarbeid plikter å følge NMBUs retningslinjer og prosedyrer for slikt arbeid. Før arbeidet starter plikter studenten å gjennomgå grunnleggende opplæring i helse, miljø og sikkerhet. Dersom studenter skal utføre arbeid som innebærer bruk av lokaler, instrumenter og utstyr tilhørende NMBU, må studenten følge utarbeidede prosedyrer. Ta kontakt med fakultetet der arbeidet skal utføres for å få nærmere informasjon og opplæring.
+NMBU :: HMS-håndbok :: Lab.sikkerhet og stoffkartotek
+NMBU :: HMS-håndbok
+Klausulering og båndlegging
+Forskning skal i utgangspunktet være åpen og tilgjengelig for offentligheten.
+Båndlegging
+Dersom spesielle hensyn tilsier det, kan publisering av en gradsoppgaver utsettes (båndlegges)
+for en periode på inntil fem (5) år, men aldri permanent. Eventuell båndlegging utover fem år må avgjøres av universitetsstyret etter begrunnet søknad. NMBU benytter gradsoppgavens tittel på karakterutskrift og vitnemål, det anbefales derfor å være bevist på at tittelen på oppgaven ikke inneholder klausulert informasjon.
+Slik båndlegging/utsettelse skal være avklart med veileder før innlevering av oppgaven og bør diskuteres ved kontraktsinngåelse.
+Vanlige årsaker for utsatt publisering kan være dersom oppgaven er tenkt benyttet i senere arbeid med tanke på publikasjon eller høyere grad, eller at man samarbeider med en bedrift som jobber på dette området i et konkurranseutsatt marked.
+Avtale om utsettelse må inngås før innlevering av oppgaven. For oppgaver som utføres ved en virksomhet, kan det være hensiktsmessig å inngå avtale mellom NMBU og bedrift/institusjon. Avtalen bør regulere særlige forhold som gjelder publisering.
+Skjema for båndlegging av gradsoppgaver skal inneholde opplysning om varighet og årsak til båndleggingen og må sendes til wiseflow@nmbu.no 4 uker før innlevering av gradsoppgaven i WISEflow. Gradsoppgaven vil da ikke bli publisert.
+Benytt skjemaet:
+Utsatt publisering (båndlegging) av gradsoppgave
+Klausulering - lovpålagt
+Gradsoppgaver som helt eller delvis inneholder opplysninger som er dekket av lovbestemt taushetsplikt, skal klausuleres (skjermes for innsyn) i samsvar med reglene om taushetsplikt i
+Lov om behandlingsmåten i forvaltningssaker
+(forvaltningsloven/fvl.) § 13. NMBU benytter gradsoppgavens tittel på karakterutskrift og vitnemål, det anbefales derfor å være bevist på at tittelen på oppgaven ikke inneholder klausulert informasjon.
+Avtale om klausulering settes opp på fastsatt skjema, signeres og sendes til wiseflow@nmbu.no 4 uker før innlevering av gradsoppgaven i WISEflow.
+Lovbestemt taushetsplikt (jf. forvaltningsloven (fvl.) § 13) foreligger blant annet der oppgaven inneholder:
+opplysninger om noens personlige forhold*
+opplysninger om tekniske innretninger og fremgangsmåter samt drifts‐ eller forretningsforhold som det vil være av konkurransemessig betydning å hemmeligholde av hensyn til den som opplysningen angår.
+opplysninger undergitt taushetsplikt som studenten får fra et forvaltningsorgan,
+opplysninger som er mottatt fra private under taushetsløfte i forbindelse med studie‐/forskningsarbeidet, og
+opplysninger som gjelder personer som står i et avhengighetsforhold til den instans (skole, sykehus, anstalt, bedrift, offentlig myndighet m.m.) som har formidlet deres kontakt med studenten.
+*Taushetsplikt etter § 13 er ikke til hinder for at opplysningene kan brukes når ingen berettiget interesse tilsier at de holdes hemmelig, for eksempel når de er alminnelig kjent eller alminnelig tilgjengelig andre steder (jf. fvl. § 13a, pkt. 3).
+Benytt skjemaet:
+Konfidensiell gradsoppgave i hht. forvaltningsloven
+Sykdom, permisjon eller utsatt innleveringsfrist
+Studenten kan søke om utsatt frist for innlevering av gradsoppgaven ved sykdom eller andre særskilte grunner (f.eks. undervisningsoppgaver ved NMBU, tyngre studenttillitsverv, omsorgsarbeid eller uforskyldte problemer med oppgaven). Studenten sender søknaden på fastsatt søknadsskjema for utsatt innlevering av gradsoppgaver. Utsatt innleveringsfrist gis normalt ikke utover tre måneder med mindre sterke og dokumenterte velferdsgrunner hos studenten tilsier lengre frist. Utsatt innleveringsfrist gir ikke studenten rett til ytterligere veiledning. Det kan kun innvilges utsatt innleveringsfrist to ganger.
+I vårsemester kan det søkes utsettelse til 15. juni, 15. juli, 15. august eller til 15. desember (nytt semester). I høstsemester kan det søkes til 15. januar, 15. februar, 15. mars eller 15. mai (nytt semester).
+Søknad om utsatt frist må studenten fremme uten ubegrunnet opphold etter at årsaken til forsinkelsen har inntruffet (senest en måned før innleveringsfrist med mindre legeattest foreligger).  Studenten har i slike tilfeller ikke rett til ytterligere veiledning. Hvis studenten innvilges utsatt innleveringsfrist utover tre måneder, må studenten semesterregistrere seg for det nye semesteret og oppgaven må vurderingsmeldes for det nye innleveringssemesteret.
+Det kreves skriftlig redegjørelse for årsaken til forsinkelsen, dokumentasjon for behovet for forlenget frist (eksempelvis sykmelding), tidsangivelse for behovet for utsettelse, samt ny fremdriftsplan for fullføring som fylles ut i samarbeid med veileder(e). Dersom studenten på grunn av uforskyldte problemer med oppgaven søker utsatt frist for innlevering av gradsoppgaven, skal søknaden inneholde en begrunnelse fra veileder.
+Søknad om utsatt innleveringsfrist behandles av fakultetet hvor hovedveileder for gradsoppgaven tilhører.
+Dersom studenten skal ha permisjon etter at det er inngått avtale om gradsoppgave, plikter studenten å revidere kontrakt for masteroppgave sammen med veileder i forkant av permisjonsperioden. Studenten må levere revidert kontrakt til fakultetet.
+Ved sykdom, permisjon eller lignende hos veileder, er fakultetet ansvarlig for å utpeke ny veileder.
+Gradsoppgave som ikke er levert innen fristens utløp kan ikke senere leveres i revidert eller supplert form. I slike tilfeller mister studenten studieretten. Hvis studenten søker og får nytt opptak, må ny oppgave utarbeides innenfor et nytt tema.
+Sensurering og muntlig presentasjon av gradsoppgaven
+Innlevering av gradsoppgaver er nærmere beskrevet på toppen av siden under
+Sjekkliste ved innlevering av gradsoppgave
+Sensurering
+Sensurfristen for gradsoppgave er 6 uker fra innleveringsfristen.
+Det skal være minst to sensorer, derav minst en ekstern, for bedømmelse av gradsoppgavene. Det er fakultetet som oppnevner sensorer og det skal skrives kontrakt mellom fakultet og ekstern sensor om gjennomføring av sensuren.
+Muntlig presentasjon
+Fakultetet informerer nærmere om muntlig presentasjon med mer. Masteroppgaven og evt. spesialpensum skal ha en muntlig presentasjon innen 6 uker etter innlevering av oppgaven. Veileder fastsetter tidspunkt for presentasjonen i samråd med studenten og sensor. Hovedveileder er normalt intern sensor.
+For studenter med spesialpensum, starter dagen med eksaminasjon i spesialpensumet. Karakter i spesialpensumet meddeles etter at ekstern sensor og veiledere har diskutert prestasjonen fra eksaminasjonen. Det er ekstern sensor som bestemmer karakteren og meddeler studenten karakteren.
+Den muntlige presentasjonen av mastergradsoppgaven innledes av en offentlig fremlegging av oppgaven (ca 20-30 min), hvor studenten selv gir en oversikt over oppgaven. Denne etterfølges av en muntlig diskusjon med sensorene. Både ekstern og intern sensor, samt alle veiledere er normal tilstede under den muntlige diskusjonen. Hensikten med diskusjonen er å gi studenten en tilbakemelding om sterke og svake sider med oppgaven, samt å kartlegge studentenes vurderingsevne, forståelse, egeninnsats og selvstendighet. Det gis ikke separat karakter på diskusjonen, men diskusjonen er en del av vurderingen av mastergradsoppgaven, og diskusjonen kan være justerende for den endelige karakteren på mastergradsoppgaven.
+Ved muntlig presentasjon av masteroppgave utført av en studentgruppe kan sensorene foreta en individuell vurdering av kandidatene. Kandidater som har skrevet masteroppgave sammen kan oppnå forskjellig sensur på sin masteroppgave. Studenter som  leverer en felles oppgave kan kun unntaksvis gjennomføre separate diskusjoner av oppgaven.
+Studenter som ikke møter til muntlig presentasjon av gradsoppgaven, og som ikke har utsettelse eller dokumenterer akseptert forfallsgrunn, skal få registrert ikke møtt på gradsoppgaven. I slike tilfeller mister studenten studieretten.
+Omarbeiding av gradsoppgave ved stryk
+En innlevert gradsoppgave som er bedømt med karakteren F (stryk) kan, hvis ekstern og intern sensor er enige om det, omarbeides av studenten. Den opprinnelige innleverte oppgaven må synliggjøre et innhold som lar seg bearbeide. En gradsoppgave som er bedømt med karakteren F (stryk) og som er tillatt omarbeidet, kan tidligst legges frem til ny sensurering tre måneder og senest fire måneder, etter dato for publisering av opprinnelig sensur. Ny kontrakt og revidert fremdriftsplan må utarbeides. Studenten må, hvis ny dato for innlevering faller i et nytt semester, semesterregistrere seg i henhold til gjeldende regler. Ved omarbeiding av oppgaven har studenten ikke krav på ytterligere veiledning. Det må foretas ny muntlig presentasjon av den omarbeidede gradsoppgaven. Ved stryk på en omarbeidet gradsoppgave mister studenten studieretten
+Gradsoppgave bedømt til F (stryk) som skal omarbeides - fyll ut skjemaet:
+Omarbeiding av gradsoppgave etter stryk
+Oversikt over karakterbeskrivelser
+Oversikt over karakterbeskrivelser
+Klage på sensur
+For klage på karakter på gradsoppgave gjelder vanlige
+rutiner for klage
+. Ved klage på karakter på gradsoppgaven skal den skriftlige presentasjonen oversendes til nye sensorer for ny sensurering.
+Karakteren etter ny sensurering kan forbli uendret, eller endres til
+et bedre eller dårligere resultat
+. Dersom ny sensurering av det skriftlige arbeidet fører til at karakteren på det skriftlige arbeidet endres til gunst eller ugunst for klager, skal det holdes ny justerende muntlig prøve for fastsetting av endelig karakter.
+Dersom ny sensur er til ugunst for klager (dvs. går ned) må studenten fortsatt møte til nytt muntlig forsvar. Dersom studenten ikke møter vil karakter for gradsoppgaven bli registrert som
+ikke møtt
+dvs. at studenten stryker på oppgaven.
+Rettigheter til gradsoppgaven
+Studenten har eiendomsrett, herunder opphavsrett, til sin gradsoppgave. Alle immaterielle rettigheter til resultater av oppgaven skapt av studenten alene gjennom oppgavearbeidet, eies av studenten med de reservasjoner som følger av punktene b) og c) nedenfor.
+Studenten har rett til å inngå egen avtale med NMBU om publisering av sin oppgave i NMBUs institusjonelle arkiv på internett. Studenten har også rett til å publisere oppgaven eller deler av den i andre sammenhenger dersom det ikke er avtalt begrensninger i adgangen til å publisere.
+b) Ved samarbeid med bedrift/ekstern virksomhet
+Der oppgaven bygger på, eller videreutvikler materiale og/eller metoder (prosjektbakgrunn) som eies av bedriften, eies prosjektbakgrunnen fortsatt av bedriften. Eventuell utnyttelse av videreutviklingen, som inkluderer prosjektbakgrunnen, forutsetter at det inngås egen avtale om dette mellom student og bedrift.
+Bedriften skal ha rett til å benytte resultatene av oppgaven (av enhver karakter og enten de er patenterbare eller ikke) i egen virksomhet dersom utnyttelsen faller innenfor bedriftens virksomhetsområde. Dette forutsetter at studenten mottar rimelig vederlag. Rimelig vederlag skal fortolkes i samsvar med begrepets innhold i åndsverksloven § 69.  Innholdet i «bedriftens virksomhetsområde» skal fortolkes i samsvar med begrepets innhold i arbeidstakeroppfinnelsesloven § 4.
+Bruk av resultatet av oppgaven utenfor bedriften sitt virksomhetsområde, jf. avsnittet ovenfor, forutsetter at det inngås egen avtale mellom studenten og bedriften.
+c) NMBU
+De innleverte eksemplarer/filer av oppgaven med vedlegg, som er nødvendig for sensur og arkivering ved NMBU, tilhører NMBU.

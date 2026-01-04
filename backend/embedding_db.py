@@ -77,4 +77,4 @@ def process_folder(folder: str):
 
 
 if __name__ == "__main__":
-    process_folder("parsing-python/related_documents")
+    process_folder("parsing-python/new_doc")
