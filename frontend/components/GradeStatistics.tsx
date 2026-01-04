@@ -22,23 +22,15 @@ interface GradeData {
 
 interface GradeStats {
   grades: GradeData[];
-  averageGrade: number;
-  failRate: number;
   year: number;
+  hasLetterGrades: boolean;
+  passRate: number;
+  failRate: number;
 }
 
 interface GradeStatisticsProps {
   emnekode: string;
 }
-
-const GRADE_VALUES: Record<string, number> = {
-  A: 5,
-  B: 4,
-  C: 3,
-  D: 2,
-  E: 1,
-  F: 0,
-};
 
 const COLORS: Record<string, string> = {
   A: "#10b981",
@@ -47,88 +39,118 @@ const COLORS: Record<string, string> = {
   D: "#fb923c",
   E: "#f87171",
   F: "#dc2626",
+  Bestått: "#10b981",
+  "Ikke bestått": "#dc2626",
 };
 
 export default function GradeStatistics({ emnekode }: GradeStatisticsProps) {
   const [stats, setStats] = useState<GradeStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedYear, setSelectedYear] = useState(2023);
+  const [noRow, setNoRow] = useState(false);
+  const [selectedYear, setSelectedYear] = useState(2024);
 
   const currentYear = new Date().getFullYear();
   const availableYears = Array.from({ length: 8 }, (_, i) => currentYear - 1 - i);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const fetchStats = async () => {
       setLoading(true);
+      setNoRow(false);
+      setStats(null);
 
-      const res = await apiClient.get<{
-        ar: number;
-        prosent_a: number;
-        prosent_b: number;
-        prosent_c: number;
-        prosent_d: number;
-        prosent_e: number;
-        prosent_f: number;
-      }>(
-        `/api/grades?emnekode=${encodeURIComponent(emnekode)}&year=${selectedYear}`,
-        { cache: "no-store" }
-      );
+      timeoutId = setTimeout(() => {
+        setLoading(false);
+        setNoRow(true);
+      }, 2000);
 
-      const prosent = {
-        A: res.prosent_a ?? 0,
-        B: res.prosent_b ?? 0,
-        C: res.prosent_c ?? 0,
-        D: res.prosent_d ?? 0,
-        E: res.prosent_e ?? 0,
-        F: res.prosent_f ?? 0,
-      };
+      try {
+        const res = await apiClient.get<{
+          success: boolean;
+          data: {
+            ar: number;
+            prosent_a: number;
+            prosent_b: number;
+            prosent_c: number;
+            prosent_d: number;
+            prosent_e: number;
+            prosent_f: number;
+            prosent_bestatt: number;
+            prosent_ikke_bestatt: number;
+          } | null;
+        }>(
+          `/api/grades?emnekode=${encodeURIComponent(emnekode)}&year=${selectedYear}`,
+          { cache: "no-store" }
+        );
 
-      const grades: GradeData[] = Object.entries(prosent).map(
-        ([grade, percentage]) => ({
-          grade,
-          percentage,
-        })
-      );
+        clearTimeout(timeoutId);
 
-      const passed = grades.filter((g) => g.grade !== "F");
-      const sumPassed = passed.reduce((s, g) => s + g.percentage, 0);
+        if (!res.success || !res.data) {
+          setNoRow(true);
+          setLoading(false);
+          return;
+        }
 
-      const average =
-        sumPassed > 0
-          ? passed.reduce(
-              (s, g) => s + GRADE_VALUES[g.grade] * g.percentage,
-              0
-            ) / sumPassed
-          : 0;
+        const letterGrades: GradeData[] = [
+          { grade: "A", percentage: res.data.prosent_a ?? 0 },
+          { grade: "B", percentage: res.data.prosent_b ?? 0 },
+          { grade: "C", percentage: res.data.prosent_c ?? 0 },
+          { grade: "D", percentage: res.data.prosent_d ?? 0 },
+          { grade: "E", percentage: res.data.prosent_e ?? 0 },
+          { grade: "F", percentage: res.data.prosent_f ?? 0 },
+        ];
 
-      setStats({
-        grades,
-        averageGrade: average,
-        failRate: prosent.F,
-        year: res.ar,
-      });
+        const totalLetters = letterGrades.reduce(
+          (s, g) => s + g.percentage,
+          0
+        );
 
-      setLoading(false);
+        const hasLetterGrades = totalLetters > 0;
+
+        const grades = hasLetterGrades
+          ? letterGrades
+          : [
+              {
+                grade: "Bestått",
+                percentage: res.data.prosent_bestatt ?? 0,
+              },
+              {
+                grade: "Ikke bestått",
+                percentage: res.data.prosent_ikke_bestatt ?? 0,
+              },
+            ];
+
+        setStats({
+          grades,
+          year: res.data.ar,
+          hasLetterGrades,
+          passRate: res.data.prosent_bestatt ?? 0,
+          failRate: res.data.prosent_ikke_bestatt ?? 0,
+        });
+
+        setLoading(false);
+      } catch {
+        clearTimeout(timeoutId);
+        setLoading(false);
+        setNoRow(true);
+      }
     };
 
     fetchStats();
+    return () => clearTimeout(timeoutId);
   }, [emnekode, selectedYear]);
 
-  if (loading || !stats) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Karakterstatistikk</CardTitle>
-        </CardHeader>
-        <CardContent className="py-12 text-center text-muted-foreground">
-          Laster karakterstatistikk…
-        </CardContent>
-      </Card>
-    );
-  }
+  const maxValue = stats
+    ? Math.max(...stats.grades.map((g) => g.percentage))
+    : 0;
 
-  const averageLetter =
-    ["F", "E", "D", "C", "B", "A"][Math.round(stats.averageGrade)] ?? "–";
+  const yMax =
+    maxValue <= 10 ? 10 :
+    maxValue <= 25 ? 30 :
+    maxValue <= 40 ? 50 :
+    maxValue <= 50 ? 60 :
+    100;
 
   return (
     <Card>
@@ -148,51 +170,55 @@ export default function GradeStatistics({ emnekode }: GradeStatisticsProps) {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <div className="grid grid-cols-2 gap-3">
-          <Summary
-            icon={<Award size={16} />}
-            label="Gjennomsnitt"
-            value={averageLetter}
-          />
-          <Summary
-            icon={<TrendingUp size={16} />}
-            label="Stryk"
-            value={`${stats.failRate.toFixed(1)}%`}
-          />
-        </div>
+        {loading && (
+          <div className="py-12 text-center text-muted-foreground">
+            Laster karakterstatistikk…
+          </div>
+        )}
 
-        <div className="h-80">
-          <ResponsiveContainer>
-            <BarChart data={stats.grades}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="grade" />
-              <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
-              <Tooltip formatter={(v: number) => `${v.toFixed(1)}%`} />
-              <Bar dataKey="percentage">
-                {stats.grades.map((g) => (
-                  <Cell key={g.grade} fill={COLORS[g.grade]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+        {!loading && noRow && (
+          <div className="py-12 text-center text-muted-foreground">
+            Ingen karakterdata tilgjengelig for valgt år.
+          </div>
+        )}
+
+        {!loading && stats && (
+          <>
+            {!stats.hasLetterGrades && (
+              <p className="text-sm text-center text-muted-foreground">
+                Dette emnet vurderes som <strong>bestått / ikke bestått</strong>.
+              </p>
+            )}
+
+            <div className="h-80">
+              <ResponsiveContainer>
+                <BarChart data={stats.grades}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="grade" />
+                  <YAxis
+                    domain={[0, yMax]}
+                    tickFormatter={(v) => `${v}%`}
+                  />
+                  <Tooltip formatter={(v: number) => `${v.toFixed(1)}%`} />
+                  <Bar dataKey="percentage">
+                    {stats.grades.map((g) => (
+                      <Cell
+                        key={g.grade}
+                        fill={COLORS[g.grade] ?? "#8884d8"}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </>
+        )}
 
         <p className="text-xs text-center text-muted-foreground">
-          Kilde: Intern database ({stats.year})
+          Kilde: csv eksportert fra dhb.hkdir.no, lagret i intern database
+          {stats ? ` (${stats.year})` : ""}
         </p>
       </CardContent>
     </Card>
   );
 }
-
-const Summary = ({ icon, label, value }: any) => (
-  <Card>
-    <CardContent className="p-3">
-      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-        {icon}
-        {label}
-      </div>
-      <div className="text-xl font-bold">{value}</div>
-    </CardContent>
-  </Card>
-);

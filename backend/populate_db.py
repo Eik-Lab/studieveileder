@@ -23,6 +23,7 @@ SUBJECT_FOLDER = "parsing-python/subject_contents"
 FIELDS = {
     "navn": r"^(.+?)\s*\|\s*NMBU\s*\|\s*NMBU",
     "studiepoeng": r"Studiepoeng:\s*(.+)",
+    "semester": r"Undervisningstermin:\s*(.+)",
     "fakultet": r"Ansvarlig fakultet:\s*(.+)",
     "underviser": r"Emneansvarlig:\s*(.+)",
     "språk": r"Undervisningens språk:\s*(.+)",
@@ -33,7 +34,7 @@ FIELDS = {
     "vurderingsordning": r"Vurderingsordning, hjelpemiddel og eksamen([\s\S]+?)(?:Om bruk av KI|Sensorordning|Obligatorisk aktivitet)",
     "obligatoriske_aktiviteter": r"Obligatorisk aktivitet\s*([\s\S]+?)(?:Merknader|Undervisningstimer|Opptakskrav|$)",
     "merknader": r"Merknader\s*([\s\S]+?)(?:Undervisningstider|Opptakskrav|$)",
-    "fortrinnsrett": r"Fortrinnsrett\s*([\s\S]+?)(?:Opptakskrav|Merknader|$)"
+    "fortrinnsrett": r"Fortrinnsrett\s*([\s\S]+?)(?:Opptakskrav|Merknader|$)",
 }
 
 SYSTEM_PROMPT = """
@@ -75,6 +76,21 @@ def normalize_integer(value):
     m = re.search(r"\d+", value)
     return int(m.group()) if m else None
 
+def normalize_semester(value):
+    if not value:
+        return None
+
+    v = value.lower()
+
+    if "høst" in v and "vår" in v:
+        return "Hele året"
+    if "høst" in v:
+        return "Høst"
+    if "vår" in v:
+        return "Vår"
+
+    return None
+
 def parse_file(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -102,7 +118,7 @@ def improve_with_openai(data: dict) -> dict:
         model="gpt-4.1-mini",
         input=[
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}
+            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
         ],
     )
     return extract_json(response.output_text)
@@ -139,10 +155,11 @@ def main():
 
             data["studiepoeng"] = normalize_integer(data.get("studiepoeng"))
             data["antall_plasser"] = normalize_integer(data.get("antall_plasser"))
+            data["semester"] = normalize_semester(data.get("semester"))
 
             supabase.table("emner").upsert(
                 data,
-                on_conflict="emnekode"
+                on_conflict="emnekode",
             ).execute()
 
             processed += 1

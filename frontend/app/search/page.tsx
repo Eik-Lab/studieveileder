@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Search, ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,7 +33,6 @@ interface Course {
   beskrivelse: string;
 }
 
-// Felles mapping (samme som detalj-side)
 const mapCourseData = (raw: any): Course => ({
   kode: raw.emnekode || "Ukjent",
   navn: raw.navn || "Ukjent",
@@ -47,13 +52,34 @@ const faculties = [
   "Fakultet for samfunnsvitenskap",
 ];
 
-const semesters = ["Alle", "Høst", "Vår", "Hele året"];
+const semesters = [
+  "Alle",
+  "Vår",
+  "Høst",
+  "August",
+  "Juni",
+  "Januar",
+  "Hele året",
+];
+
 const studiepoengOptions = ["Alle", "5", "7.5", "10", "15", "20", "30"];
+
 const sortOptions = [
-  { value: "navn", label: "Emnenavn (A-Å)" },
+  { value: "navn", label: "Emnenavn (A–Å)" },
   { value: "kode", label: "Emnekode" },
   { value: "studiepoeng", label: "Studiepoeng" },
+  { value: "semester", label: "Semester" },
 ];
+
+const SEMESTER_ORDER: Record<string, number> = {
+  "Vår": 1,
+  "Januar": 2,
+  "Juni": 3,
+  "August": 4,
+  "Høst": 5,
+  "Hele året": 6,
+  "Ukjent": 7,
+};
 
 const ITEMS_PER_PAGE = 20;
 
@@ -67,7 +93,8 @@ export default function CourseSearch() {
   const [selectedFaculty, setSelectedFaculty] = useState("Alle");
   const [selectedSemester, setSelectedSemester] = useState("Alle");
   const [selectedStudiepoeng, setSelectedStudiepoeng] = useState("Alle");
-  const [sortBy, setSortBy] = useState<"navn" | "kode" | "studiepoeng">("navn");
+  const [sortBy, setSortBy] =
+    useState<"navn" | "kode" | "studiepoeng" | "semester">("navn");
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -78,12 +105,11 @@ export default function CourseSearch() {
       try {
         const result = await apiClient.get<{ success: boolean; data: any[] }>(
           "/api/courses",
-          { timeout: 45000 } 
+          { timeout: 45000 }
         );
 
         if (result.success && result.data) {
-          const mapped = result.data.map(mapCourseData);
-          setCourses(mapped);
+          setCourses(result.data.map(mapCourseData));
         } else {
           setError("Ingen data mottatt fra backend");
         }
@@ -91,7 +117,7 @@ export default function CourseSearch() {
         if (isTimeoutError(err)) {
           setError("Forespørselen tok for lang tid. Prøv igjen senere.");
         } else {
-          setError(err.message || "Kunne ikke hente emner fra backend");
+          setError(err.message || "Kunne ikke hente emner");
         }
       } finally {
         setLoading(false);
@@ -104,18 +130,25 @@ export default function CourseSearch() {
   const filteredCourses = courses
     .filter((c) => {
       const q = searchTerm.toLowerCase().trim();
-      return (
-        c.navn.toLowerCase().includes(q) ||
-        c.kode.toLowerCase().includes(q)
-      );
+      return c.navn.toLowerCase().includes(q) || c.kode.toLowerCase().includes(q);
     })
     .filter((c) => selectedFaculty === "Alle" || c.fakultet === selectedFaculty)
     .filter((c) => selectedSemester === "Alle" || c.semester === selectedSemester)
-    .filter((c) => selectedStudiepoeng === "Alle" || c.studiepoeng === Number(selectedStudiepoeng))
+    .filter(
+      (c) =>
+        selectedStudiepoeng === "Alle" ||
+        c.studiepoeng === Number(selectedStudiepoeng)
+    )
     .sort((a, b) => {
       if (sortBy === "navn") return a.navn.localeCompare(b.navn);
       if (sortBy === "kode") return a.kode.localeCompare(b.kode);
       if (sortBy === "studiepoeng") return a.studiepoeng - b.studiepoeng;
+      if (sortBy === "semester") {
+        return (
+          (SEMESTER_ORDER[a.semester] ?? 99) -
+          (SEMESTER_ORDER[b.semester] ?? 99)
+        );
+      }
       return 0;
     });
 
@@ -133,133 +166,134 @@ export default function CourseSearch() {
       <main className="flex-1 container mx-auto px-4 py-8 md:py-12">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Emnesøk</h1>
-          <p className="text-muted-foreground">Søk gjennom alle emner ved NMBU</p>
+          <p className="text-muted-foreground">
+            Søk og filtrer emner basert på innhold, semester, studiepoeng og fakultet.
+          </p>
         </div>
 
         <Card className="mb-6">
-          <CardContent className="pt-6">
-            <div className="flex flex-col gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
-                <Input
-                  type="text"
-                  placeholder="Søk etter emner..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
+          <CardContent className="pt-6 space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+              <Input
+                placeholder="Søk på emnenavn eller emnekode"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Fritekstsøk i emnenavn og emnekode.
+              </p>
+            </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div>
                 <Select value={selectedFaculty} onValueChange={setSelectedFaculty}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Fakultet" />
-                  </SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Fakultet" /></SelectTrigger>
                   <SelectContent>
                     {faculties.map((f) => (
                       <SelectItem key={f} value={f}>{f}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Begrens til ett fakultet.
+                </p>
+              </div>
 
+              <div>
                 <Select value={selectedSemester} onValueChange={setSelectedSemester}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Semester" />
-                  </SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Semester" /></SelectTrigger>
                   <SelectContent>
                     {semesters.map((s) => (
                       <SelectItem key={s} value={s}>{s}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Når undervisning og vurdering foregår.
+                </p>
+              </div>
 
-                <Select value={selectedStudiepoeng} onValueChange={setSelectedStudiepoeng}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Studiepoeng" />
-                  </SelectTrigger>
+              <div>
+                <Select
+                  value={selectedStudiepoeng}
+                  onValueChange={setSelectedStudiepoeng}
+                >
+                  <SelectTrigger><SelectValue placeholder="Studiepoeng" /></SelectTrigger>
                   <SelectContent>
                     {studiepoengOptions.map((s) => (
                       <SelectItem key={s} value={s}>{s} sp</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Antall studiepoeng for emnet.
+                </p>
+              </div>
 
-                <Select value={sortBy} onValueChange={(value) => setSortBy(value as "navn" | "kode" | "studiepoeng")}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sorter etter" />
-                  </SelectTrigger>
+              <div>
+                <Select
+                  value={sortBy}
+                  onValueChange={(v) =>
+                    setSortBy(v as "navn" | "kode" | "studiepoeng" | "semester")
+                  }
+                >
+                  <SelectTrigger><SelectValue placeholder="Sorter etter" /></SelectTrigger>
                   <SelectContent>
                     {sortOptions.map((s) => (
-                      <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                      <SelectItem key={s.value} value={s.value}>
+                        {s.label}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Endrer rekkefølgen på resultatene.
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {loading ? (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <p className="text-muted-foreground">Laster emner...</p>
-            </CardContent>
-          </Card>
-        ) : error ? (
-          <Card className="border-red-200 bg-red-50">
-            <CardContent className="py-6">
-              <p className="text-red-600">{error}</p>
-            </CardContent>
-          </Card>
-        ) : (
-          <>
-            <div className="mb-4 flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                Viser {paginatedCourses.length} av {filteredCourses.length} emner
-              </p>
-            </div>
-            <div className="grid gap-4">
-              {paginatedCourses.map((c) => (
-                <Card
-                  key={c.kode}
-                  onClick={() => goToDetail(c.kode)}
-                  className="cursor-pointer hover:shadow-md transition-shadow"
-                >
-                  <CardHeader>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <CardTitle className="text-xl mb-2">{c.navn}</CardTitle>
-                        <div className="flex flex-wrap gap-2">
-                          <Badge className="bg-[#006633] hover:bg-[#004d26]">
-                            <BookOpen className="mr-1 h-3 w-3" />
-                            {c.kode}
-                          </Badge>
-                          <Badge variant="secondary">{c.studiepoeng} sp</Badge>
-                          {c.semester && c.semester !== "Ukjent" && (
-                            <Badge variant="outline">{c.semester}</Badge>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-2">{c.fakultet}</p>
-                    {c.beskrivelse && (
-                      <CardDescription className="line-clamp-3">{c.beskrivelse}</CardDescription>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </>
-        )}
+        <div className="grid gap-4">
+          {paginatedCourses.map((c) => (
+            <Card
+              key={c.kode}
+              onClick={() => goToDetail(c.kode)}
+              className="cursor-pointer hover:shadow-md"
+            >
+              <CardHeader>
+                <CardTitle className="text-xl mb-2">{c.navn}</CardTitle>
+                <div className="flex flex-wrap gap-2">
+                  <Badge className="bg-[#006633]">
+                    <BookOpen className="mr-1 h-3 w-3" />
+                    {c.kode}
+                  </Badge>
+                  <Badge variant="secondary">{c.studiepoeng} sp</Badge>
+                  {c.semester !== "Ukjent" && (
+                    <Badge variant="outline">{c.semester}</Badge>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-2">{c.fakultet}</p>
+                {c.beskrivelse && (
+                  <CardDescription className="line-clamp-3">
+                    {c.beskrivelse}
+                  </CardDescription>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
-        {totalPages > 1 && !loading && !error && (
+        {totalPages > 1 && (
           <div className="flex justify-center items-center gap-4 mt-8">
             <Button
               variant="outline"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage(currentPage - 1)}
+              onClick={() => setCurrentPage((p) => p - 1)}
             >
               <ChevronLeft className="mr-2 h-4 w-4" /> Forrige
             </Button>
@@ -269,7 +303,7 @@ export default function CourseSearch() {
             <Button
               variant="outline"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(currentPage + 1)}
+              onClick={() => setCurrentPage((p) => p + 1)}
             >
               Neste <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
