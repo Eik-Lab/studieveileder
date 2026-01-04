@@ -83,6 +83,38 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Feedback Section */}
+        <section className="bg-[#E8E0D5] py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <Badge variant="outline" className="mb-4">
+                Tilbakemeldinger
+              </Badge>
+              <h2 className="text-3xl font-bold mb-4 text-gray-900">
+                Hjelp oss å forbedre tjenestene
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Vi setter stor pris på innspill, forslag og feilrapporter.  
+                Tilbakemeldingene brukes direkte i videre utvikling.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="bg-[#006633] hover:bg-[#004d26]"
+              >
+                <Link
+                  href="https://nettskjema.no/a/580798"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Gi tilbakemelding
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
