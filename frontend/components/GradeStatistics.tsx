@@ -75,34 +75,36 @@ export default function GradeStatistics({ emnekode }: GradeStatisticsProps) {
       });
 
       const prosent = {
-        A: res.prosent_a,
-        B: res.prosent_b,
-        C: res.prosent_c,
-        D: res.prosent_d,
-        E: res.prosent_e,
-        F: res.prosent_f,
+        A: res.prosent_a ?? 0,
+        B: res.prosent_b ?? 0,
+        C: res.prosent_c ?? 0,
+        D: res.prosent_d ?? 0,
+        E: res.prosent_e ?? 0,
+        F: res.prosent_f ?? 0,
       };
 
       const grades: GradeData[] = Object.entries(prosent).map(
         ([grade, percentage]) => ({
           grade,
-          percentage: percentage ?? 0,
+          percentage,
         })
       );
 
       const passed = grades.filter((g) => g.grade !== "F");
+      const sumPassed = passed.reduce((s, g) => s + g.percentage, 0);
 
       const average =
-        passed.reduce(
-          (s, g) => s + GRADE_VALUES[g.grade] * g.percentage,
-          0
-        ) /
-        passed.reduce((s, g) => s + g.percentage, 0);
+        sumPassed > 0
+          ? passed.reduce(
+              (s, g) => s + GRADE_VALUES[g.grade] * g.percentage,
+              0
+            ) / sumPassed
+          : 0;
 
       setStats({
         grades,
-        averageGrade: average || 0,
-        failRate: prosent.F ?? 0,
+        averageGrade: average,
+        failRate: prosent.F,
         year: res.ar,
       });
 
@@ -164,10 +166,7 @@ export default function GradeStatistics({ emnekode }: GradeStatisticsProps) {
             <BarChart data={stats.grades}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="grade" />
-              <YAxis
-                domain={[0, 100]}
-                tickFormatter={(v) => `${v}%`}
-              />
+              <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} />
               <Tooltip formatter={(v: number) => `${v.toFixed(1)}%`} />
               <Bar dataKey="percentage">
                 {stats.grades.map((g) => (
