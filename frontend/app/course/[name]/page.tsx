@@ -145,7 +145,7 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
             </div>
 
             <div className="space-y-8">
-              <GradeStatistics emnekode={course.kode} />
+              <GradeStatistics key={course.kode} emnekode={course.kode} />
 
               {course.dette_lærer_du && (
                 <Card>
