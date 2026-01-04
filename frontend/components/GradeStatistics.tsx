@@ -43,19 +43,18 @@ const GradeStatistics = ({ emnekode }: GradeStatisticsProps) => {
       try {
         console.log("📊 Henter karakterstatistikk for:", emnekode, "år:", selectedYear);
 
-        // DBH API URL
-        const apiUrl = `https://dbh.hkdir.no/api/statistikk/tabell/studenter/205/${selectedYear}?institusjonsnr=1173&emnekode=${emnekode}`;
+        // Call local API route
+        const apiUrl = `/api/gradestatistics?emnekode=${encodeURIComponent(emnekode)}&year=${selectedYear}`;
 
         try {
-          const response = await fetchWithTimeout(apiUrl, { timeout: 5000 }); 
+          const response = await fetchWithTimeout(apiUrl, { timeout: 10000 });
 
           if (response.ok) {
             const apiData = await response.json();
             console.log("✓ API respons:", apiData);
 
-            if (apiData && apiData.data && apiData.data.length > 0) {
-              const parsedStats = parseDBHData(apiData, selectedYear.toString());
-              setStats(parsedStats);
+            if (apiData.success && apiData.stats && apiData.stats.totalStudents > 0) {
+              setStats(apiData.stats);
               return;
             }
           }
@@ -125,64 +124,6 @@ const GradeStatistics = ({ emnekode }: GradeStatisticsProps) => {
       averageGrade,
       failRate,
       year: `${year}`,
-    };
-  };
-
-  // Parse DBH data
-  const parseDBHData = (data: any, year: string): GradeStats => {
-    const gradeMap: { [key: string]: number } = {
-      A: 0,
-      B: 0,
-      C: 0,
-      D: 0,
-      E: 0,
-      F: 0,
-    };
-
-    let totalStudents = 0;
-    let failedStudents = 0;
-
-    if (data.data && Array.isArray(data.data)) {
-      data.data.forEach((row: any) => {
-        const grade = row.karakter || row.grade;
-        const count = parseInt(row.antall || row.count || 0);
-
-        if (grade && gradeMap.hasOwnProperty(grade)) {
-          gradeMap[grade] = count;
-          totalStudents += count;
-          if (grade === "F") {
-            failedStudents = count;
-          }
-        }
-      });
-    }
-
-    const gradeValues = { A: 5, B: 4, C: 3, D: 2, E: 1, F: 0 };
-    let totalGradePoints = 0;
-    let studentsWithGrade = 0;
-
-    Object.entries(gradeMap).forEach(([grade, count]) => {
-      if (grade !== "F" && count > 0) {
-        totalGradePoints += gradeValues[grade as keyof typeof gradeValues] * count;
-        studentsWithGrade += count;
-      }
-    });
-
-    const averageGrade = studentsWithGrade > 0 ? totalGradePoints / studentsWithGrade : 0;
-    const failRate = totalStudents > 0 ? (failedStudents / totalStudents) * 100 : 0;
-
-    const grades: GradeData[] = Object.entries(gradeMap).map(([grade, count]) => ({
-      grade,
-      count,
-      percentage: totalStudents > 0 ? (count / totalStudents) * 100 : 0,
-    }));
-
-    return {
-      grades,
-      totalStudents,
-      averageGrade,
-      failRate,
-      year,
     };
   };
 
