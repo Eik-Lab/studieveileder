@@ -2,7 +2,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GradeStatistics from "@/components/GradeStatistics";
 import BackButton from "./BackButton";
-import { ChevronLeft, BookOpen, Clock, GraduationCap, Users, Globe, AlertCircle, Calendar } from "lucide-react";
+import {
+  ChevronLeft,
+  BookOpen,
+  Clock,
+  GraduationCap,
+  Users,
+  Globe,
+  AlertCircle,
+  Calendar,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -45,7 +54,9 @@ const mapCourseData = (raw: any): Course => ({
   merknader: raw.merknader || "",
 });
 
-async function fetchCourse(kode: string): Promise<{ course: Course | null; error: string | null }> {
+async function fetchCourse(
+  kode: string
+): Promise<{ course: Course | null; error: string | null }> {
   try {
     const result = await apiClient.get<{ success: boolean; data: any }>(
       `/api/course/${encodeURIComponent(kode)}`,
@@ -59,16 +70,29 @@ async function fetchCourse(kode: string): Promise<{ course: Course | null; error
     return { course: null, error: "Ingen data mottatt fra backend" };
   } catch (err: any) {
     if (isTimeoutError(err)) {
-      return { course: null, error: "Forespørselen tok for lang tid. Prøv igjen senere." };
+      return {
+        course: null,
+        error: "Forespørselen tok for lang tid. Prøv igjen senere.",
+      };
     }
     if (err.message?.includes("404")) {
-      return { course: null, error: `Emnet "${kode}" ble ikke funnet i databasen` };
+      return {
+        course: null,
+        error: `Emnet "${kode}" ble ikke funnet i databasen`,
+      };
     }
-    return { course: null, error: `Kunne ikke koble til backend: ${err.message}` };
+    return {
+      course: null,
+      error: `Kunne ikke koble til backend: ${err.message}`,
+    };
   }
 }
 
-export default async function CourseDetail({ params }: { params: Promise<{ name: string }> }) {
+export default async function CourseDetail({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
   const { name: kode } = await params;
   const { course, error } = await fetchCourse(kode);
 
@@ -85,9 +109,15 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
             </CardHeader>
             <CardContent className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Emnekode: <Badge variant="outline" className="font-mono">{kode}</Badge>
+                Emnekode:{" "}
+                <Badge variant="outline" className="font-mono">
+                  {kode}
+                </Badge>
               </p>
-              <Button asChild className="w-full bg-[#006633] hover:bg-[#004d26]">
+              <Button
+                asChild
+                className="w-full bg-[#006633] hover:bg-[#004d26]"
+              >
                 <Link href="/search">
                   <ChevronLeft className="mr-2 h-4 w-4" />
                   Tilbake til emnesøk
@@ -104,58 +134,86 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
+
       <main className="flex-1 overflow-y-auto">
-        <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
+        <div className="container mx-auto px-4 py-6 sm:py-8 md:py-12 max-w-5xl">
           <BackButton />
 
+          {/* HEADER */}
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{course.navn}</h1>
-            <div className="flex flex-wrap gap-3 text-sm">
-              <Badge className="inline-flex items-center gap-1.5 bg-[#006633] hover:bg-[#004d26] text-white">
-                <BookOpen size={16} />
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {course.navn}
+            </h1>
+
+            {/* 🔧 RESPONSIV METADATA */}
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3 text-sm">
+              <Badge className="inline-flex items-center gap-1.5 bg-[#006633] text-white w-fit">
+                <BookOpen size={14} />
                 {course.kode}
               </Badge>
-              <Badge variant="secondary" className="inline-flex items-center gap-1.5">
-                <Clock size={16} />
+
+              <Badge
+                variant="secondary"
+                className="inline-flex items-center gap-1.5 w-fit"
+              >
+                <Clock size={14} />
                 {course.studiepoeng} sp
               </Badge>
+
               {course.semester && (
-                <Badge variant="secondary" className="inline-flex items-center gap-1.5">
-                  <Calendar size={16} />
+                <Badge
+                  variant="secondary"
+                  className="inline-flex items-center gap-1.5 w-fit"
+                >
+                  <Calendar size={14} />
                   {course.semester}
                 </Badge>
               )}
+
               {course.språk && (
-                <Badge variant="secondary" className="inline-flex items-center gap-1.5">
-                  <Globe size={16} />
+                <Badge
+                  variant="secondary"
+                  className="inline-flex items-center gap-1.5 w-fit"
+                >
+                  <Globe size={14} />
                   {course.språk}
                 </Badge>
               )}
+
               {course.underviser && (
-                <Badge variant="secondary" className="inline-flex items-center gap-1.5">
-                  <Users size={16} />
+                <Badge
+                  variant="secondary"
+                  className="inline-flex items-center gap-1.5 w-fit"
+                >
+                  <Users size={14} />
                   {course.underviser}
                 </Badge>
               )}
             </div>
+
             {course.fakultet && (
-              <p className="mt-4 text-muted-foreground">
-                <GraduationCap className="inline mr-2" size={18} />
+              <p className="mt-3 text-sm sm:text-base text-muted-foreground">
+                <GraduationCap className="inline mr-2" size={16} />
                 {course.fakultet}
               </p>
             )}
           </div>
 
+          {/* CONTENT */}
           <div className="space-y-8">
             <GradeStatistics key={course.kode} emnekode={course.kode} />
 
             {course.dette_lærer_du && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Dette lærer du</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">
+                    Dette lærer du
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-line">{course.dette_lærer_du}</p>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {course.dette_lærer_du}
+                  </p>
                 </CardContent>
               </Card>
             )}
@@ -163,10 +221,14 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
             {course.forkunnskaper && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Forkunnskaper</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">
+                    Forkunnskaper
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-line">{course.forkunnskaper}</p>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {course.forkunnskaper}
+                  </p>
                 </CardContent>
               </Card>
             )}
@@ -174,10 +236,14 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
             {course.læringsaktiviteter && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Læringsaktiviteter</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">
+                    Læringsaktiviteter
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-line">{course.læringsaktiviteter}</p>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {course.læringsaktiviteter}
+                  </p>
                 </CardContent>
               </Card>
             )}
@@ -185,10 +251,14 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
             {course.vurderingsordning && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Vurderingsordning</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">
+                    Vurderingsordning
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-line">{course.vurderingsordning}</p>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {course.vurderingsordning}
+                  </p>
                 </CardContent>
               </Card>
             )}
@@ -196,43 +266,22 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
             {course.obligatoriske_aktiviteter && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Obligatoriske aktiviteter</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">
+                    Obligatoriske aktiviteter
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-line">{course.obligatoriske_aktiviteter}</p>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {course.obligatoriske_aktiviteter}
+                  </p>
                 </CardContent>
               </Card>
-            )}
-
-            {(course.fortrinnsrett || course.antall_plasser) && (
-              <div className="grid sm:grid-cols-2 gap-6">
-                {course.fortrinnsrett && (
-                  <Card className="bg-blue-50 border-blue-200">
-                    <CardHeader>
-                      <CardTitle className="text-lg">Fortrinnsrett</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm whitespace-pre-line">{course.fortrinnsrett}</p>
-                    </CardContent>
-                  </Card>
-                )}
-                {course.antall_plasser && (
-                  <Card className="bg-green-50 border-green-200">
-                    <CardHeader>
-                      <CardTitle className="text-lg">Antall plasser</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm">{course.antall_plasser}</p>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
             )}
 
             {course.merknader && (
               <Card className="bg-yellow-50 border-yellow-200">
                 <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-2">
+                  <CardTitle className="text-xl sm:text-2xl flex items-center gap-2">
                     <AlertCircle className="h-5 w-5 text-yellow-700" />
                     Merknader
                   </CardTitle>
@@ -256,6 +305,7 @@ export default async function CourseDetail({ params }: { params: Promise<{ name:
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );
