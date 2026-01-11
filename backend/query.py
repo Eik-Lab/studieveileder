@@ -113,19 +113,41 @@ def fetch_rules_context(query: str) -> List[str]:
 
 
 def fetch_emne_block(emnekode: str) -> Optional[str]:
-    try:
-        r = supabase.table("emner").select("*").eq("emnekode", emnekode).single().execute().data
-        if not r:
-            return None
-        return "\n".join([
-            "[EMNE]",
-            f"Emnekode: {r['emnekode']}",
-            f"Navn: {r['navn']}",
-            f"Forkunnskaper: {r.get('forkunnskapskrav')}",
-            f"Vurdering: {r.get('vurdering')}",
-        ])
-    except Exception:
+    r = (
+        supabase
+        .table("emner")
+        .select("*")
+        .eq("emnekode", emnekode)
+        .single()
+        .execute()
+        .data
+    )
+
+    if not r:
         return None
+
+    return "\n".join([
+        "[EMNE]",
+        f"Emnekode: {r['emnekode']}",
+        f"Navn: {r['navn']}",
+        f"Studiepoeng: {r['studiepoeng']}",
+        f"Fakultet: {r['fakultet']}",
+        f"Semester: {r['semester']}",
+        f"Språk: {r['språk']}",
+        "",
+        "[INNHOLD]",
+        f"Dette lærer du: {r.get('dette_lærer_du')}",
+        f"Forkunnskaper: {r.get('forkunnskaper')}",
+        f"Læringsaktiviteter: {r.get('læringsaktiviteter')}",
+        "",
+        "[VURDERING]",
+        f"Vurderingsordning: {r.get('vurderingsordning')}",
+        f"Obligatoriske aktiviteter: {r.get('obligatoriske_aktiviteter')}",
+        "",
+        "[ANNET]",
+        f"Fortrinnsrett: {r.get('fortrinnsrett')}",
+        f"Merknader: {r.get('merknader')}",
+    ])
 
 
 def trim_context(blocks: List[str], max_chars: int) -> str:
