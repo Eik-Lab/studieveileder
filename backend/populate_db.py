@@ -2,6 +2,7 @@ import os
 import re
 import json
 import time
+from typing import Optional
 from openai import OpenAI
 from supabase import create_client, Client
 from dotenv import load_dotenv
@@ -53,6 +54,7 @@ Unntak – feltet "dette_lærer_du":
 - Kan konkretiseres med presise faglige formuleringer
 - Kan beskrive typiske aktiviteter, problemstillinger eller anvendelser
 - Eventuelle eksempler må være realistiske og tydelig forankret i originalteksten
+- Bruk gjerne formattering med avsnitt og punkter hvor dette er hensiktsmessig
 
 Begrensninger:
 - All presisering må være klart forankret i eksisterende tekst
@@ -63,35 +65,41 @@ Output:
 - Behold eksakt samme struktur og nøkler som input
 """
 
-def clean_text(text):
+
+def clean_text(text: Optional[str]) -> Optional[str]:
     if not text:
         return None
     text = re.sub(r"\n\s*\n+", "\n", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
 
-def normalize_integer(value):
+def normalize_integer(value: Optional[str]) -> Optional[int]:
     if not value:
         return None
     m = re.search(r"\d+", value)
     return int(m.group()) if m else None
 
-def normalize_semester(value):
+def normalize_float(value: Optional[str]) -> Optional[float]:
     if not value:
         return None
+    m = re.search(r"\d+(?:[.,]\d+)?", value)
+    if not m:
+        return None
+    return float(m.group().replace(",", "."))
 
+def normalize_semester(value: Optional[str]) -> Optional[str]:
+    if not value:
+        return None
     v = value.lower()
-
     if "høst" in v and "vår" in v:
         return "Hele året"
     if "høst" in v:
         return "Høst"
     if "vår" in v:
         return "Vår"
-
     return None
 
-def parse_file(filepath):
+def parse_file(filepath: str) -> dict:
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -103,44 +111,37 @@ def parse_file(filepath):
 
     return data
 
-def strip_nulls(d: dict) -> dict:
-    return {k: v for k, v in d.items() if v is not None}
-
 def extract_json(text: str) -> dict:
     match = re.search(r"\{[\s\S]*\}", text)
     if not match:
         raise ValueError("No JSON object found in model output")
     return json.loads(match.group())
 
+
 def improve_with_openai(data: dict) -> dict:
-    payload = strip_nulls(data)
     response = client.responses.create(
         model="gpt-4.1-mini",
         input=[
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+            {"role": "user", "content": json.dumps(data, ensure_ascii=False)},
         ],
     )
     return extract_json(response.output_text)
 
-def format_eta(seconds):
-    if seconds < 0:
-        return "–"
+
+def format_eta(seconds: float) -> str:
     m, s = divmod(int(seconds), 60)
     return f"{m}m {s}s"
 
 def main():
     files = [f for f in os.listdir(SUBJECT_FOLDER) if f.endswith(".txt")]
     total = len(files)
-    processed = 0
-    skipped = 0
-    failed = 0
+    processed = skipped = failed = 0
     start_time = time.time()
 
     print(f"Starter prosessering av {total} emner")
 
     for idx, filename in enumerate(files, start=1):
-        t0 = time.time()
         try:
             data = parse_file(os.path.join(SUBJECT_FOLDER, filename))
 
@@ -153,14 +154,14 @@ def main():
 
             data = improve_with_openai(data)
 
-            data["studiepoeng"] = normalize_integer(data.get("studiepoeng"))
+            data["studiepoeng"] = normalize_float(data.get("studiepoeng"))
             data["antall_plasser"] = normalize_integer(data.get("antall_plasser"))
             data["semester"] = normalize_semester(data.get("semester"))
 
-            supabase.table("emner").upsert(
-                data,
-                on_conflict="emnekode",
-            ).execute()
+            supabase.table("emner") \
+                .update(data) \
+                .eq("emnekode", data["emnekode"]) \
+                .execute()
 
             processed += 1
 
@@ -169,8 +170,8 @@ def main():
             print(f"[ERROR] {filename}: {e}")
 
         elapsed = time.time() - start_time
-        avg_time = elapsed / max(1, idx)
-        eta = avg_time * (total - idx)
+        avg = elapsed / idx
+        eta = avg * (total - idx)
 
         print(
             f"[{idx}/{total}] "
@@ -180,9 +181,8 @@ def main():
 
         time.sleep(0.15)
 
-    total_time = time.time() - start_time
     print(
-        f"Ferdig på {format_eta(total_time)} | "
+        f"Ferdig på {format_eta(time.time() - start_time)} | "
         f"ok={processed} skip={skipped} fail={failed}"
     )
 
