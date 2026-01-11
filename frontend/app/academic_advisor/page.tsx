@@ -63,7 +63,7 @@ export default function Advisor() {
       const data = await apiClient.post<{ answer: string }>(
         "/api/chat",
         { query: content },
-        { timeout: 10000 } 
+        { timeout: 45000 }
       );
 
       const botMessage: Message = {

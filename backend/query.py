@@ -7,7 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai_client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    timeout=30.0,
+)
 supabase: Client = create_client(
     os.getenv("SUPABASE_URL"),
     os.getenv("SUPABASE_KEY"),
@@ -41,10 +44,13 @@ def extract_emnekoder(text: str) -> List[str]:
 
 
 def extract_study_mentions(question: str) -> List[str]:
-    r = supabase.table("studier").select("navn").execute()
-    studies = [s["navn"] for s in r.data or []]
-    q = question.lower()
-    return [s for s in studies if s.lower() in q]
+    try:
+        r = supabase.table("studier").select("navn").execute()
+        studies = [s["navn"] for s in r.data or []]
+        q = question.lower()
+        return [s for s in studies if s.lower() in q]
+    except Exception:
+        return []
 
 
 def classify_exam_failure(q: str) -> str:
@@ -107,16 +113,19 @@ def fetch_rules_context(query: str) -> List[str]:
 
 
 def fetch_emne_block(emnekode: str) -> Optional[str]:
-    r = supabase.table("emner").select("*").eq("emnekode", emnekode).single().execute().data
-    if not r:
+    try:
+        r = supabase.table("emner").select("*").eq("emnekode", emnekode).single().execute().data
+        if not r:
+            return None
+        return "\n".join([
+            "[EMNE]",
+            f"Emnekode: {r['emnekode']}",
+            f"Navn: {r['navn']}",
+            f"Forkunnskaper: {r.get('forkunnskapskrav')}",
+            f"Vurdering: {r.get('vurdering')}",
+        ])
+    except Exception:
         return None
-    return "\n".join([
-        "[EMNE]",
-        f"Emnekode: {r['emnekode']}",
-        f"Navn: {r['navn']}",
-        f"Forkunnskaper: {r.get('forkunnskapskrav')}",
-        f"Vurdering: {r.get('vurdering')}",
-    ])
 
 
 def trim_context(blocks: List[str], max_chars: int) -> str:
@@ -167,22 +176,25 @@ Regler:
 
 
 def get_answer(question: str) -> str:
-    context, intent, policy = build_context(question)
+    try:
+        context, intent, policy = build_context(question)
 
-    if intent == "off_topic":
-        return "Jeg kan kun svare på spørsmål om studier, emner og regler ved universitetet."
+        if intent == "off_topic":
+            return "Jeg kan kun svare på spørsmål om studier, emner og regler ved universitetet."
 
-    if not context:
-        return "Jeg finner ingen relevant informasjon i regelverket til å svare på dette."
+        if not context:
+            return "Jeg finner ingen relevant informasjon i regelverket til å svare på dette."
 
-    r = openai_client.chat.completions.create(
-        model=policy["model"],
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": f"KONTEKST:\n{context}\n\nSPØRSMÅL:\n{question}"},
-        ],
-    )
-    return r.choices[0].message.content.strip()
+        r = openai_client.chat.completions.create(
+            model=policy["model"],
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": f"KONTEKST:\n{context}\n\nSPØRSMÅL:\n{question}"},
+            ],
+        )
+        return r.choices[0].message.content.strip()
+    except Exception as e:
+        return f"Beklager, det oppstod en feil ved behandling av spørsmålet: {str(e)}"
 
 
 def main():
