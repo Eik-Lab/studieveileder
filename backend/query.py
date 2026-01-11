@@ -21,17 +21,17 @@ SESSION = {
 EMNEKODE_REGEX = re.compile(r"\b[A-ZÆØÅ]{2,4}\d{3,4}\b")
 
 INTENT_POLICY: Dict[str, Dict[str, int | str]] = {
-    "admin_rules": {"model": "gpt-5-mini", "max_context_chars": 3000},
-    "deadline_timebound": {"model": "gpt-5-mini", "max_context_chars": 3000},
-    "exam_rules_specific": {"model": "gpt-5-mini", "max_context_chars": 2500},
-    "exam_rules_general": {"model": "gpt-5-mini", "max_context_chars": 3000},
-    "conditional_rule": {"model": "gpt-5", "max_context_chars": 5000},
-    "progression_consequence": {"model": "gpt-5", "max_context_chars": 5000},
-    "comparison": {"model": "gpt-5", "max_context_chars": 6000},
-    "study_overview": {"model": "gpt-5", "max_context_chars": 7000},
-    "study_followup": {"model": "gpt-5", "max_context_chars": 7000},
-    "specific_emne": {"model": "gpt-5", "max_context_chars": 5000},
-    "concept_explanation": {"model": "gpt-5", "max_context_chars": 3000},
+    "admin_rules": {"model": "gpt-4o-mini", "max_context_chars": 3000},
+    "deadline_timebound": {"model": "gpt-4o-mini", "max_context_chars": 3000},
+    "exam_rules_specific": {"model": "gpt-4o-mini", "max_context_chars": 2500},
+    "exam_rules_general": {"model": "gpt-4o-mini", "max_context_chars": 3000},
+    "conditional_rule": {"model": "gpt-4o", "max_context_chars": 5000},
+    "progression_consequence": {"model": "gpt-4o", "max_context_chars": 5000},
+    "comparison": {"model": "gpt-4o", "max_context_chars": 6000},
+    "study_overview": {"model": "gpt-4o", "max_context_chars": 7000},
+    "study_followup": {"model": "gpt-4o", "max_context_chars": 7000},
+    "specific_emne": {"model": "gpt-4o", "max_context_chars": 5000},
+    "concept_explanation": {"model": "gpt-4o", "max_context_chars": 3000},
     "off_topic": {"model": "none", "max_context_chars": 0},
 }
 
