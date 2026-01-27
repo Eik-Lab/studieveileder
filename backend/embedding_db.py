@@ -1,80 +1,167 @@
 import os
-from pathlib import Path
+import json
+import re
 from typing import List
+
+import psycopg
 from openai import OpenAI
-from supabase import create_client, Client
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY"),
-)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 EMBEDDING_MODEL = "text-embedding-3-small"
-CHUNK_SIZE = 1600
-OVERLAP = 250
+LLM_MODEL = "gpt-4.1-mini"
 
-total_chunks = 0
-
-
-def read_file(path: Path) -> str:
-    return path.read_text(encoding="utf-8", errors="ignore")
+CHUNK_SIZE = 600
 
 
-def chunk_text(text: str) -> List[str]:
+def split_paragraphs(text: str) -> List[str]:
+
+    return [
+        p.strip()
+        for p in re.split(r"\n\s*\n+", text)
+        if p.strip()
+    ]
+
+
+def chunk_text(text: str, max_size: int = CHUNK_SIZE) -> List[str]:
+
+    paragraphs = split_paragraphs(text)
+
     chunks = []
-    start = 0
-    while start < len(text):
-        end = start + CHUNK_SIZE
-        chunks.append(text[start:end])
-        start = end - OVERLAP
-        if start < 0:
-            start = 0
-    return [c.strip() for c in chunks if c.strip()]
+    buffer = ""
+
+    for para in paragraphs:
+
+        if len(buffer) + len(para) <= max_size:
+
+            buffer += ("\n\n" if buffer else "") + para
+
+        else:
+
+            chunks.append(buffer.strip())
+            buffer = para
+
+    if buffer:
+        chunks.append(buffer.strip())
+
+    return chunks
 
 
-def get_embeddings(texts: List[str]) -> List[List[float]]:
-    print(f"embedding {len(texts)} chunks")
-    r = openai_client.embeddings.create(
-        model=EMBEDDING_MODEL,
-        input=texts,
+def add_context_to_chunk(document: str, chunk: str) -> str:
+
+    prompt = f"""
+Summarize this chunk in relation to the document in ONE sentence (max 20 words).
+
+Document:
+{document[:500]}
+
+Chunk:
+{chunk[:800]}
+"""
+
+    response = client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=[
+            {"role": "system", "content": "You write retrieval context."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0
     )
-    return [d.embedding for d in r.data]
+
+    context = response.choices[0].message.content.strip()
+
+    return f"{context}\n\n{chunk}"
 
 
-def store_embeddings(chunks: List[str], embeddings: List[List[float]], source: str):
-    global total_chunks
-    rows = []
-    for text, emb in zip(chunks, embeddings):
-        rows.append(
-            {
-                "text": text,
-                "embedding": emb,
-                "source": source,
-            }
-        )
-    supabase.table("embeddings").insert(rows).execute()
-    total_chunks += len(rows)
-    print(f"stored {len(rows)} chunks | total {total_chunks}")
+def get_embeddings(texts: List[str], max_chars: int = 6000) -> List[List[float]]:
+
+    safe_texts = []
+
+    for t in texts:
+
+        if len(t) > max_chars:
+            safe_texts.append(t[:max_chars])
+        else:
+            safe_texts.append(t)
+
+    res = client.embeddings.create(
+        model=EMBEDDING_MODEL,
+        input=safe_texts
+    )
+
+    return [d.embedding for d in res.data]
 
 
-def process_folder(folder: str):
-    for path in Path(folder).rglob("*"):
-        if path.is_file():
-            print(f"processing {path}")
-            text = read_file(path)
-            chunks = chunk_text(text)
-            if not chunks:
-                print("no chunks, skipped")
+def store_embeddings(conn, rows):
+
+    sql = """
+        INSERT INTO embeddings (url, title, text, embedding)
+        VALUES (%s, %s, %s, %s)
+    """
+
+    with conn.cursor() as cur:
+        cur.executemany(sql, rows)
+
+    conn.commit()
+
+
+def load_json(path):
+
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def process_json(json_file: str):
+
+    data = load_json(json_file)
+
+    total = 0
+
+    with psycopg.connect(DATABASE_URL) as conn:
+
+        for item in data:
+
+            url = item.get("url", "")
+            title = item.get("title", "")
+            text = item.get("text", "")
+
+            if not text.strip():
                 continue
-            print(f"{len(chunks)} chunks created")
-            embeddings = get_embeddings(chunks)
-            source_name = path.stem
-            store_embeddings(chunks, embeddings, source_name)
+
+            if len(text.strip()) < 100:
+                continue
+
+            full_doc = f"Title: {title}\nURL: {url}\n\n{text}"
+
+            chunks = chunk_text(text)
+
+            contextualized = []
+
+            for chunk in chunks:
+
+                ctx = add_context_to_chunk(full_doc, chunk)
+                contextualized.append(ctx)
+
+            embeddings = get_embeddings(contextualized)
+
+            rows = [
+                (url, title, txt, emb)
+                for txt, emb in zip(contextualized, embeddings)
+            ]
+
+            store_embeddings(conn, rows)
+
+            total += len(rows)
+
+            print(f"Stored {len(rows)} | Total: {total}")
 
 
 if __name__ == "__main__":
-    process_folder("parsing-python/new_doc")
+
+    process_json("parsing-python/nmbu/nmbu_data.json")

@@ -3,23 +3,25 @@ import re
 import json
 import time
 from typing import Optional
+
+import psycopg
 from openai import OpenAI
-from supabase import create_client, Client
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-if not SUPABASE_URL or not SUPABASE_KEY or not OPENAI_API_KEY:
+if not DATABASE_URL or not OPENAI_API_KEY:
     raise ValueError("Missing required environment variables")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
 
 SUBJECT_FOLDER = "parsing-python/subject_contents"
+
 
 FIELDS = {
     "navn": r"^(.+?)\s*\|\s*NMBU\s*\|\s*NMBU",
@@ -37,6 +39,7 @@ FIELDS = {
     "merknader": r"Merknader\s*([\s\S]+?)(?:Undervisningstider|Opptakskrav|$)",
     "fortrinnsrett": r"Fortrinnsrett\s*([\s\S]+?)(?:Opptakskrav|Merknader|$)",
 }
+
 
 SYSTEM_PROMPT = """
 Du er studieplanredaktør ved NMBU.
@@ -67,58 +70,86 @@ Output:
 
 
 def clean_text(text: Optional[str]) -> Optional[str]:
+
     if not text:
         return None
+
     text = re.sub(r"\n\s*\n+", "\n", text)
     text = re.sub(r"\s+", " ", text)
+
     return text.strip()
 
+
 def normalize_integer(value: Optional[str]) -> Optional[int]:
+
     if not value:
         return None
+
     m = re.search(r"\d+", value)
+
     return int(m.group()) if m else None
 
+
 def normalize_float(value: Optional[str]) -> Optional[float]:
+
     if not value:
         return None
+
     m = re.search(r"\d+(?:[.,]\d+)?", value)
+
     if not m:
         return None
+
     return float(m.group().replace(",", "."))
 
+
 def normalize_semester(value: Optional[str]) -> Optional[str]:
+
     if not value:
         return None
+
     v = value.lower()
+
     if "høst" in v and "vår" in v:
         return "Hele året"
     if "høst" in v:
         return "Høst"
     if "vår" in v:
         return "Vår"
+
     return None
 
+
 def parse_file(filepath: str) -> dict:
+
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    data = {"emnekode": os.path.splitext(os.path.basename(filepath))[0]}
+    data = {
+        "emnekode": os.path.splitext(os.path.basename(filepath))[0]
+    }
 
     for key, pattern in FIELDS.items():
+
         m = re.search(pattern, content, re.MULTILINE)
+
         data[key] = clean_text(m.group(1)) if m else None
 
     return data
 
+
 def extract_json(text: str) -> dict:
+
     match = re.search(r"\{[\s\S]*\}", text)
+
     if not match:
-        raise ValueError("No JSON object found in model output")
+        raise ValueError("No JSON object found")
+
     return json.loads(match.group())
 
 
 def improve_with_openai(data: dict) -> dict:
+
     response = client.responses.create(
         model="gpt-4.1-mini",
         input=[
@@ -126,65 +157,131 @@ def improve_with_openai(data: dict) -> dict:
             {"role": "user", "content": json.dumps(data, ensure_ascii=False)},
         ],
     )
+
     return extract_json(response.output_text)
 
 
 def format_eta(seconds: float) -> str:
+
     m, s = divmod(int(seconds), 60)
+
     return f"{m}m {s}s"
 
+
+def update_emne(conn, data: dict):
+
+    sql = """
+        UPDATE emner
+        SET
+            navn = %s,
+            studiepoeng = %s,
+            semester = %s,
+            fakultet = %s,
+            underviser = %s,
+            språk = %s,
+            antall_plasser = %s,
+            dette_lærer_du = %s,
+            forkunnskaper = %s,
+            læringsaktiviteter = %s,
+            vurderingsordning = %s,
+            obligatoriske_aktiviteter = %s,
+            merknader = %s,
+            fortrinnsrett = %s,
+            updated_at = NOW()
+        WHERE emnekode = %s
+    """
+
+    values = (
+        data.get("navn"),
+        data.get("studiepoeng"),
+        data.get("semester"),
+        data.get("fakultet"),
+        data.get("underviser"),
+        data.get("språk"),
+        data.get("antall_plasser"),
+        data.get("dette_lærer_du"),
+        data.get("forkunnskaper"),
+        data.get("læringsaktiviteter"),
+        data.get("vurderingsordning"),
+        data.get("obligatoriske_aktiviteter"),
+        data.get("merknader"),
+        data.get("fortrinnsrett"),
+        data.get("emnekode"),
+    )
+
+    with conn.cursor() as cur:
+        cur.execute(sql, values)
+
+    conn.commit()
+
+
 def main():
+
     files = [f for f in os.listdir(SUBJECT_FOLDER) if f.endswith(".txt")]
+
     total = len(files)
+
     processed = skipped = failed = 0
+
     start_time = time.time()
 
     print(f"Starter prosessering av {total} emner")
 
-    for idx, filename in enumerate(files, start=1):
-        try:
-            data = parse_file(os.path.join(SUBJECT_FOLDER, filename))
+    with psycopg.connect(DATABASE_URL) as conn:
 
-            meaningful_fields = sum(
-                1 for v in data.values() if isinstance(v, str) and len(v) > 20
+        for idx, filename in enumerate(files, start=1):
+
+            try:
+
+                data = parse_file(
+                    os.path.join(SUBJECT_FOLDER, filename)
+                )
+
+                meaningful_fields = sum(
+                    1 for v in data.values()
+                    if isinstance(v, str) and len(v) > 20
+                )
+
+                if meaningful_fields < 3:
+                    skipped += 1
+                    continue
+
+                data = improve_with_openai(data)
+
+                data["studiepoeng"] = normalize_float(data.get("studiepoeng"))
+                data["antall_plasser"] = normalize_integer(data.get("antall_plasser"))
+                data["semester"] = normalize_semester(data.get("semester"))
+
+                update_emne(conn, data)
+
+                processed += 1
+
+
+            except Exception as e:
+
+                failed += 1
+
+                print(f"[ERROR] {filename}: {e}")
+
+
+            elapsed = time.time() - start_time
+            avg = elapsed / idx
+            eta = avg * (total - idx)
+
+            print(
+                f"[{idx}/{total}] "
+                f"ok={processed} skip={skipped} fail={failed} "
+                f"ETA {format_eta(eta)}"
             )
-            if meaningful_fields < 3:
-                skipped += 1
-                continue
 
-            data = improve_with_openai(data)
+            time.sleep(0.15)
 
-            data["studiepoeng"] = normalize_float(data.get("studiepoeng"))
-            data["antall_plasser"] = normalize_integer(data.get("antall_plasser"))
-            data["semester"] = normalize_semester(data.get("semester"))
-
-            supabase.table("emner") \
-                .update(data) \
-                .eq("emnekode", data["emnekode"]) \
-                .execute()
-
-            processed += 1
-
-        except Exception as e:
-            failed += 1
-            print(f"[ERROR] {filename}: {e}")
-
-        elapsed = time.time() - start_time
-        avg = elapsed / idx
-        eta = avg * (total - idx)
-
-        print(
-            f"[{idx}/{total}] "
-            f"ok={processed} skip={skipped} fail={failed} "
-            f"ETA {format_eta(eta)}"
-        )
-
-        time.sleep(0.15)
 
     print(
         f"Ferdig på {format_eta(time.time() - start_time)} | "
         f"ok={processed} skip={skipped} fail={failed}"
     )
+
 
 if __name__ == "__main__":
     main()

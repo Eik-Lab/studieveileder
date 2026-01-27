@@ -7,20 +7,20 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#E8E0D5] shadow-sm">
+    <header className="sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3">
           <img src="/logo.svg" alt="Eik Lab Logo" className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8">
-          <Link href="/academic_advisor" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/academic_advisor" className="text-sm text-white font-medium hover:text-gray-600">
             Digital studieveileder
           </Link>
-          <Link href="/search" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/search" className="text-sm text-white font-medium hover:text-gray-600">
             Emnesøk
           </Link>
-          <Link href="/kontakt" className="text-sm font-medium hover:text-gray-600">
+          <Link href="/kontakt" className="text-sm text-white font-medium hover:text-gray-600">
             Kontakt oss
           </Link>
         </nav>
