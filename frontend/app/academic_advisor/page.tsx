@@ -45,10 +45,6 @@ export default function Advisor() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
-
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
@@ -110,7 +106,7 @@ export default function Advisor() {
     });
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#1F5E55] via-[#2F7B6E] to-[#5BBEAF]">
+    <div className="min-h-screen flex flex-col bg-[#F7F6F2]">
 
       <Header />
 

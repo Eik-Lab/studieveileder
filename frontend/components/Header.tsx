@@ -7,9 +7,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3">
+    <header className="sticky top-0 z-50 shadow-sm w-screen">
+      <div className="mx-auto px-4 py-4 flex justify-between items-center bg-gradient-to-br from-[#025C4F] to-[#0D3B34] w-full">
+        <Link href="/" className="flex items-center gap-3 pl-10">
           <img src="/logo.svg" alt="Eik Lab Logo" className="h-10 w-auto" />
         </Link>
 
