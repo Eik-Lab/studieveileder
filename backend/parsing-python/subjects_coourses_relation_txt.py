@@ -1,19 +1,23 @@
 import os
 import json
 import re
+import psycopg2
+from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 from openai import OpenAI
-from supabase import create_client, Client
 
 load_dotenv()
 
 TXT_FOLDER = "parsing-python/studieplaner/studieplaner_txt"
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY")
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+conn = psycopg2.connect(DATABASE_URL)
+conn.autocommit = True
+
 
 SYSTEM_PROMPT_STEP_1 = """
 Du er studieplananalytiker ved NMBU.
@@ -41,6 +45,7 @@ Returner KUN gyldig JSON i dette formatet:
   ]
 }
 """
+
 
 SYSTEM_PROMPT_STEP_2 = """
 Du er studieplananalytiker ved NMBU.
@@ -76,9 +81,11 @@ Returner KUN gyldig JSON:
 }
 """
 
+
 def read_txt(path: str) -> str:
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
+
 
 def extract_json(text: str) -> dict:
     match = re.search(r"\{[\s\S]*\}", text)
@@ -86,16 +93,18 @@ def extract_json(text: str) -> dict:
         raise ValueError("Fant ingen JSON i OpenAI-output")
     return json.loads(match.group())
 
+
 def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
     response = client.responses.create(
         model="gpt-4.1-mini",
         input=[
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_text[:12000]}
+            {"role": "user", "content": user_text[:12000]},
         ],
     )
 
     raw = response.output_text.strip()
+
     if not raw:
         raise ValueError("Tom OpenAI-respons")
 
@@ -107,54 +116,121 @@ def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
         print("\n--- SLUTT ---\n")
         raise
 
+
+def get_cursor():
+    return conn.cursor(cursor_factory=RealDictCursor)
+
+
 def get_studie_id(navn, study_type):
-    res = supabase.table("studier").upsert(
-        {"navn": navn, "type": study_type},
-        on_conflict="navn"
-    ).execute()
-    return res.data[0]["studie_id"]
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO studier (navn, type)
+            VALUES (%s, %s)
+            ON CONFLICT (navn)
+            DO UPDATE SET type = EXCLUDED.type
+            RETURNING studie_id
+            """,
+            (navn, study_type),
+        )
+
+        return cur.fetchone()["studie_id"]
+
 
 def get_spes_id(studie_id, navn):
-    res = supabase.table("spesialiseringer").upsert(
-        {"studie_id": studie_id, "navn": navn},
-        on_conflict="studie_id,navn"
-    ).execute()
-    return res.data[0]["spesialisering_id"]
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO spesialiseringer (studie_id, navn)
+            VALUES (%s, %s)
+            ON CONFLICT (studie_id, navn)
+            DO NOTHING
+            RETURNING spesialisering_id
+            """,
+            (studie_id, navn),
+        )
+
+        res = cur.fetchone()
+
+        if res:
+            return res["spesialisering_id"]
+
+        cur.execute(
+            """
+            SELECT spesialisering_id
+            FROM spesialiseringer
+            WHERE studie_id = %s AND navn = %s
+            """,
+            (studie_id, navn),
+        )
+
+        return cur.fetchone()["spesialisering_id"]
+
 
 def get_emne_id(emnekode):
-    res = supabase.table("emner").select("id").eq(
-        "emnekode", emnekode
-    ).execute()
-    return res.data[0]["id"] if res.data else None
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            SELECT id
+            FROM emner
+            WHERE emnekode = %s
+            """,
+            (emnekode,),
+        )
+
+        res = cur.fetchone()
+
+        return res["id"] if res else None
+
 
 def insert_fag(studie_id, spes_id, studieaar, fag):
     emne_id = get_emne_id(fag["emnekode"])
+
     if not emne_id:
         return
 
-    supabase.table("studiefag").insert({
-        "studie_id": studie_id,
-        "spesialisering_id": spes_id,
-        "emne_id": emne_id,
-        "studieaar": studieaar,
-        "semester": fag["semester"],
-        "obligatorisk": fag["obligatorisk"],
-        "kommentar": fag.get("kommentar")
-    }).execute()
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO studiefag (
+              studie_id,
+              spesialisering_id,
+              emne_id,
+              studieaar,
+              semester,
+              obligatorisk,
+              kommentar
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT DO NOTHING
+            """,
+            (
+                studie_id,
+                spes_id,
+                emne_id,
+                studieaar,
+                fag["semester"],
+                fag["obligatorisk"],
+                fag.get("kommentar"),
+            ),
+        )
+
 
 def process_txt(path: str):
     filename = os.path.basename(path)
     text = read_txt(path)
 
     doc = openai_call(SYSTEM_PROMPT_STEP_1, text, filename)
+
     studie_id = get_studie_id(doc["studie"], doc["type"])
 
     for spes in doc["spesialiseringer"]:
         spes_id = get_spes_id(studie_id, spes["navn"])
+
         data = openai_call(
             SYSTEM_PROMPT_STEP_2,
             spes["tekst"],
-            f"{filename}::{spes['navn']}"
+            f"{filename}::{spes['navn']}",
         )
 
         for block in data["struktur"]:
@@ -163,11 +239,16 @@ def process_txt(path: str):
                     studie_id,
                     spes_id,
                     block["studieaar"],
-                    fag
+                    fag,
                 )
 
+
 def main():
-    files = [f for f in os.listdir(TXT_FOLDER) if f.lower().endswith(".txt")]
+    files = [
+        f for f in os.listdir(TXT_FOLDER)
+        if f.lower().endswith(".txt")
+    ]
+
     print(f"Fant {len(files)} studieplaner")
 
     for file in files:
@@ -176,6 +257,7 @@ def main():
             process_txt(os.path.join(TXT_FOLDER, file))
         except Exception as e:
             print(f"[ERROR] {file}: {e}")
+
 
 if __name__ == "__main__":
     main()

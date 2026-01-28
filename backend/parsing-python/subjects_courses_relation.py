@@ -1,20 +1,23 @@
 import os
 import json
 import re
+import psycopg2
+from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 from openai import OpenAI
-from supabase import create_client, Client
 from pypdf import PdfReader
 
 load_dotenv()
 
 PDF_FOLDER = "parsing-python/studieplaner"
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY")
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+conn = psycopg2.connect(DATABASE_URL)
+conn.autocommit = True
 
 
 SYSTEM_PROMPT_STEP_1 = """
@@ -43,6 +46,7 @@ Returner KUN gyldig JSON i dette formatet:
   ]
 }
 """
+
 
 SYSTEM_PROMPT_STEP_2 = """
 Du er studieplananalytiker ved NMBU.
@@ -78,6 +82,11 @@ Returner KUN gyldig JSON:
 }
 """
 
+
+def get_cursor():
+    return conn.cursor(cursor_factory=RealDictCursor)
+
+
 def read_pdf(path: str) -> str:
     reader = PdfReader(path)
     return "\n".join(page.extract_text() or "" for page in reader.pages)
@@ -95,11 +104,12 @@ def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
         model="gpt-4.1-mini",
         input=[
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_text[:12000]}
+            {"role": "user", "content": user_text[:12000]},
         ],
     )
 
     raw = response.output_text.strip()
+
     if not raw:
         raise ValueError("Tom OpenAI-respons")
 
@@ -111,43 +121,101 @@ def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
         print("\n--- SLUTT ---\n")
         raise
 
+
 def get_studie_id(navn, study_type):
-    res = supabase.table("studier").upsert(
-        {"navn": navn, "type": study_type},
-        on_conflict="navn"
-    ).execute()
-    return res.data[0]["studie_id"]
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO studier (navn, type)
+            VALUES (%s, %s)
+            ON CONFLICT (navn)
+            DO UPDATE SET type = EXCLUDED.type
+            RETURNING studie_id
+            """,
+            (navn, study_type),
+        )
+
+        return cur.fetchone()["studie_id"]
 
 
 def get_spes_id(studie_id, navn):
-    res = supabase.table("spesialiseringer").upsert(
-        {"studie_id": studie_id, "navn": navn},
-        on_conflict="studie_id,navn"
-    ).execute()
-    return res.data[0]["spesialisering_id"]
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO spesialiseringer (studie_id, navn)
+            VALUES (%s, %s)
+            ON CONFLICT (studie_id, navn)
+            DO NOTHING
+            RETURNING spesialisering_id
+            """,
+            (studie_id, navn),
+        )
+
+        res = cur.fetchone()
+
+        if res:
+            return res["spesialisering_id"]
+
+        cur.execute(
+            """
+            SELECT spesialisering_id
+            FROM spesialiseringer
+            WHERE studie_id = %s AND navn = %s
+            """,
+            (studie_id, navn),
+        )
+
+        return cur.fetchone()["spesialisering_id"]
 
 
 def get_emne_id(emnekode):
-    res = supabase.table("emner").select("id").eq(
-        "emnekode", emnekode
-    ).execute()
-    return res.data[0]["id"] if res.data else None
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            SELECT id
+            FROM emner
+            WHERE emnekode = %s
+            """,
+            (emnekode,),
+        )
+
+        res = cur.fetchone()
+
+        return res["id"] if res else None
 
 
 def insert_fag(studie_id, spes_id, studieaar, fag):
     emne_id = get_emne_id(fag["emnekode"])
+
     if not emne_id:
         return
 
-    supabase.table("studiefag").insert({
-        "studie_id": studie_id,
-        "spesialisering_id": spes_id,
-        "emne_id": emne_id,
-        "studieaar": studieaar,
-        "semester": fag["semester"],
-        "obligatorisk": fag["obligatorisk"],
-        "kommentar": fag.get("kommentar")
-    }).execute()
+    with get_cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO studiefag (
+              studie_id,
+              spesialisering_id,
+              emne_id,
+              studieaar,
+              semester,
+              obligatorisk,
+              kommentar
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT DO NOTHING
+            """,
+            (
+                studie_id,
+                spes_id,
+                emne_id,
+                studieaar,
+                fag["semester"],
+                fag["obligatorisk"],
+                fag.get("kommentar"),
+            ),
+        )
+
 
 def process_pdf(path: str):
     filename = os.path.basename(path)
@@ -159,11 +227,11 @@ def process_pdf(path: str):
 
     for spes in doc["spesialiseringer"]:
         spes_id = get_spes_id(studie_id, spes["navn"])
-        
+
         data = openai_call(
             SYSTEM_PROMPT_STEP_2,
             spes["tekst"],
-            f"{filename}::{spes['navn']}"
+            f"{filename}::{spes['navn']}",
         )
 
         for block in data["struktur"]:
@@ -172,12 +240,16 @@ def process_pdf(path: str):
                     studie_id,
                     spes_id,
                     block["studieaar"],
-                    fag
+                    fag,
                 )
 
 
 def main():
-    pdfs = [f for f in os.listdir(PDF_FOLDER) if f.lower().endswith(".pdf")]
+    pdfs = [
+        f for f in os.listdir(PDF_FOLDER)
+        if f.lower().endswith(".pdf")
+    ]
+
     print(f"Fant {len(pdfs)} studieplaner")
 
     for pdf in pdfs:
