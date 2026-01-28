@@ -13,7 +13,7 @@ export default function Header() {
           <img src="/logo_3.svg" alt="Eik Lab Logo" className="h-10 w-auto" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8 pr-4">
           <Link href="/academic_advisor" className="text-sm text-white font-medium hover:text-gray-600">
             Digital studieveileder
           </Link>

@@ -1,36 +1,41 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { Pool } from "pg";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : false,
+});
 
 export async function GET() {
-  const { data, error } = await supabase
-    .from("emner")
-    .select(`
-      emnekode,
-      navn,
-      studiepoeng,
-      semester,
-      fakultet,
-      underviser
-    `)
-    .order("emnekode", { ascending: true });
+  try {
+    const result = await pool.query(`
+      SELECT
+        emnekode,
+        navn,
+        studiepoeng,
+        semester,
+        fakultet,
+        underviser
+      FROM emner
+      ORDER BY emnekode ASC
+    `);
 
-  if (error) {
+    return NextResponse.json({
+      success: true,
+      data: result.rows,
+    });
+  } catch (err: any) {
+    console.error("DB error:", err);
+
     return NextResponse.json(
       {
         success: false,
-        error: error.message,
+        error: "Database error",
       },
       { status: 500 }
     );
   }
-
-  return NextResponse.json({
-    success: true,
-    data,
-  });
 }

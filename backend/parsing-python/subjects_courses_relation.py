@@ -1,8 +1,8 @@
 import os
 import json
 import re
-import psycopg2
-from psycopg2.extras import RealDictCursor
+import psycopg
+from psycopg.rows import dict_row
 from dotenv import load_dotenv
 from openai import OpenAI
 from pypdf import PdfReader
@@ -16,7 +16,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg.connect(DATABASE_URL, row_factory=dict_row)
 conn.autocommit = True
 
 
@@ -84,7 +84,7 @@ Returner KUN gyldig JSON:
 
 
 def get_cursor():
-    return conn.cursor(cursor_factory=RealDictCursor)
+    return conn.cursor()
 
 
 def read_pdf(path: str) -> str:
@@ -106,6 +106,7 @@ def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_text[:12000]},
         ],
+        timeout=60,
     )
 
     raw = response.output_text.strip()

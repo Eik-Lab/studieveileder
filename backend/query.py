@@ -3,6 +3,7 @@ import re
 from typing import List, Tuple, Optional, Dict
 
 import psycopg
+from psycopg.rows import dict_row
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -42,6 +43,10 @@ INTENT_POLICY: Dict[str, Dict[str, int | str]] = {
 }
 
 
+def get_conn():
+    return psycopg.connect(DATABASE_URL, row_factory=dict_row)
+
+
 def extract_emnekoder(text: str) -> List[str]:
     return list(set(EMNEKODE_REGEX.findall(text.upper())))
 
@@ -49,12 +54,11 @@ def extract_emnekoder(text: str) -> List[str]:
 def extract_study_mentions(question: str) -> List[str]:
 
     try:
-        with psycopg.connect(DATABASE_URL) as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT navn FROM studier")
-                rows = cur.fetchall()
+        with get_conn() as conn, conn.cursor() as cur:
+            cur.execute("SELECT navn FROM studier")
+            rows = cur.fetchall()
 
-        studies = [r[0] for r in rows]
+        studies = [r["navn"] for r in rows]
         q = question.lower()
 
         return [s for s in studies if s.lower() in q]
@@ -163,22 +167,21 @@ def fetch_rules_context(query: str) -> List[str]:
             input=query,
         ).data[0].embedding
 
-        with psycopg.connect(DATABASE_URL) as conn:
-            with conn.cursor() as cur:
+        with get_conn() as conn, conn.cursor() as cur:
 
-                cur.execute(
-                    """
-                    SELECT text
-                    FROM embeddings
-                    ORDER BY embedding <=> %s
-                    LIMIT 20
-                    """,
-                    (emb,),
-                )
+            cur.execute(
+                """
+                SELECT text
+                FROM embeddings
+                ORDER BY embedding <=> %s
+                LIMIT 20
+                """,
+                (emb,),
+            )
 
-                rows = cur.fetchall()
+            rows = cur.fetchall()
 
-        docs = [r[0] for r in rows]
+        docs = [r["text"] for r in rows]
 
         if not docs:
             return []
@@ -194,21 +197,17 @@ def fetch_rules_context(query: str) -> List[str]:
 def fetch_emne_block(emnekode: str) -> Optional[str]:
 
     try:
-        with psycopg.connect(DATABASE_URL) as conn:
-            with conn.cursor() as cur:
+        with get_conn() as conn, conn.cursor() as cur:
 
-                cur.execute(
-                    "SELECT * FROM emner WHERE emnekode = %s",
-                    (emnekode,),
-                )
+            cur.execute(
+                "SELECT * FROM emner WHERE emnekode = %s",
+                (emnekode,),
+            )
 
-                r = cur.fetchone()
+            data = cur.fetchone()
 
-        if not r:
+        if not data:
             return None
-
-        cols = [d.name for d in cur.description]
-        data = dict(zip(cols, r))
 
         return "\n".join([
             "[EMNE]",

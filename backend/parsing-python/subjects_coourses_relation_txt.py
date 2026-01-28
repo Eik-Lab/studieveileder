@@ -1,8 +1,8 @@
 import os
 import json
 import re
-import psycopg2
-from psycopg2.extras import RealDictCursor
+import psycopg
+from psycopg.rows import dict_row
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -15,7 +15,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg.connect(DATABASE_URL, row_factory=dict_row)
 conn.autocommit = True
 
 
@@ -101,6 +101,7 @@ def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_text[:12000]},
         ],
+        timeout=60,
     )
 
     raw = response.output_text.strip()
@@ -118,7 +119,7 @@ def openai_call(system_prompt: str, user_text: str, filename: str) -> dict:
 
 
 def get_cursor():
-    return conn.cursor(cursor_factory=RealDictCursor)
+    return conn.cursor()
 
 
 def get_studie_id(navn, study_type):

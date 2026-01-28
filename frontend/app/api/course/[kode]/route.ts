@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { Pool } from "pg";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === "production"
+    ? { rejectUnauthorized: false }
+    : false,
+});
 
 export async function GET(
   _request: Request,
@@ -12,40 +14,55 @@ export async function GET(
 ) {
   const { kode } = await params;
 
-  const { data, error } = await supabase
-    .from("emner")
-    .select(`
-      emnekode,
-      navn,
-      studiepoeng,
-      semester,
-      fakultet,
-      underviser,
-      språk,
-      dette_lærer_du,
-      forkunnskaper,
-      læringsaktiviteter,
-      vurderingsordning,
-      obligatoriske_aktiviteter,
-      fortrinnsrett,
-      antall_plasser,
-      merknader
-    `)
-    .eq("emnekode", kode)
-    .single();
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        emnekode,
+        navn,
+        studiepoeng,
+        semester,
+        fakultet,
+        underviser,
+        språk,
+        dette_lærer_du,
+        forkunnskaper,
+        læringsaktiviteter,
+        vurderingsordning,
+        obligatoriske_aktiviteter,
+        fortrinnsrett,
+        antall_plasser,
+        merknader
+      FROM emner
+      WHERE emnekode = $1
+      LIMIT 1
+      `,
+      [kode]
+    );
 
-  if (error || !data) {
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Emnet ${kode} ble ikke funnet`,
+        },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: result.rows[0],
+    });
+  } catch (err) {
+    console.error("DB error:", err);
+
     return NextResponse.json(
       {
         success: false,
-        error: `Emnet ${kode} ble ikke funnet`,
+        error: "Database error",
       },
-      { status: 404 }
+      { status: 500 }
     );
   }
-
-  return NextResponse.json({
-    success: true,
-    data,
-  });
 }
