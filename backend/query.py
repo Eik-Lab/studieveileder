@@ -4,18 +4,33 @@ from typing import List, Tuple, Optional, Dict
 
 import psycopg
 from psycopg.rows import dict_row
+
 from openai import OpenAI
 from dotenv import load_dotenv
 
 
 load_dotenv()
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not DATABASE_URL:
+    raise ValueError("Missing DATABASE_URL")
+
+if not OPENAI_API_KEY:
+    raise ValueError("Missing OPENAI_API_KEY")
+
+
 openai_client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
+    api_key=OPENAI_API_KEY,
     timeout=30.0,
 )
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+conn = psycopg.connect(
+    DATABASE_URL,
+    row_factory=dict_row,
+)
+conn.autocommit = True
 
 
 SESSION = {
@@ -43,39 +58,57 @@ INTENT_POLICY: Dict[str, Dict[str, int | str]] = {
 }
 
 
-def get_conn():
-    return psycopg.connect(DATABASE_URL, row_factory=dict_row)
-
-
 def extract_emnekoder(text: str) -> List[str]:
     return list(set(EMNEKODE_REGEX.findall(text.upper())))
 
 
+def fetch_all_studies() -> List[str]:
+    with conn.cursor() as cur:
+        cur.execute("SELECT navn FROM studier")
+        rows = cur.fetchall()
+    return [r["navn"] for r in rows]
+
+
+def fetch_emne(emnekode: str) -> Optional[dict]:
+    with conn.cursor() as cur:
+        cur.execute(
+            "SELECT * FROM emner WHERE emnekode = %s",
+            (emnekode,),
+        )
+        row = cur.fetchone()
+    return row
+
+
+def match_embeddings(embedding: list, limit: int = 8) -> List[str]:
+    with conn.cursor() as cur:
+        cur.execute(
+            "SELECT text FROM match_embeddings(%s, %s)",
+            (embedding, limit),
+        )
+        rows = cur.fetchall()
+    return [r["text"] for r in rows]
+
+
 def extract_study_mentions(question: str) -> List[str]:
-
     try:
-        with get_conn() as conn, conn.cursor() as cur:
-            cur.execute("SELECT navn FROM studier")
-            rows = cur.fetchall()
-
-        studies = [r["navn"] for r in rows]
+        studies = fetch_all_studies()
         q = question.lower()
-
         return [s for s in studies if s.lower() in q]
-
     except Exception:
         return []
 
 
 def classify_exam_failure(q: str) -> str:
-
     if any(w in q for w in ["hvor mange", "antall", "maks", "grense"]):
         return "exam_rules_specific"
-
     return "exam_rules_general"
 
 
-def classify_intent(question: str, emnekoder: List[str], studies: List[str]) -> str:
+def classify_intent(
+    question: str,
+    emnekoder: List[str],
+    studies: List[str],
+) -> str:
 
     q = question.lower()
 
@@ -112,150 +145,71 @@ def classify_intent(question: str, emnekoder: List[str], studies: List[str]) -> 
     return "off_topic"
 
 
-def rerank_chunks(query: str, docs: List[str], k: int = 8) -> List[str]:
-
-    numbered = "\n\n".join(
-        [f"{i+1}. {d[:800]}" for i, d in enumerate(docs)]
-    )
-
-    prompt = f"""
-You are ranking retrieved documents for relevance.
-
-Query:
-{query}
-
-Documents:
-{numbered}
-
-Return the numbers of the {k} most relevant documents
-in descending relevance order.
-Only return a comma-separated list of numbers.
-Example: 3,1,5,2
-"""
-
-    r = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are a relevance ranker."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0,
-    )
-
-    order = r.choices[0].message.content.strip()
-
-    try:
-        indices = [
-            int(x.strip()) - 1
-            for x in order.split(",")
-            if x.strip().isdigit()
-        ]
-
-        ranked = [docs[i] for i in indices if i < len(docs)]
-
-        return ranked[:k]
-
-    except Exception:
-        return docs[:k]
-
-
 def fetch_rules_context(query: str) -> List[str]:
-
     try:
         emb = openai_client.embeddings.create(
             model="text-embedding-3-small",
             input=query,
         ).data[0].embedding
 
-        with get_conn() as conn, conn.cursor() as cur:
+        matches = match_embeddings(emb, 8)
 
-            cur.execute(
-                """
-                SELECT text
-                FROM embeddings
-                ORDER BY embedding <=> %s
-                LIMIT 20
-                """,
-                (emb,),
-            )
-
-            rows = cur.fetchall()
-
-        docs = [r["text"] for r in rows]
-
-        if not docs:
-            return []
-
-        reranked = rerank_chunks(query, docs)
-
-        return [f"[REGLER]\n{d}" for d in reranked]
+        return [f"[REGLER]\n{text}" for text in matches]
 
     except Exception:
         return []
 
 
 def fetch_emne_block(emnekode: str) -> Optional[str]:
+    r = fetch_emne(emnekode)
 
-    try:
-        with get_conn() as conn, conn.cursor() as cur:
-
-            cur.execute(
-                "SELECT * FROM emner WHERE emnekode = %s",
-                (emnekode,),
-            )
-
-            data = cur.fetchone()
-
-        if not data:
-            return None
-
-        return "\n".join([
-            "[EMNE]",
-            f"Emnekode: {data['emnekode']}",
-            f"Navn: {data['navn']}",
-            f"Studiepoeng: {data['studiepoeng']}",
-            f"Fakultet: {data['fakultet']}",
-            f"Semester: {data['semester']}",
-            f"Språk: {data['språk']}",
-            "",
-            "[INNHOLD]",
-            f"Dette lærer du: {data.get('dette_lærer_du')}",
-            f"Forkunnskaper: {data.get('forkunnskaper')}",
-            f"Læringsaktiviteter: {data.get('læringsaktiviteter')}",
-            "",
-            "[VURDERING]",
-            f"Vurderingsordning: {data.get('vurderingsordning')}",
-            f"Obligatoriske aktiviteter: {data.get('obligatoriske_aktiviteter')}",
-            "",
-            "[ANNET]",
-            f"Fortrinnsrett: {data.get('fortrinnsrett')}",
-            f"Merknader: {data.get('merknader')}",
-        ])
-
-    except Exception:
+    if not r:
         return None
+
+    return "\n".join([
+        "[EMNE]",
+        f"Emnekode: {r['emnekode']}",
+        f"Navn: {r['navn']}",
+        f"Studiepoeng: {r['studiepoeng']}",
+        f"Fakultet: {r['fakultet']}",
+        f"Semester: {r['semester']}",
+        f"Språk: {r['språk']}",
+        "",
+        "[INNHOLD]",
+        f"Dette lærer du: {r.get('dette_lærer_du')}",
+        f"Forkunnskaper: {r.get('forkunnskaper')}",
+        f"Læringsaktiviteter: {r.get('læringsaktiviteter')}",
+        "",
+        "[VURDERING]",
+        f"Vurderingsordning: {r.get('vurderingsordning')}",
+        f"Obligatoriske aktiviteter: {r.get('obligatoriske_aktiviteter')}",
+        "",
+        "[ANNET]",
+        f"Fortrinnsrett: {r.get('fortrinnsrett')}",
+        f"Merknader: {r.get('merknader')}",
+    ])
 
 
 def trim_context(blocks: List[str], max_chars: int) -> str:
-
     out = []
     total = 0
 
     for b in blocks:
-
         if total + len(b) > max_chars:
             break
-
         out.append(b)
         total += len(b)
 
     return "\n\n".join(out)
 
 
-def build_context(question: str) -> Tuple[str, str, Dict[str, int | str]]:
+def build_context(
+    question: str,
+) -> Tuple[str, str, Dict[str, int | str]]:
 
     emnekoder = extract_emnekoder(question)
     studies = extract_study_mentions(question)
+
     intent = classify_intent(question, emnekoder, studies)
 
     blocks: List[str] = []
@@ -278,7 +232,11 @@ def build_context(question: str) -> Tuple[str, str, Dict[str, int | str]]:
 
     policy = INTENT_POLICY[intent]
 
-    return trim_context(blocks, policy["max_context_chars"]), intent, policy
+    return (
+        trim_context(blocks, policy["max_context_chars"]),
+        intent,
+        policy,
+    )
 
 
 SYSTEM_PROMPT = """
@@ -295,7 +253,6 @@ Regler:
 
 
 def get_answer(question: str) -> str:
-
     try:
         context, intent, policy = build_context(question)
 
@@ -311,7 +268,7 @@ def get_answer(question: str) -> str:
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {
                     "role": "user",
-                    "content": f"KONTEKST:\n{context}\n\nSPØRSMÅL:\n{question}",
+                    "content": f"KONTEKST:\n{context}\n\nSPØRSMÅL:\n{question}"
                 },
             ],
         )
@@ -319,15 +276,13 @@ def get_answer(question: str) -> str:
         return r.choices[0].message.content.strip()
 
     except Exception as e:
-        return f"Beklager, det oppstod en feil ved behandling av spørsmålet: {str(e)}"
+        return f"Feil: {str(e)}"
 
 
 def main():
-
     print("Studieveileder CLI (skriv 'exit')")
 
     while True:
-
         q = input("\n> ").strip()
 
         if q.lower() in {"exit", "quit"}:

@@ -17,7 +17,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 EMBEDDING_MODEL = "text-embedding-3-small"
 LLM_MODEL = "gpt-4.1-mini"
 
-CHUNK_SIZE = 600
+CHUNK_SIZE = 300
 
 
 def split_paragraphs(text: str) -> List[str]:
@@ -44,7 +44,9 @@ def chunk_text(text: str, max_size: int = CHUNK_SIZE) -> List[str]:
 
         else:
 
-            chunks.append(buffer.strip())
+            if buffer:
+                chunks.append(buffer.strip())
+
             buffer = para
 
     if buffer:
@@ -53,33 +55,86 @@ def chunk_text(text: str, max_size: int = CHUNK_SIZE) -> List[str]:
     return chunks
 
 
+def is_good_chunk(text: str) -> bool:
+
+    if len(text) < 80:
+        return False
+
+    if len(re.findall(r"[a-zA-ZæøåÆØÅ]", text)) < 40:
+        return False
+
+    if text.count(" ") < 10:
+        return False
+
+    return True
+
+
 def add_context_to_chunk(document: str, chunk: str) -> str:
 
     prompt = f"""
-Summarize this chunk in relation to the document in ONE sentence (max 20 words).
+You are creating retrieval context for a search system.
 
-Document:
-{document[:500]}
+Write ONE clear sentence describing what this chunk is about
+based on the document and the chunk.
+
+Rules:
+- Be specific
+- Use concrete terms
+- Do NOT say "no information"
+- Do NOT say "not provided"
+- Do NOT refuse
+- If unclear, summarize the chunk itself
+
+Document (summary):
+{document[:400]}
 
 Chunk:
 {chunk[:800]}
+
+Write only the sentence.
 """
 
     response = client.chat.completions.create(
         model=LLM_MODEL,
         messages=[
-            {"role": "system", "content": "You write retrieval context."},
-            {"role": "user", "content": prompt}
+            {
+                "role": "system",
+                "content": "You generate short factual retrieval summaries."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
         ],
         temperature=0
     )
 
     context = response.choices[0].message.content.strip()
 
+    bad_phrases = [
+        "no chunk",
+        "not provided",
+        "cannot",
+        "no information",
+        "insufficient",
+        "unable",
+    ]
+
+    context_lower = context.lower()
+
+    if (
+        len(context) < 15
+        or any(p in context_lower for p in bad_phrases)
+    ):
+        context = chunk[:200]
+
     return f"{context}\n\n{chunk}"
 
 
-def get_embeddings(texts: List[str], max_chars: int = 6000) -> List[List[float]]:
+def get_embeddings(
+    texts: List[str],
+    max_chars: int = 6000
+) -> List[List[float]]:
 
     safe_texts = []
 
@@ -134,7 +189,7 @@ def process_json(json_file: str):
             if not text.strip():
                 continue
 
-            if len(text.strip()) < 100:
+            if len(text.strip()) < 150:
                 continue
 
             full_doc = f"Title: {title}\nURL: {url}\n\n{text}"
@@ -145,8 +200,15 @@ def process_json(json_file: str):
 
             for chunk in chunks:
 
+                if not is_good_chunk(chunk):
+                    continue
+
                 ctx = add_context_to_chunk(full_doc, chunk)
+
                 contextualized.append(ctx)
+
+            if not contextualized:
+                continue
 
             embeddings = get_embeddings(contextualized)
 

@@ -22,4 +22,5 @@ dependencies = [
     "scipy>=1.16.3",
     "scrapy>=2.14.1",
     "psycopg[binary]>=3.3.2",
+    "pgvector>=0.4.2",
 ]
