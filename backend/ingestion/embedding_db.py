@@ -15,7 +15,6 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 EMBEDDING_MODEL = "text-embedding-3-small"
-LLM_MODEL = "gpt-4.1-mini"
 
 CHUNK_SIZE = 300
 
@@ -67,68 +66,6 @@ def is_good_chunk(text: str) -> bool:
         return False
 
     return True
-
-
-def add_context_to_chunk(document: str, chunk: str) -> str:
-
-    prompt = f"""
-You are creating retrieval context for a search system.
-
-Write ONE clear sentence describing what this chunk is about
-based on the document and the chunk.
-
-Rules:
-- Be specific
-- Use concrete terms
-- Do NOT say "no information"
-- Do NOT say "not provided"
-- Do NOT refuse
-- If unclear, summarize the chunk itself
-
-Document (summary):
-{document[:400]}
-
-Chunk:
-{chunk[:800]}
-
-Write only the sentence.
-"""
-
-    response = client.chat.completions.create(
-        model=LLM_MODEL,
-        messages=[
-            {
-                "role": "system",
-                "content": "You generate short factual retrieval summaries."
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        temperature=0
-    )
-
-    context = response.choices[0].message.content.strip()
-
-    bad_phrases = [
-        "no chunk",
-        "not provided",
-        "cannot",
-        "no information",
-        "insufficient",
-        "unable",
-    ]
-
-    context_lower = context.lower()
-
-    if (
-        len(context) < 15
-        or any(p in context_lower for p in bad_phrases)
-    ):
-        context = chunk[:200]
-
-    return f"{context}\n\n{chunk}"
 
 
 def get_embeddings(
@@ -192,29 +129,25 @@ def process_json(json_file: str):
             if len(text.strip()) < 150:
                 continue
 
-            full_doc = f"Title: {title}\nURL: {url}\n\n{text}"
-
             chunks = chunk_text(text)
 
-            contextualized = []
+            valid_chunks = []
 
             for chunk in chunks:
 
                 if not is_good_chunk(chunk):
                     continue
 
-                ctx = add_context_to_chunk(full_doc, chunk)
+                valid_chunks.append(chunk)
 
-                contextualized.append(ctx)
-
-            if not contextualized:
+            if not valid_chunks:
                 continue
 
-            embeddings = get_embeddings(contextualized)
+            embeddings = get_embeddings(valid_chunks)
 
             rows = [
                 (url, title, txt, emb)
-                for txt, emb in zip(contextualized, embeddings)
+                for txt, emb in zip(valid_chunks, embeddings)
             ]
 
             store_embeddings(conn, rows)

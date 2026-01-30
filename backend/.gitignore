@@ -1,4 +1,6 @@
-parsing-python/subject_contents/
-parsing-python/studieplaner/
-parsing-python/new_doc/
+parsing/subject_contents/
+parsing/studieplaner/
+parsing/new_doc/
+parsing/nmbu/
+parsing/grades/
 .env
