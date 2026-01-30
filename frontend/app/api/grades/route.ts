@@ -1,14 +1,18 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { Pool } from "pg";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : false,
+});
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
+
     const emnekode = searchParams.get("emnekode");
     const year = searchParams.get("year");
 
@@ -19,10 +23,9 @@ export async function GET(request: Request) {
       );
     }
 
-    const { data, error } = await supabase
-      .from("eksamensresultater")
-      .select(
-        `
+    const result = await pool.query(
+      `
+      SELECT
         emnekode,
         emnenavn,
         ar,
@@ -34,27 +37,23 @@ export async function GET(request: Request) {
         prosent_f,
         prosent_bestatt,
         prosent_ikke_bestatt
-      `
-      )
-      .eq("emnekode", emnekode)
-      .eq("ar", Number(year))
-      .maybeSingle();
+      FROM eksamensresultater
+      WHERE emnekode = $1
+        AND ar = $2
+      LIMIT 1
+      `,
+      [emnekode, Number(year)]
+    );
 
-    if (error) {
-      console.error("Supabase error:", error);
-      return NextResponse.json(
-        { success: false, error: "Databasefeil" },
-        { status: 500 }
-      );
-    }
-
-    if (!data) {
+    if (result.rows.length === 0) {
       return NextResponse.json({
         success: true,
         data: null,
         message: "Ingen karakterdata for valgt år",
       });
     }
+
+    const data = result.rows[0];
 
     return NextResponse.json({
       success: true,
@@ -73,7 +72,8 @@ export async function GET(request: Request) {
       },
     });
   } catch (err) {
-    console.error("Grades API crash:", err);
+    console.error("DB error:", err);
+
     return NextResponse.json(
       { success: false, error: "Intern serverfeil" },
       { status: 500 }

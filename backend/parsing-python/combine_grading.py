@@ -3,18 +3,18 @@ import re
 import unicodedata
 import pandas as pd
 from difflib import SequenceMatcher
-from supabase import create_client, Client
+import psycopg
+from psycopg.rows import dict_row
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-if not SUPABASE_URL or not SUPABASE_KEY:
-    raise ValueError("Missing Supabase credentials")
+if not DATABASE_URL:
+    raise ValueError("Missing DATABASE_URL")
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GRADES_DIR = os.path.join(BASE_DIR, "grades")
@@ -24,6 +24,10 @@ RESULT_TABLE = "eksamensresultater"
 
 YEAR_REGEX = re.compile(r"(\d{4})")
 MATCH_THRESHOLD = 0.85
+
+
+def get_conn():
+    return psycopg.connect(DATABASE_URL, row_factory=dict_row)
 
 
 def normalize(text: str) -> str:
@@ -49,18 +53,23 @@ def extract_year(filename: str) -> int:
 
 
 def fetch_emner():
-    data = supabase.table(EMNER_TABLE).select("emnekode, navn").execute().data
+
+    with get_conn() as conn, conn.cursor() as cur:
+        cur.execute("SELECT emnekode, navn FROM emner")
+        rows = cur.fetchall()
+
     return [
         {
             "emnekode": r["emnekode"],
             "navn": r["navn"],
             "norm": normalize(r["navn"]),
         }
-        for r in data
+        for r in rows
     ]
 
 
 def parse_excel(path: str):
+
     df = pd.read_excel(path)
 
     df = df.rename(columns={
@@ -76,7 +85,9 @@ def parse_excel(path: str):
     })
 
     rows = []
+
     for _, r in df.iterrows():
+
         if pd.isna(r["emnenavn"]):
             continue
 
@@ -97,11 +108,14 @@ def parse_excel(path: str):
 
 
 def match_emne(emne, excel_rows):
+
     best = None
     best_score = 0.0
 
     for r in excel_rows:
+
         score = similarity(emne["norm"], r["norm"])
+
         if score > best_score:
             best_score = score
             best = r
@@ -113,29 +127,55 @@ def match_emne(emne, excel_rows):
 
 
 def dedupe(rows):
+
     unique = {}
+
     for r in rows:
         key = (r["emnekode"], r["ar"])
+
         if key not in unique:
             unique[key] = r
+
     return list(unique.values())
 
 
 def insert_rows(rows):
+
     if not rows:
         return
 
-    supabase.table(RESULT_TABLE).upsert(
-        rows,
-        on_conflict="emnekode,ar"
-    ).execute()
+    cols = rows[0].keys()
+
+    columns = ",".join(cols)
+    placeholders = ",".join(["%s"] * len(cols))
+    updates = ",".join(
+        [f"{c}=EXCLUDED.{c}" for c in cols if c not in ("emnekode", "ar")]
+    )
+
+    query = f"""
+    INSERT INTO {RESULT_TABLE} ({columns})
+    VALUES ({placeholders})
+    ON CONFLICT (emnekode, ar)
+    DO UPDATE SET {updates}
+    """
+
+    values = [
+        tuple(r[c] for c in cols)
+        for r in rows
+    ]
+
+    with get_conn() as conn, conn.cursor() as cur:
+        cur.executemany(query, values)
+        conn.commit()
 
 
 def main():
+
     emner = fetch_emner()
     total_inserted = 0
 
     for filename in sorted(os.listdir(GRADES_DIR)):
+
         if not filename.endswith(".xlsx"):
             continue
 
@@ -148,7 +188,9 @@ def main():
         rows_to_insert = []
 
         for emne in emner:
+
             match, score = match_emne(emne, excel_rows)
+
             if not match:
                 continue
 
@@ -167,9 +209,11 @@ def main():
             })
 
         rows_to_insert = dedupe(rows_to_insert)
+
         insert_rows(rows_to_insert)
 
         print(f"Inserted {len(rows_to_insert)} rows")
+
         total_inserted += len(rows_to_insert)
 
     print(f"Done. Total rows inserted: {total_inserted}")

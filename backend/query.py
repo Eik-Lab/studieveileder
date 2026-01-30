@@ -1,40 +1,53 @@
 import os
 import re
 from typing import List, Tuple, Optional, Dict
+
+import psycopg
+from psycopg.rows import dict_row
+
 from openai import OpenAI
-from supabase import create_client, Client
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not DATABASE_URL:
+    raise ValueError("Missing DATABASE_URL")
+
+if not OPENAI_API_KEY:
+    raise ValueError("Missing OPENAI_API_KEY")
+
+
 openai_client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
+    api_key=OPENAI_API_KEY,
     timeout=30.0,
 )
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY"),
-)
 
-SESSION = {
-    "current_study": None,
-    "current_emne": None,
-}
+conn = psycopg.connect(
+    DATABASE_URL,
+    row_factory=dict_row,
+)
+conn.autocommit = True
+
 
 EMNEKODE_REGEX = re.compile(r"\b[A-ZÆØÅ]{2,4}\d{3,4}\b")
 
+
 INTENT_POLICY: Dict[str, Dict[str, int | str]] = {
-    "admin_rules": {"model": "gpt-4o-mini", "max_context_chars": 3000},
-    "deadline_timebound": {"model": "gpt-4o-mini", "max_context_chars": 3000},
-    "exam_rules_specific": {"model": "gpt-4o-mini", "max_context_chars": 2500},
-    "exam_rules_general": {"model": "gpt-4o-mini", "max_context_chars": 3000},
-    "conditional_rule": {"model": "gpt-4o", "max_context_chars": 5000},
-    "progression_consequence": {"model": "gpt-4o", "max_context_chars": 5000},
-    "comparison": {"model": "gpt-4o", "max_context_chars": 6000},
-    "study_overview": {"model": "gpt-4o", "max_context_chars": 7000},
-    "study_followup": {"model": "gpt-4o", "max_context_chars": 7000},
-    "specific_emne": {"model": "gpt-4o", "max_context_chars": 5000},
-    "concept_explanation": {"model": "gpt-4o", "max_context_chars": 3000},
+    "admin_rules": {"model": "gpt-4o-mini", "max_context_chars": 8000},
+    "deadline_timebound": {"model": "gpt-4o-mini", "max_context_chars": 8000},
+    "exam_rules_specific": {"model": "gpt-4o-mini", "max_context_chars": 8000},
+    "exam_rules_general": {"model": "gpt-4o-mini", "max_context_chars": 8000},
+    "conditional_rule": {"model": "gpt-4o", "max_context_chars": 10000},
+    "progression_consequence": {"model": "gpt-4o", "max_context_chars": 10000},
+    "comparison": {"model": "gpt-4o", "max_context_chars": 12000},
+    "study_overview": {"model": "gpt-4o", "max_context_chars": 15000},
+    "study_followup": {"model": "gpt-4o", "max_context_chars": 15000},
+    "specific_emne": {"model": "gpt-4o", "max_context_chars": 10000},
+    "concept_explanation": {"model": "gpt-4o", "max_context_chars": 8000},
     "off_topic": {"model": "none", "max_context_chars": 0},
 }
 
@@ -43,10 +56,44 @@ def extract_emnekoder(text: str) -> List[str]:
     return list(set(EMNEKODE_REGEX.findall(text.upper())))
 
 
+def fetch_all_studies() -> List[str]:
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT navn FROM studier")
+            rows = cur.fetchall()
+        return [r["navn"] for r in rows]
+    except Exception:
+        return []
+
+
+def fetch_emne(emnekode: str) -> Optional[dict]:
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT * FROM emner WHERE emnekode = %s",
+                (emnekode,),
+            )
+            return cur.fetchone()
+    except Exception:
+        return None
+
+
+def match_embeddings(embedding: list, limit: int = 8) -> List[str]:
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT text FROM match_embeddings(%s::vector, %s)",
+                (embedding, limit),
+            )
+            rows = cur.fetchall()
+        return [r["text"] for r in rows]
+    except Exception:
+        return []
+
+
 def extract_study_mentions(question: str) -> List[str]:
     try:
-        r = supabase.table("studier").select("navn").execute()
-        studies = [s["navn"] for s in r.data or []]
+        studies = fetch_all_studies()
         q = question.lower()
         return [s for s in studies if s.lower() in q]
     except Exception:
@@ -59,7 +106,11 @@ def classify_exam_failure(q: str) -> str:
     return "exam_rules_general"
 
 
-def classify_intent(question: str, emnekoder: List[str], studies: List[str]) -> str:
+def classify_intent(
+    question: str,
+    emnekoder: List[str],
+    studies: List[str],
+) -> str:
     q = question.lower()
 
     if any(w in q for w in ["vær", "mat", "politikk", "jobb", "lønn"]):
@@ -102,27 +153,14 @@ def fetch_rules_context(query: str) -> List[str]:
             input=query,
         ).data[0].embedding
 
-        r = supabase.rpc(
-            "match_embeddings",
-            {"query_embedding": emb, "match_count": 8},
-        ).execute()
-
-        return [f"[REGLER]\n{row['text']}" for row in r.data or []]
+        matches = match_embeddings(emb, 10)
+        return [f"[REGLER]\n{text}" for text in matches]
     except Exception:
         return []
 
 
 def fetch_emne_block(emnekode: str) -> Optional[str]:
-    r = (
-        supabase
-        .table("emner")
-        .select("*")
-        .eq("emnekode", emnekode)
-        .single()
-        .execute()
-        .data
-    )
-
+    r = fetch_emne(emnekode)
     if not r:
         return None
 
@@ -151,12 +189,17 @@ def fetch_emne_block(emnekode: str) -> Optional[str]:
 
 
 def trim_context(blocks: List[str], max_chars: int) -> str:
-    out, total = [], 0
+    out = []
+    total = 0
+
     for b in blocks:
         if total + len(b) > max_chars:
+            if len(out) == 0:
+                out.append(b[:max_chars])
             break
         out.append(b)
         total += len(b)
+
     return "\n\n".join(out)
 
 
@@ -168,9 +211,12 @@ def build_context(question: str) -> Tuple[str, str, Dict[str, int | str]]:
     blocks: List[str] = []
 
     if intent in {
-        "admin_rules", "deadline_timebound",
-        "exam_rules_general", "exam_rules_specific",
-        "conditional_rule", "progression_consequence"
+        "admin_rules",
+        "deadline_timebound",
+        "exam_rules_general",
+        "exam_rules_specific",
+        "conditional_rule",
+        "progression_consequence",
     }:
         blocks.extend(fetch_rules_context(question))
 
@@ -181,7 +227,9 @@ def build_context(question: str) -> Tuple[str, str, Dict[str, int | str]]:
                 blocks.append(b)
 
     policy = INTENT_POLICY[intent]
-    return trim_context(blocks, policy["max_context_chars"]), intent, policy
+    context = trim_context(blocks, policy["max_context_chars"])
+
+    return context, intent, policy
 
 
 SYSTEM_PROMPT = """
@@ -211,20 +259,28 @@ def get_answer(question: str) -> str:
             model=policy["model"],
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": f"KONTEKST:\n{context}\n\nSPØRSMÅL:\n{question}"},
+                {
+                    "role": "user",
+                    "content": f"KONTEKST:\n{context}\n\nSPØRSMÅL:\n{question}"
+                },
             ],
         )
+
         return r.choices[0].message.content.strip()
+
     except Exception as e:
-        return f"Beklager, det oppstod en feil ved behandling av spørsmålet: {str(e)}"
+        return f"Feil: {str(e)}"
 
 
 def main():
     print("Studieveileder CLI (skriv 'exit')")
+
     while True:
         q = input("\n> ").strip()
+
         if q.lower() in {"exit", "quit"}:
             break
+
         print("\n--- SVAR ---")
         print(get_answer(q))
 

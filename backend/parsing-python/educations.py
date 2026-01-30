@@ -1,16 +1,18 @@
 import os
-from supabase import create_client, Client
+import psycopg
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-if not SUPABASE_URL or not SUPABASE_KEY:
-    raise ValueError("Missing Supabase credentials")
+if not DATABASE_URL:
+    raise ValueError("Missing DATABASE_URL")
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+conn = psycopg.connect(DATABASE_URL)
+conn.autocommit = True
+
 
 STUDY_TYPES = {
     "Bachelor": "Bachelor",
@@ -21,6 +23,7 @@ STUDY_TYPES = {
     "Årsstudium": "Årsstudium",
     "Ettårig grunnstudium": "Ettårig",
 }
+
 
 IGNORED_HEADERS = {
     "Andre studier",
@@ -33,6 +36,11 @@ IGNORED_HEADERS = {
     "Økonomi og administrasjon",
     "Annet",
 }
+
+
+def get_cursor():
+    return conn.cursor()
+
 
 def parse_file(path: str):
     current_type = None
@@ -53,20 +61,28 @@ def parse_file(path: str):
                 continue
 
             if current_type:
-                rows.append({
-                    "navn": line,
-                    "type": current_type
-                })
+                rows.append(
+                    (
+                        line,
+                        current_type,
+                    )
+                )
 
     return rows
 
 
 def insert_studies(rows):
-    for row in rows:
-        supabase.table("studier").upsert(
-            row,
-            on_conflict="navn"
-        ).execute()
+    with get_cursor() as cur:
+        for navn, study_type in rows:
+            cur.execute(
+                """
+                INSERT INTO studier (navn, type)
+                VALUES (%s, %s)
+                ON CONFLICT (navn)
+                DO UPDATE SET type = EXCLUDED.type
+                """,
+                (navn, study_type),
+            )
 
 
 def main():
@@ -74,6 +90,7 @@ def main():
     path = os.path.join(base_dir, "studier.txt")
 
     rows = parse_file(path)
+
     insert_studies(rows)
 
     print(f"La inn {len(rows)} studier")
