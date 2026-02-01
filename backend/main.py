@@ -3,8 +3,9 @@ from typing import List, Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from supabase import create_client, Client
 from dotenv import load_dotenv
+import psycopg
+from psycopg.rows import dict_row
 from query import get_answer
 
 load_dotenv()
@@ -16,19 +17,18 @@ app.add_middleware(
     allow_origins=[
         "https://www.dittstudie.no",
         "https://dittstudie.no",
-        "http://localhost:3000", 
-        
-
+        "http://localhost:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY"),
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+def get_db():
+    return psycopg.connect(DATABASE_URL, row_factory=dict_row)
 
 
 class ChatRequest(BaseModel):
@@ -59,13 +59,15 @@ def root():
 
 @app.get("/api/courses")
 def get_courses():
-    """Get all courses from the database"""
     try:
-        response = supabase.table("emner").select("*").execute()
+        with get_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT * FROM emner")
+                data = cur.fetchall()
 
         return {
             "success": True,
-            "data": response.data or []
+            "data": data or []
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -73,21 +75,21 @@ def get_courses():
 
 @app.get("/api/course/{kode}")
 def get_course(kode: str):
-    """Get a specific course by its course code (emnekode)"""
     try:
-        response = (
-            supabase.table("emner")
-            .select("*")
-            .eq("emnekode", kode.upper())
-            .execute()
-        )
+        with get_db() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT * FROM emner WHERE emnekode = %s",
+                    (kode.upper(),)
+                )
+                data = cur.fetchone()
 
-        if not response.data:
+        if not data:
             raise HTTPException(status_code=404, detail=f"Course {kode} not found")
 
         return {
             "success": True,
-            "data": response.data[0]
+            "data": data
         }
     except HTTPException:
         raise
@@ -97,7 +99,6 @@ def get_course(kode: str):
 
 @app.post("/api/chat")
 def chat(request: ChatRequest):
-    """Chat endpoint that uses RAG to answer questions about courses"""
     try:
         if not request.query or not request.query.strip():
             raise HTTPException(status_code=400, detail="Query cannot be empty")
